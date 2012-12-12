@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<saw:report xmlns:saw="com.siebel.analytics.web/report/v1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlVersion="201008230" xmlns:sawx="com.siebel.analytics.web/expression/v1.1">
+	<saw:criteria xsi:type="saw:simpleCriteria" subjectArea="&quot;Order Fulfilment Summary&quot;" withinHierarchy="true">
+		<saw:columns>
+			<saw:column xsi:type="saw:regularColumn" columnID="c7f8628e2c497a956">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Seeker&quot;.&quot;Access Seeker Name&quot;</sawx:expr></saw:columnFormula></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="ca4a07b0e59f13763">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Year&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="suppress" fontFamily="Arial" fontSize="12" wrapText="false" interaction="none" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
+						<saw:dataFormat minDigits="0" maxDigits="0" commas="false" negativeType="minus" xsi:type="saw:number"/></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Date</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" backgroundColor="#FF9933" fontStyle="bold" hAlign="left" fontSize="14" wrapText="false" fontColor="#FFFFFF" interaction="none" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text>Year</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="ce434f3ca77f2d312">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Month Name&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="true" interaction="none"/></saw:displayFormat>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec interaction="none"/></saw:displayFormat></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c1273271c4b819eec">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Month Name&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="suppress" fontFamily="Arial" fontSize="12" wrapText="false" interaction="none" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Date</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" backgroundColor="#FF9933" fontStyle="bold" hAlign="left" fontSize="14" wrapText="false" fontColor="#FFFFFF" interaction="none" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text>Month</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cfad6606cbdc75e47">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Type Description&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="suppress" fontFamily="Arial" fontSize="12" wrapText="true" interaction="none" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Order</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" backgroundColor="#FF9933" fontStyle="bold" hAlign="left" fontSize="14" wrapText="false" fontColor="#FFFFFF" interaction="none" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text>Order Type</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cda2cf60d1567f27a">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Connection&quot;.&quot;Connection Name&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" fontFamily="Arial" fontSize="12" wrapText="false" interaction="none" paddingLeft="3" paddingRight="3" paddingTop="3" paddingBottom="3"/></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Connection</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" backgroundColor="#FF9933" fontStyle="bold" hAlign="left" fontSize="14" wrapText="false" fontColor="#FFFFFF" interaction="none" paddingLeft="3" paddingRight="3" paddingTop="3" paddingBottom="3"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text>Connection Type</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c9086c931083ac281">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Location&quot;.&quot;Location Band&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="suppress" fontFamily="Arial" fontSize="12" wrapText="false" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Location</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" fontColor="#FFFFFF" backgroundColor="#FF9933" fontStyle="bold" fontSize="14" wrapText="false" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text>Premises Location Band</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="ce8ca6f48ef0dac17">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;- Service Order&quot;.&quot;# Completed Orders&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="false" fontFamily="Arial" hAlign="center" fontSize="12" interaction="action" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
+						<saw:actionLinks showPopupMenuForOneLink="true">
+							<saw:actionLink actionLinkID="ce8ca6f48ef0dac17_al76810846de94f962">
+								<saw:action>
+									<saw:actionName>TableDetails - No of orders completed All by Order Connection Types</saw:actionName>
+									<saw:parameters allowExtraParameters="true">
+										<saw:parameter name="__navigateToBIContent__" type="string" mandatory="true" removable="true" order="0" multiValues="false">
+											<saw:prompt>__navigateToBIContent__</saw:prompt>
+											<saw:description/></saw:parameter></saw:parameters>
+									<saw:assignments>
+										<saw:assign name="__navigateToBIContent__" fixed="true" hidden="true" parentFixed="false" parentHidden="false" xsi:type="saw:stringAssign">
+											<saw:value>/shared/Order Fulfilments/Fulfillment/WBA/TableDetails - No of orders completed All by Order Connection Types</saw:value></saw:assign></saw:assignments>
+									<saw:implementation xsi:type="saw:ScriptActionType" executeOnClient="true">
+										<saw:functionName>__navigateToBIContent__</saw:functionName>
+										<saw:scriptLanguage>JScript</saw:scriptLanguage>
+										<saw:scriptPath/></saw:implementation>
+									<saw:clientImplementation>
+										<saw:customisation invokeConfirmation="false"/></saw:clientImplementation></saw:action>
+								<saw:linkText>
+									<saw:text>Show Details</saw:text></saw:linkText></saw:actionLink></saw:actionLinks></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Fact - Order SLA</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" fontStyle="bold" wrapText="false" fontSize="14" fontColor="#FFFFFF" backgroundColor="#FF9933" hAlign="center" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text># Total Completed</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c8fff534e79b98f71">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;- Service Order&quot;.&quot;# Orders Met SLA&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="false" fontFamily="Arial" fontSize="12" hAlign="center" interaction="action" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
+						<saw:actionLinks showPopupMenuForOneLink="true">
+							<saw:actionLink actionLinkID="c8fff534e79b98f71_al5a500f5df8947f47">
+								<saw:action>
+									<saw:actionName>TableDetails - No of orders completed within SLA by Order Connection Types</saw:actionName>
+									<saw:parameters allowExtraParameters="true">
+										<saw:parameter name="__navigateToBIContent__" type="string" mandatory="true" removable="true" order="0" multiValues="false">
+											<saw:prompt>__navigateToBIContent__</saw:prompt>
+											<saw:description/></saw:parameter></saw:parameters>
+									<saw:assignments>
+										<saw:assign name="__navigateToBIContent__" fixed="true" hidden="true" parentFixed="false" parentHidden="false" xsi:type="saw:stringAssign">
+											<saw:value>/shared/Order Fulfilments/Fulfillment/WBA/TableDetails - No of orders completed within SLA by Order Connection Types</saw:value></saw:assign></saw:assignments>
+									<saw:implementation xsi:type="saw:ScriptActionType" executeOnClient="true">
+										<saw:functionName>__navigateToBIContent__</saw:functionName>
+										<saw:scriptLanguage>JScript</saw:scriptLanguage>
+										<saw:scriptPath/></saw:implementation>
+									<saw:clientImplementation>
+										<saw:customisation invokeConfirmation="false"/></saw:clientImplementation></saw:action>
+								<saw:linkText>
+									<saw:text>Show Details</saw:text></saw:linkText></saw:actionLink></saw:actionLinks></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Fact - Order SLA</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" fontStyle="bold" wrapText="false" backgroundColor="#FF9933" fontSize="14" hAlign="center" fontColor="#FFFFFF" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text># Met SLA</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c52dde6aa37645123">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;- Service Order&quot;.&quot;# Orders Met Outside SLA&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="false" fontFamily="Arial" fontSize="12" interaction="action" hAlign="center" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
+						<saw:actionLinks showPopupMenuForOneLink="true">
+							<saw:actionLink actionLinkID="c52dde6aa37645123_al9d30dc6e5cc13c1d">
+								<saw:action>
+									<saw:actionName>TableDetails - No of orders completed without SLA by Order Connection Types</saw:actionName>
+									<saw:parameters allowExtraParameters="true">
+										<saw:parameter name="__navigateToBIContent__" type="string" mandatory="true" removable="true" order="0" multiValues="false">
+											<saw:prompt>__navigateToBIContent__</saw:prompt>
+											<saw:description/></saw:parameter></saw:parameters>
+									<saw:assignments>
+										<saw:assign name="__navigateToBIContent__" fixed="true" hidden="true" parentFixed="false" parentHidden="false" xsi:type="saw:stringAssign">
+											<saw:value>/shared/Order Fulfilments/Fulfillment/WBA/TableDetails - No of orders completed without SLA by Order Connection Types</saw:value></saw:assign></saw:assignments>
+									<saw:implementation xsi:type="saw:ScriptActionType" executeOnClient="true">
+										<saw:functionName>__navigateToBIContent__</saw:functionName>
+										<saw:scriptLanguage>JScript</saw:scriptLanguage>
+										<saw:scriptPath/></saw:implementation>
+									<saw:clientImplementation>
+										<saw:customisation invokeConfirmation="false"/></saw:clientImplementation></saw:action>
+								<saw:linkText>
+									<saw:text>Show Details</saw:text></saw:linkText></saw:actionLink></saw:actionLinks></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Fact - Order SLA</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" fontColor="#FFFFFF" backgroundColor="#FF9933" fontStyle="bold" fontSize="14" wrapText="false" hAlign="center" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text># Outside SLA</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c0c6225bf47689e73">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">100 * ( &quot;- Service Order&quot;.&quot;# Orders Met SLA&quot; / &quot;- Service Order&quot;.&quot;# Completed Orders&quot; )</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" fontFamily="Arial" fontSize="12" wrapText="false" hAlign="center" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5">
+						<saw:dataFormat minDigits="2" maxDigits="2" commas="false" negativeType="minus" xsi:type="saw:percent"/></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Fact - Order SLA</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" fontColor="#FFFFFF" backgroundColor="#FF9933" fontStyle="bold" fontSize="14" wrapText="false" hAlign="center" paddingLeft="5" paddingRight="5" paddingTop="5" paddingBottom="5"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text>% Met SLA</saw:text></saw:caption></saw:columnHeading></saw:column>
+		</saw:columns>
+		<saw:filter>
+			<sawx:expr xsi:type="sawx:logical" op="and">
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Type Description&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="equal" xsi:type="sawx:comparison">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Status&quot;</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Completed</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Connection&quot;.&quot;Connection Name&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Seeker&quot;.&quot;Access Seeker Name&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="notEqual" xsi:type="sawx:comparison">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Connection&quot;.&quot;Connection Name&quot;</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Disconnect</sawx:expr></sawx:expr>
+				<sawx:expr op="greater" xsi:type="sawx:comparison">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Year&quot;</sawx:expr><sawx:expr xsi:type="sawx:untypedLiteral">1900</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Year&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Month Name&quot;</sawx:expr></sawx:expr></sawx:expr></saw:filter>
+		<saw:columnOrder/></saw:criteria>
+	<saw:views currentView="0">
+		<saw:view xsi:type="saw:compoundView" name="compoundView!1">
+			<saw:cvTable>
+				<saw:cvRow>
+					<saw:cvCell viewName="titleView!2"/></saw:cvRow>
+				<saw:cvRow>
+					<saw:cvCell viewName="tableView!2"/></saw:cvRow>
+				<saw:cvRow>
+					<saw:cvCell viewName="dvtchart!3">
+						<saw:displayFormat>
+							<saw:formatSpec/></saw:displayFormat></saw:cvCell></saw:cvRow></saw:cvTable></saw:view>
+		<saw:view xsi:type="saw:titleView" name="titleView!1" includeName="true" startedDisplay="dateTime">
+			<saw:displayFormat>
+				<saw:formatSpec hAlign="left" wrapText="true"/></saw:displayFormat>
+			<saw:title>
+				<saw:displayFormat>
+					<saw:formatSpec fontColor="#800080" wrapText="true"/></saw:displayFormat></saw:title></saw:view>
+		<saw:view xsi:type="saw:tableView" name="tableView!1">
+			<saw:sectionContent>
+				<saw:displayFormat>
+					<saw:formatSpec width="40" wrapText="true" hAlign="left"/></saw:displayFormat></saw:sectionContent>
+			<saw:greenBarFormat repeat="false" greenBar="allLayers" enabled="true"/>
+			<saw:edges>
+				<saw:edge axis="page" showColumnHeader="true"/>
+				<saw:edge axis="section" insertPageBreak="false" showBlankRows="true" showColumnHeader="false">
+					<saw:displayFormat>
+						<saw:formatSpec wrapText="true"/></saw:displayFormat></saw:edge>
+				<saw:edge axis="row" showColumnHeader="true">
+					<saw:edgeLayers>
+						<saw:edgeLayer type="column" columnID="c70ce7deae5b4c0e9"/>
+						<saw:edgeLayer type="column" columnID="cda35a8910a833fd8"/>
+						<saw:edgeLayer type="column" columnID="c8fff534e79b98f71"/>
+						<saw:edgeLayer type="column" columnID="ce8ca6f48ef0dac17"/></saw:edgeLayers></saw:edge>
+				<saw:edge axis="column"/></saw:edges></saw:view>
+		<saw:view xsi:type="saw:pivotTableView" name="pivotTableView!1">
+			<saw:sectionContent>
+				<saw:displayFormat>
+					<saw:formatSpec wrapText="true"/></saw:displayFormat></saw:sectionContent>
+			<saw:edges>
+				<saw:edge axis="page" showColumnHeader="true"/>
+				<saw:edge axis="section" insertPageBreak="false" showBlankRows="false" showColumnHeader="false">
+					<saw:displayFormat>
+						<saw:formatSpec backgroundColor="#FFFACD" wrapText="true"/></saw:displayFormat></saw:edge>
+				<saw:edge axis="row" showColumnHeader="true">
+					<saw:edgeLayers>
+						<saw:edgeLayer type="column" columnID="ca4a07b0e59f13763"/>
+						<saw:edgeLayer type="column" columnID="c1273271c4b819eec"/>
+						<saw:edgeLayer type="column" columnID="cfad6606cbdc75e47"/>
+						<saw:edgeLayer type="column" columnID="cda2cf60d1567f27a"/>
+						<saw:edgeLayer type="column" columnID="c9086c931083ac281"/>
+						<saw:edgeLayer type="column" columnID="ce8ca6f48ef0dac17">
+							<saw:headerFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FF9933" wrapText="true"/></saw:displayFormat></saw:headerFormat></saw:edgeLayer>
+						<saw:edgeLayer type="column" columnID="c0c6225bf47689e73"/>
+						<saw:edgeLayer type="column" columnID="c8fff534e79b98f71"/></saw:edgeLayers></saw:edge>
+				<saw:edge axis="column">
+					<saw:edgeLayers>
+						<saw:edgeLayer type="measure">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FF9933" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer></saw:edgeLayers></saw:edge></saw:edges>
+			<saw:measuresList>
+				<saw:measure columnID="c52dde6aa37645123"/></saw:measuresList></saw:view>
+		<saw:view xsi:type="saw:titleView" name="titleView!2" includeName="false" startedDisplay="dateTime">
+			<saw:title>
+				<saw:caption fmt="text">
+					<saw:text>Orders Completed Summary</saw:text></saw:caption>
+				<saw:displayFormat>
+					<saw:formatSpec fontFamily="Arial" fontStyle="bold" fontEffects="none" fontSize="20" wrapText="true" width="1800" hAlign="center" fontColor="#666666"/></saw:displayFormat></saw:title>
+			<saw:displayFormat>
+				<saw:formatSpec width="625" wrapText="true"/></saw:displayFormat>
+			<saw:createdTime>
+				<saw:displayFormat>
+					<saw:formatSpec wrapText="true" hAlign="center"/></saw:displayFormat>
+				<saw:caption>
+					<saw:text>Report Date: @{system.currentTime}[DD/MM/YYYY hh:mm:ss tt]</saw:text></saw:caption></saw:createdTime>
+			<saw:subTitle>
+				<saw:caption fmt="text">
+					<saw:text>Last Data Refresh Date Time: @{biServer.variables[&#39;OSS_LAST_DATA_REFRESH_DATE&#39;]}</saw:text></saw:caption>
+				<saw:displayFormat>
+					<saw:formatSpec hAlign="center" wrapText="true"/></saw:displayFormat></saw:subTitle></saw:view>
+		<saw:view xsi:type="saw:dvtchart" name="dvtchart!1">
+			<saw:display type="lineTimeSeries" subtype="default" renderFormat="default" mode="online">
+				<saw:style barStyle="default" lineStyle="default" scatterStyle="default" fillStyle="default" bubblePercentSize="100" effect="2d"/></saw:display>
+			<saw:canvasFormat height="330" width="640">
+				<saw:dataLabels display="default" label="default" position="below" transparentBackground="true" valueAs="default"/></saw:canvasFormat>
+			<saw:selections>
+				<saw:categories>
+					<saw:category>
+						<saw:columnRef columnID="ca4a07b0e59f13763"/></saw:category>
+					<saw:category>
+						<saw:columnRef columnID="ce434f3ca77f2d312"/></saw:category>
+					<saw:category>
+						<saw:columnRef columnID="c1273271c4b819eec"/></saw:category>
+					<saw:category>
+						<saw:columnRef columnID="cfad6606cbdc75e47"/></saw:category>
+					<saw:category>
+						<saw:columnRef columnID="cda2cf60d1567f27a"/></saw:category></saw:categories>
+				<saw:measures showMeasureLabelsOnCategory="false">
+					<saw:column measureType="y">
+						<saw:columnRef columnID="c8fff534e79b98f71"/></saw:column>
+					<saw:column measureType="y">
+						<saw:columnRef columnID="c52dde6aa37645123"/></saw:column>
+					<saw:column measureType="y">
+						<saw:columnRef columnID="ce8ca6f48ef0dac17"/></saw:column>
+					<saw:column measureType="y">
+						<saw:columnRef columnID="c0c6225bf47689e73"/></saw:column>
+					<saw:column measureType="y">
+						<saw:columnRef columnID="c05a22c8c7517088e"/></saw:column></saw:measures>
+				<saw:seriesGenerators>
+					<saw:measureLabels/></saw:seriesGenerators></saw:selections>
+			<saw:legendFormat position="default" transparentFill="true"/></saw:view>
+		<saw:view xsi:type="saw:dvtchart" name="dvtchart!2">
+			<saw:display type="bar" subtype="default" renderFormat="default" mode="online" xAxisLiveScrolling="false" yAxisLiveScrolling="false" clientEventEnabled="false" animateOnDisplay="true">
+				<saw:style barStyle="default" lineStyle="default" scatterStyle="default" fillStyle="default" bubblePercentSize="100" effect="2d"/></saw:display>
+			<saw:canvasFormat height="330" width="640" showGradient="true">
+				<saw:dataLabels display="default" label="default" position="below" transparentBackground="true" valueAs="default"/>
+				<saw:title mode="custom">
+					<saw:caption truncate="false" truncateLength="0">
+						<saw:text>% Within SLA by Product &amp; Time</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" fontStyle="bold" fontSize="18"/></saw:displayFormat></saw:title>
+				<saw:gridlines default="true">
+					<saw:horizontal>
+						<saw:major visible="false"/>
+						<saw:minor visible="false"/></saw:horizontal>
+					<saw:vertical>
+						<saw:major visible="false"/>
+						<saw:minor visible="false"/></saw:vertical></saw:gridlines></saw:canvasFormat>
+			<saw:selections>
+				<saw:categories>
+					<saw:category>
+						<saw:columnRef columnID="ca4a07b0e59f13763"/></saw:category>
+					<saw:category>
+						<saw:columnRef columnID="c1273271c4b819eec"/></saw:category></saw:categories>
+				<saw:measures showMeasureLabelsOnCategory="false">
+					<saw:column measureType="y">
+						<saw:columnRef columnID="c0c6225bf47689e73"/></saw:column>
+					<saw:column measureType="y">
+						<saw:columnRef columnID="c05a22c8c7517088e"/></saw:column></saw:measures>
+				<saw:seriesGenerators>
+					<saw:measureLabels/></saw:seriesGenerators></saw:selections>
+			<saw:legendFormat position="default" transparentFill="true"/>
+			<saw:axesFormats syncAxis="false">
+				<saw:axisFormat axis="Y1" displayScaleLabels="true">
+					<saw:title mode="custom">
+						<saw:caption truncate="false" truncateLength="0">
+							<saw:text>% Within SLA</saw:text></saw:caption>
+						<saw:displayFormat>
+							<saw:formatSpec fontFamily="Arial" fontColor="#9999CC" fontSize="10"/></saw:displayFormat></saw:title>
+					<saw:scale scaleValues="custom" showMajorTicks="false" showMinorTicks="false" logarithmic="false" defaultTicks="true" min="0" max="100"/>
+					<saw:labels rotate="0" rotateLabels="false" stagger="false" skip="false" abbreviation="default"/>
+					<saw:textFormat fontFamily="Arial" fontColor="#000000" fontSize="10"/></saw:axisFormat>
+				<saw:axisFormat axis="X">
+					<saw:title mode="custom">
+						<saw:caption truncate="false" truncateLength="0">
+							<saw:text>Fiscal Period Name</saw:text></saw:caption>
+						<saw:displayFormat>
+							<saw:formatSpec fontFamily="Arial" fontColor="#9999CC" fontSize="10"/></saw:displayFormat></saw:title>
+					<saw:scale scaleValues="auto" showMajorTicks="false" showMinorTicks="false" logarithmic="false"/></saw:axisFormat></saw:axesFormats></saw:view>
+		<saw:view xsi:type="saw:titleView" name="titleView!3" includeName="false" startedDisplay="dateTime">
+			<saw:createdTime>
+				<saw:displayFormat>
+					<saw:formatSpec wrapText="true"/></saw:displayFormat>
+				<saw:caption>
+					<saw:text>Last Data Refresh Date Time: @{biServer.variables[&#39;LAST_DATA_REFRESH_DATE&#39;]} </saw:text></saw:caption></saw:createdTime>
+			<saw:title>
+				<saw:caption fmt="text">
+					<saw:text>% Order Completed</saw:text></saw:caption>
+				<saw:displayFormat>
+					<saw:formatSpec fontFamily="Arial" fontStyle="bold" fontSize="20" wrapText="true"/></saw:displayFormat></saw:title>
+			<saw:displayFormat>
+				<saw:formatSpec width="1800" wrapText="true"/></saw:displayFormat></saw:view>
+		<saw:view xsi:type="saw:tableView" name="tableView!2" rowsPerPage="5">
+			<saw:sectionContent>
+				<saw:displayFormat>
+					<saw:formatSpec wrapText="true"/></saw:displayFormat></saw:sectionContent>
+			<saw:greenBarFormat repeat="false" greenBar="allLayers" enabled="false">
+				<saw:formatSpec backgroundColor="#CCFFFF" wrapText="true"/></saw:greenBarFormat>
+			<saw:edges>
+				<saw:edge axis="page" showColumnHeader="true"/>
+				<saw:edge axis="section" insertPageBreak="false" showBlankRows="false" showColumnHeader="false">
+					<saw:displayFormat>
+						<saw:formatSpec wrapText="true"/></saw:displayFormat></saw:edge>
+				<saw:edge axis="row" showColumnHeader="true">
+					<saw:edgeLayers>
+						<saw:edgeLayer type="column" columnID="ca4a07b0e59f13763">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFFAF0" wrapText="true" hAlign="center"/></saw:displayFormat></saw:memberFormat>
+							<saw:headerFormat>
+								<saw:displayFormat>
+									<saw:formatSpec hAlign="center" wrapText="false"/></saw:displayFormat></saw:headerFormat></saw:edgeLayer>
+						<saw:edgeLayer type="column" columnID="c1273271c4b819eec">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFFAF0" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer>
+						<saw:edgeLayer type="column" columnID="cfad6606cbdc75e47">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFFAF0" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer>
+						<saw:edgeLayer type="column" columnID="cda2cf60d1567f27a">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFFAF0" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer>
+						<saw:edgeLayer type="column" columnID="c9086c931083ac281">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFFAF0" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer>
+						<saw:edgeLayer type="column" columnID="ce8ca6f48ef0dac17">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFFAF0" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer>
+						<saw:edgeLayer type="column" columnID="c0c6225bf47689e73">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFFAF0" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer>
+						<saw:edgeLayer type="column" columnID="c8fff534e79b98f71">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFFAF0" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer>
+						<saw:edgeLayer type="column" columnID="c52dde6aa37645123">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFFAF0" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer></saw:edgeLayers></saw:edge>
+				<saw:edge axis="column"/></saw:edges></saw:view>
+		<saw:view xsi:type="saw:dvtchart" name="dvtchart!3">
+			<saw:display type="bar" subtype="stacked" renderFormat="default" mode="online" xAxisLiveScrolling="false" yAxisLiveScrolling="false" clientEventEnabled="false" animateOnDisplay="true">
+				<saw:style barStyle="rectangle" lineStyle="default" scatterStyle="default" fillStyle="default" bubblePercentSize="100" effect="3d"/></saw:display>
+			<saw:canvasFormat height="250" width="350" showGradient="true">
+				<saw:dataLabels display="default" label="default" position="below" transparentBackground="true" valueAs="default"/>
+				<saw:title mode="custom">
+					<saw:caption truncate="false" truncateLength="0">
+						<saw:text>% Orders Completed</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" fontStyle="bold" fontSize="16"/></saw:displayFormat></saw:title>
+				<saw:gridlines default="true">
+					<saw:horizontal>
+						<saw:major visible="false"/>
+						<saw:minor visible="false"/></saw:horizontal>
+					<saw:vertical>
+						<saw:major visible="false"/>
+						<saw:minor visible="false"/></saw:vertical></saw:gridlines></saw:canvasFormat>
+			<saw:selections>
+				<saw:categories>
+					<saw:category>
+						<saw:columnRef columnID="c1273271c4b819eec"/></saw:category>
+					<saw:category>
+						<saw:columnRef columnID="ca4a07b0e59f13763"/></saw:category></saw:categories>
+				<saw:measures showMeasureLabelsOnCategory="false">
+					<saw:column measureType="y">
+						<saw:columnRef columnID="c0c6225bf47689e73"/></saw:column></saw:measures>
+				<saw:seriesGenerators>
+					<saw:measureLabels/></saw:seriesGenerators></saw:selections>
+			<saw:legendFormat position="none" transparentFill="true"/>
+			<saw:axesFormats syncAxis="false">
+				<saw:axisFormat axis="Y1" displayScaleLabels="true">
+					<saw:title mode="custom">
+						<saw:caption truncate="false" truncateLength="0">
+							<saw:text>% Within SLA</saw:text></saw:caption>
+						<saw:displayFormat>
+							<saw:formatSpec fontFamily="Arial" fontSize="10"/></saw:displayFormat></saw:title>
+					<saw:scale scaleValues="custom" showMajorTicks="false" showMinorTicks="false" logarithmic="false" defaultTicks="true" min="0" max="100"/>
+					<saw:labels rotate="0" rotateLabels="false" stagger="false" skip="false" abbreviation="default">
+						<saw:dataFormat xsi:type="saw:percent" commas="false" negativeType="minus" minDigits="0" maxDigits="0"/></saw:labels>
+					<saw:textFormat/></saw:axisFormat>
+				<saw:axisFormat axis="X">
+					<saw:title mode="custom">
+						<saw:caption truncate="false" truncateLength="0">
+							<saw:text>Target = 95%</saw:text></saw:caption>
+						<saw:displayFormat>
+							<saw:formatSpec fontFamily="Arial" fontStyle="italic" fontSize="10"/></saw:displayFormat></saw:title>
+					<saw:scale scaleValues="auto" showMajorTicks="false" showMinorTicks="false" logarithmic="false"/></saw:axisFormat></saw:axesFormats>
+			<saw:seriesFormats>
+				<saw:seriesFormatGroup name="bar">
+					<saw:seriesFormatRule>
+						<saw:seriesCondition columnID="c0c6225bf47689e73" position="0">
+							<saw:condition>
+								<sawx:expr op="notNull" xsi:type="sawx:comparison">
+									<saw:columnRef columnID="c0c6225bf47689e73"/></sawx:expr></saw:condition></saw:seriesCondition>
+						<saw:visualFormats>
+							<saw:visualFormat color="#336699"/></saw:visualFormats></saw:seriesFormatRule>
+					<saw:seriesFormatRule>
+						<saw:seriesCondition columnID="c05a22c8c7517088e" position="0">
+							<saw:condition>
+								<sawx:expr op="notNull" xsi:type="sawx:comparison">
+									<saw:columnRef columnID="c05a22c8c7517088e"/></sawx:expr></saw:condition></saw:seriesCondition>
+						<saw:visualFormats>
+							<saw:visualFormat color="#CC3333"/></saw:visualFormats></saw:seriesFormatRule></saw:seriesFormatGroup></saw:seriesFormats></saw:view></saw:views></saw:report>

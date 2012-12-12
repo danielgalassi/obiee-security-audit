@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sawsf:savedFilterObject xmlns:sawsf="com.siebel.analytics.web/savedfilter/v1.1" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sawx="com.siebel.analytics.web/expression/v1.1" subjectArea="&quot;Order Fulfilment Summary&quot;"><saw:filter xmlns:saw="com.siebel.analytics.web/report/v1.1"><sawx:expr xsi:type="sawx:sql">&quot;Date&quot;.&quot;Date&quot; between CURRENT_DATE - 32 and CURRENT_DATE</sawx:expr></saw:filter></sawsf:savedFilterObject>

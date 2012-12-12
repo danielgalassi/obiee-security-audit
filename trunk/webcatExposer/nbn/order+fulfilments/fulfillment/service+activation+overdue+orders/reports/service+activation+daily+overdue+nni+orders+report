@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<saw:report xmlns:saw="com.siebel.analytics.web/report/v1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlVersion="201008230" xmlns:sawx="com.siebel.analytics.web/expression/v1.1">
+	<saw:criteria xsi:type="saw:simpleCriteria" subjectArea="&quot;Order Fulfilment Summary&quot;" withinHierarchy="true">
+		<saw:columns>
+			<saw:column xsi:type="saw:regularColumn" columnID="cec0e287d39407ef3">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Business Key&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="false" fontSize="9" interaction="none" fontFamily="Arial" width="100"/></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Order</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec borderPosition="all" fontSize="11" wrapText="false" backgroundColor="#FCD4B4" fontStyle="bold" borderColor="#000000" interaction="none" fontFamily="Arial"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text>Order number</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c42d49b9697255a6a">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Seeker&quot;.&quot;Access Seeker Name&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="false" fontSize="9" interaction="none" fontFamily="Arial" width="240"/></saw:displayFormat>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec borderPosition="all" fontSize="11" wrapText="false" backgroundColor="#FCD4B4" fontStyle="bold" borderColor="#000000" interaction="none" fontFamily="Arial"/></saw:displayFormat></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c3cdd4583490aee66">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Service Product&quot;.&quot;NNI POI Name&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="false" fontSize="9" interaction="none" fontFamily="Arial" width="185"/></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>no link</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>POI</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec borderPosition="all" fontSize="11" wrapText="false" backgroundColor="#FCD4B4" fontStyle="bold" borderColor="#000000" interaction="none" fontFamily="Arial"/></saw:displayFormat></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c43344b8f34f89469">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;- NNI details&quot;.&quot;NNI Interface Type&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="false" fontSize="9" interaction="none" fontFamily="Arial" width="145" hAlign="center"/></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>no link</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>NNI Interface Type</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec borderPosition="all" fontSize="11" wrapText="false" backgroundColor="#FCD4B4" fontStyle="bold" borderColor="#000000" interaction="none" fontFamily="Arial" hAlign="center"/></saw:displayFormat></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cab869639752dc811">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Received Status Date&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="true" fontSize="9" interaction="none" fontFamily="Arial" hAlign="center">
+						<saw:dataFormat customFormat="dd/MM/yyyy" xsi:type="saw:custom"/></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>no link</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Order Receipt Date</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec borderPosition="all" fontSize="11" wrapText="false" backgroundColor="#FCD4B4" fontStyle="bold" borderColor="#000000" interaction="none" fontFamily="Arial" hAlign="center" width="140"/></saw:displayFormat></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="ce7ac063bcbe66200">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Status&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="false" fontSize="9" interaction="none" fontFamily="Arial" width="100"/></saw:displayFormat>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec borderPosition="all" fontSize="11" wrapText="false" backgroundColor="#FCD4B4" fontStyle="bold" borderColor="#000000" interaction="none" fontFamily="Arial"/></saw:displayFormat></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cec3e883253672a62">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">Max(RCOUNT(1))</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" fontFamily="Arial" fontStyle="bold,italic" fontSize="12" wrapText="true">
+						<saw:dataFormat xsi:type="saw:custom" customFormat="#0"/></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Order</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" fontStyle="bold,italic" width="85" fontSize="12" wrapText="true"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text>Total Orders</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c8f6d9d2e810aff77">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;SLA Target Date&quot;</sawx:expr></saw:columnFormula></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cec8223c41bfaebd1">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;SLA Days&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="false" fontSize="9" interaction="none" fontFamily="Arial" hAlign="center" width="100">
+						<saw:dataFormat customFormat="#0" xsi:type="saw:custom"/></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>no link</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>SLA Days</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec borderPosition="all" fontSize="11" wrapText="false" backgroundColor="#FCD4B4" fontStyle="bold" borderColor="#000000" interaction="none" fontFamily="Arial" hAlign="center"/></saw:displayFormat></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c2267d0171c3e03e0">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Age&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="false" fontSize="9" interaction="none" fontFamily="Arial" width="100" hAlign="center">
+						<saw:dataFormat customFormat="#0" xsi:type="saw:custom"/></saw:formatSpec>
+					<saw:conditionalDisplayFormats>
+						<saw:conditionalDisplayFormat>
+							<saw:formatRule>
+								<saw:condition>
+									<sawx:expr op="lessOrEqual" xsi:type="sawx:comparison">
+										<sawx:expr xsi:type="sawx:columnRefExpr" columnID="c2267d0171c3e03e0"/>
+										<sawx:expr xsi:type="xsd:decimal">0</sawx:expr></sawx:expr></saw:condition>
+								<saw:formatSpec fontFamily="Arial" fontColor="#336633" fontStyle="bold" hAlign="center" fontSize="9" wrapText="false"/></saw:formatRule></saw:conditionalDisplayFormat>
+						<saw:conditionalDisplayFormat>
+							<saw:formatRule>
+								<saw:condition>
+									<sawx:expr op="greater" xsi:type="sawx:comparison">
+										<sawx:expr xsi:type="sawx:columnRefExpr" columnID="c2267d0171c3e03e0"/>
+										<sawx:expr xsi:type="xsd:decimal">0</sawx:expr></sawx:expr></saw:condition>
+								<saw:formatSpec fontFamily="Arial" fontColor="#CC3333" fontStyle="bold" hAlign="center" fontSize="9" wrapText="false"/></saw:formatRule></saw:conditionalDisplayFormat></saw:conditionalDisplayFormats></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>no link</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Order Age</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec borderPosition="all" fontSize="11" wrapText="false" backgroundColor="#FCD4B4" fontStyle="bold" borderColor="#000000" interaction="none" fontFamily="Arial" hAlign="center"/></saw:displayFormat></saw:columnHeading></saw:column></saw:columns>
+		<saw:filter>
+			<sawx:expr xsi:type="sawx:logical" op="and">
+				<sawx:expr op="notIn" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Status&quot;</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Cancelled</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Complete</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Completed</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Rejected</sawx:expr></sawx:expr>
+				<sawx:expr op="equal" xsi:type="sawx:comparison">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Type Description&quot;</sawx:expr><sawx:expr xsi:type="sawx:untypedLiteral">NNI</sawx:expr></sawx:expr>
+				<sawx:expr op="greater" xsi:type="sawx:comparison">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;# Days To SLA Target Date&quot;</sawx:expr>
+					<sawx:expr xsi:type="xsd:decimal">0.0</sawx:expr></sawx:expr></sawx:expr></saw:filter>
+		<saw:columnOrder>
+			<saw:columnOrderRef columnID="cec0e287d39407ef3" direction="ascending"/></saw:columnOrder></saw:criteria>
+	<saw:views textDelivery="compoundView!1" currentView="0">
+		<saw:view xsi:type="saw:compoundView" name="compoundView!1">
+			<saw:cvTable>
+				<saw:cvRow>
+					<saw:cvCell viewName="titleView!1">
+						<saw:displayFormat>
+							<saw:formatSpec paddingTop="38"/></saw:displayFormat></saw:cvCell>
+					<saw:cvCell viewName="titleView!2" rowSpan="2">
+						<saw:displayFormat>
+							<saw:formatSpec hAlign="right"/></saw:displayFormat></saw:cvCell></saw:cvRow>
+				<saw:cvRow>
+					<saw:cvCell viewName="narrativeView!1">
+						<saw:displayFormat>
+							<saw:formatSpec hAlign="left"/></saw:displayFormat></saw:cvCell></saw:cvRow>
+				<saw:cvRow>
+					<saw:cvCell viewName="tableView!1" colSpan="2"/></saw:cvRow></saw:cvTable>
+			<saw:pageProps pageSize="a4" orientation="landscape" printRows="all" disableMargins="false">
+				<saw:pageHeader show="false"/>
+				<saw:pageFooter show="false"/></saw:pageProps></saw:view>
+		<saw:view xsi:type="saw:tableView" name="tableView!1">
+			<saw:edges>
+				<saw:edge axis="page" showColumnHeader="true"/>
+				<saw:edge axis="section" insertPageBreak="false" showBlankRows="false" showColumnHeader="true">
+					<saw:displayFormat>
+						<saw:formatSpec wrapText="true"/></saw:displayFormat></saw:edge>
+				<saw:edge axis="row" showColumnHeader="true">
+					<saw:edgeLayers>
+						<saw:edgeLayer type="column" columnID="cec0e287d39407ef3"/>
+						<saw:edgeLayer type="column" columnID="c42d49b9697255a6a"/>
+						<saw:edgeLayer type="column" columnID="c3cdd4583490aee66"/>
+						<saw:edgeLayer type="column" columnID="c43344b8f34f89469"/>
+						<saw:edgeLayer type="column" columnID="cab869639752dc811"/>
+						<saw:edgeLayer type="column" columnID="ce7ac063bcbe66200"/>
+						<saw:edgeLayer type="column" columnID="cec8223c41bfaebd1"/>
+						<saw:edgeLayer type="column" columnID="c2267d0171c3e03e0"/>
+						<saw:edgeLayer type="column" columnID="cec3e883253672a62" insertPageBreak="false" visibility="hidden"/></saw:edgeLayers></saw:edge>
+				<saw:edge axis="column"/></saw:edges></saw:view>
+		<saw:view xsi:type="saw:noresultsview" name="noresultsview!1">
+			<saw:headline>
+				<saw:caption>
+					<saw:text>&lt;span style=&quot;font-size:20px;color:#E46C0A;font-family:arial&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;No Results for Service Activation Daily Overdue NNI Orders Report&lt;span&gt;</saw:text></saw:caption></saw:headline>
+			<saw:detail/></saw:view>
+		<saw:view xsi:type="saw:titleView" name="titleView!1" includeName="true" startedDisplay="dateTime">
+			<saw:displayFormat>
+				<saw:formatSpec borderPosition="none" wrapText="false"/></saw:displayFormat>
+			<saw:createdTime>
+				<saw:displayFormat>
+					<saw:formatSpec fontFamily="Arial" fontColor="#E46C0A" fontStyle="italic" fontSize="12" wrapText="false" width="495"/></saw:displayFormat>
+				<saw:caption>
+					<saw:text>Data Last updated:- @{biServer.variables[&#39;OSS_LAST_DATA_REFRESH_DATE&#39;]}</saw:text></saw:caption></saw:createdTime>
+			<saw:title>
+				<saw:displayFormat>
+					<saw:formatSpec fontFamily="Arial" fontColor="#E46C0A" fontStyle="bold" fontSize="20" wrapText="false" width="495"/></saw:displayFormat></saw:title></saw:view>
+		<saw:view xsi:type="saw:titleView" name="titleView!2" includeName="false" startedDisplay="none" logoUrl="fmap:images/OSS_NBN_logo_01.jpg">
+			<saw:logoFormat>
+				<saw:displayFormat>
+					<saw:formatSpec hAlign="right" width="90" wrapText="false"/></saw:displayFormat></saw:logoFormat>
+			<saw:displayFormat>
+				<saw:formatSpec borderPosition="none" hAlign="right" width="90" wrapText="false"/></saw:displayFormat></saw:view>
+		<saw:view xsi:type="saw:narrativeView" name="narrativeView!1">
+			<saw:narrative rowCount="1">
+				<saw:caption fmt="text">
+					<saw:text>[i]Total Orders:[b]   @{cec3e883253672a62}[/b][/i]</saw:text></saw:caption></saw:narrative>
+			<saw:displayFormat>
+				<saw:formatSpec fontSize="12"/></saw:displayFormat></saw:view></saw:views></saw:report>

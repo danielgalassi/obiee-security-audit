@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<saw:report xmlns:saw="com.siebel.analytics.web/report/v1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlVersion="201008230" xmlns:sawx="com.siebel.analytics.web/expression/v1.1"><saw:criteria xsi:type="saw:simpleCriteria" subjectArea="&quot;Order Fulfilments&quot;" withinHierarchy="true"><saw:columns><saw:column xsi:type="saw:regularColumn" columnID="ce440d838856ea61c"><saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">CASE WHEN 1 = 0 
+THEN 
+&quot;- Common Date&quot;.&quot;Calendar Month Name&quot; 
+ELSE 
+&#39;NNI&#39;
+END
+
+</sawx:expr></saw:columnFormula><saw:displayFormat><saw:formatSpec suppress="suppress" wrapText="true"/></saw:displayFormat><saw:tableHeading><saw:caption fmt="text"><saw:text>Order Received Date</saw:text></saw:caption></saw:tableHeading><saw:columnHeading><saw:displayFormat><saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>var_report_type</saw:text></saw:caption></saw:columnHeading></saw:column></saw:columns><saw:filter><sawx:expr op="in" xsi:type="sawx:list"><sawx:expr xsi:type="sawx:sqlExpression">CASE WHEN 1 = 0 
+THEN 
+&quot;- Common Date&quot;.&quot;Calendar Month Name&quot; 
+ELSE 
+&#39;NNI&#39;
+END
+
+</sawx:expr><sawx:expr xsi:type="sawx:eval" default="&#39;NNI&#39;">variables.var_ord_type</sawx:expr></sawx:expr></saw:filter></saw:criteria><saw:views currentView="0"><saw:view xsi:type="saw:compoundView" name="compoundView!1"><saw:cvTable><saw:cvRow><saw:cvCell viewName="titleView!1"><saw:displayFormat><saw:formatSpec/></saw:displayFormat></saw:cvCell></saw:cvRow><saw:cvRow><saw:cvCell viewName="tableView!1"><saw:displayFormat><saw:formatSpec/></saw:displayFormat></saw:cvCell></saw:cvRow></saw:cvTable></saw:view><saw:view xsi:type="saw:titleView" name="titleView!1" includeName="true" startedDisplay="none"><saw:displayFormat/></saw:view><saw:view xsi:type="saw:tableView" name="tableView!1"><saw:edges><saw:edge axis="page" showColumnHeader="true"/><saw:edge axis="section"/><saw:edge axis="row" showColumnHeader="true"><saw:edgeLayers><saw:edgeLayer type="column" columnID="ce440d838856ea61c"/></saw:edgeLayers></saw:edge><saw:edge axis="column"/></saw:edges></saw:view><saw:view xsi:type="saw:titleView" name="titleView!2"/><saw:view xsi:type="saw:narrativeView" name="narrativeView!1"/></saw:views><saw:prompts scope="report" subjectArea="&quot;Order Fulfilments&quot;"/></saw:report>
