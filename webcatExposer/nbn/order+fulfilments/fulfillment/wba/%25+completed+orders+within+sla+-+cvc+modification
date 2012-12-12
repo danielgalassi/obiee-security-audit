@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<saw:report xmlns:saw="com.siebel.analytics.web/report/v1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlVersion="201008230" xmlns:sawx="com.siebel.analytics.web/expression/v1.1">
+	<saw:criteria xsi:type="saw:simpleCriteria" subjectArea="&quot;Order Fulfilment Summary&quot;" withinHierarchy="false">
+		<saw:columns>
+			<saw:column xsi:type="saw:regularColumn" columnID="ced58fb6425c78a41">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Connection&quot;.&quot;Connection Name&quot;</sawx:expr></saw:columnFormula></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c7c144973786f20c0">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Seeker&quot;.&quot;Access Seeker Name&quot;</sawx:expr></saw:columnFormula></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c45799677a2f496f3">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Year&quot;</sawx:expr></saw:columnFormula></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c47ffabb5c29a6fd4">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Month Name&quot;</sawx:expr></saw:columnFormula></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c325bff94d2350bf9">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">100 * ( &quot;- Service Order&quot;.&quot;# Orders Met SLA&quot; / &quot;- Service Order&quot;.&quot;# Completed Orders&quot; )</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="true" interaction="action">
+						<saw:dataFormat minDigits="2" maxDigits="2" commas="false" negativeType="minus" xsi:type="saw:percent"/>
+						<saw:actionLinks showPopupMenuForOneLink="true">
+							<saw:actionLink actionLinkID="c325bff94d2350bf9_al6a180b7b904a48e1">
+								<saw:action>
+									<saw:actionName>Table with Chart - No of orders completed within SLA by Order Connection Types</saw:actionName>
+									<saw:parameters allowExtraParameters="true">
+										<saw:parameter name="__navigateToBIContent__" type="string" mandatory="true" removable="true" order="0" multiValues="false">
+											<saw:prompt>__navigateToBIContent__</saw:prompt>
+											<saw:description/></saw:parameter></saw:parameters>
+									<saw:assignments>
+										<saw:assign name="__navigateToBIContent__" fixed="true" hidden="true" parentFixed="false" parentHidden="false" xsi:type="saw:stringAssign">
+											<saw:value>/shared/Order Fulfilments/Fulfillment/WBA/Table with Chart - No of orders completed within SLA by Order Connection Types</saw:value></saw:assign></saw:assignments>
+									<saw:implementation xsi:type="saw:ScriptActionType" executeOnClient="true">
+										<saw:functionName>__navigateToBIContent__</saw:functionName>
+										<saw:scriptLanguage>JScript</saw:scriptLanguage>
+										<saw:scriptPath/></saw:implementation>
+									<saw:clientImplementation>
+										<saw:customisation invokeConfirmation="false"/></saw:clientImplementation></saw:action>
+								<saw:linkText>
+									<saw:text>Show Details</saw:text></saw:linkText></saw:actionLink></saw:actionLinks></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading/><saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>% Completed for SLA by Product</saw:text></saw:caption></saw:columnHeading></saw:column></saw:columns>
+		<saw:filter>
+			<sawx:expr xsi:type="sawx:logical" op="and">
+				<sawx:expr op="equal" xsi:type="sawx:comparison">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Type Description&quot;</sawx:expr><sawx:expr xsi:type="sawx:untypedLiteral">CVC</sawx:expr></sawx:expr>
+				<sawx:expr op="in" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Year&quot;</sawx:expr><sawx:expr xsi:type="sawx:eval" default="2011">variables.var_main_yr</sawx:expr></sawx:expr>
+				<sawx:expr op="equal" xsi:type="sawx:comparison">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Connection&quot;.&quot;Connection Name&quot;</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Modify</sawx:expr></sawx:expr>
+				<sawx:expr op="in" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Seeker&quot;.&quot;Access Seeker Name&quot;</sawx:expr><sawx:expr xsi:type="sawx:eval">variables.var_main_aseeker</sawx:expr></sawx:expr>
+				<sawx:expr op="in" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Month Name&quot;</sawx:expr><sawx:expr xsi:type="sawx:eval" default="October">variables.var_main_cal_mon</sawx:expr></sawx:expr>
+				<sawx:expr op="in" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Status&quot;</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Completed</sawx:expr><sawx:expr xsi:type="xsd:string">Complete</sawx:expr></sawx:expr></sawx:expr></saw:filter></saw:criteria>
+	<saw:views textDelivery="compoundView!1" currentView="0">
+		<saw:view xsi:type="saw:compoundView" name="compoundView!1">
+			<saw:cvTable>
+				<saw:cvRow>
+					<saw:cvCell viewName="dvtchart!1">
+						<saw:displayFormat>
+							<saw:formatSpec/></saw:displayFormat></saw:cvCell></saw:cvRow></saw:cvTable></saw:view>
+		<saw:view xsi:type="saw:dvtchart" name="dvtchart!1" autoPreview="true">
+			<saw:display type="bar" subtype="default" renderFormat="default" mode="online" xAxisLiveScrolling="false" yAxisLiveScrolling="false" clientEventEnabled="false" animateOnDisplay="true">
+				<saw:style barStyle="rectangle" lineStyle="default" scatterStyle="default" fillStyle="default" bubblePercentSize="100" effect="3d"/></saw:display>
+			<saw:canvasFormat height="250" width="450" showGradient="true">
+				<saw:dataLabels display="default" label="default" position="below" transparentBackground="true" valueAs="default"/>
+				<saw:title mode="custom">
+					<saw:caption truncate="false" truncateLength="0">
+						<saw:text>SLA - CVC Modification</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" fontSize="14" fontStyle="bold" fontEffects="underline"/></saw:displayFormat></saw:title>
+				<saw:gridlines default="true">
+					<saw:horizontal>
+						<saw:major visible="false"/>
+						<saw:minor visible="false"/></saw:horizontal>
+					<saw:vertical>
+						<saw:major visible="false"/>
+						<saw:minor visible="false"/></saw:vertical></saw:gridlines></saw:canvasFormat>
+			<saw:selections>
+				<saw:categories/>
+				<saw:measures showMeasureLabelsOnCategory="false">
+					<saw:column measureType="y">
+						<saw:columnRef columnID="c325bff94d2350bf9"/></saw:column></saw:measures>
+				<saw:seriesGenerators>
+					<saw:measureLabels/></saw:seriesGenerators>
+				<saw:sections/></saw:selections>
+			<saw:legendFormat position="none" transparentFill="true">
+				<saw:textFormat/></saw:legendFormat>
+			<saw:axesFormats syncAxis="false">
+				<saw:axisFormat axis="Y1" displayScaleLabels="true">
+					<saw:title mode="custom">
+						<saw:caption truncate="false" truncateLength="0">
+							<saw:text> % Within SLA</saw:text></saw:caption>
+						<saw:displayFormat>
+							<saw:formatSpec fontFamily="Arial" fontColor="#666699" fontSize="12"/></saw:displayFormat></saw:title>
+					<saw:scale scaleValues="custom" showMajorTicks="false" showMinorTicks="false" logarithmic="false" defaultTicks="true" min="0" max="100"/>
+					<saw:labels rotate="0" rotateLabels="false" stagger="false" skip="false" abbreviation="default">
+						<saw:dataFormat xsi:type="saw:percent" commas="false" negativeType="minus" minDigits="0" maxDigits="0"/></saw:labels>
+					<saw:textFormat fontSize="12" fontFamily="Arial" fontColor="#666666"/></saw:axisFormat>
+				<saw:axisFormat axis="X" displayScaleLabels="true">
+					<saw:title mode="custom">
+						<saw:caption truncate="false" truncateLength="0">
+							<saw:text>Target = 95%</saw:text></saw:caption>
+						<saw:displayFormat>
+							<saw:formatSpec fontFamily="Arial" fontSize="10" fontColor="#666699" fontStyle="italic"/></saw:displayFormat></saw:title>
+					<saw:scale scaleValues="auto" showMajorTicks="false" showMinorTicks="false" logarithmic="false"/>
+					<saw:labels rotate="0" rotateLabels="false" stagger="false" skip="false" abbreviation="default"/>
+					<saw:textFormat fontFamily="Arial" fontSize="20" fontStyle="regular"/></saw:axisFormat>
+				<saw:axisFormat axis="Y2" displayScaleLabels="true">
+					<saw:scale scaleValues="auto" showMajorTicks="false" showMinorTicks="false" logarithmic="false" defaultTicks="true"/>
+					<saw:title mode="auto">
+						<saw:caption/></saw:title>
+					<saw:labels rotate="0" rotateLabels="false" stagger="false" skip="false" abbreviation="default"/>
+					<saw:textFormat fontFamily="Arial" fontColor="#666666" fontSize="20"/></saw:axisFormat></saw:axesFormats>
+			<saw:seriesFormats>
+				<saw:seriesFormatGroup name="bar">
+					<saw:seriesFormatRule>
+						<saw:seriesCondition columnID="c325bff94d2350bf9" position="0">
+							<saw:condition>
+								<sawx:expr op="less" xsi:type="sawx:comparison">
+									<saw:columnRef columnID="c325bff94d2350bf9"/>
+									<sawx:expr xsi:type="xsd:decimal">95</sawx:expr></sawx:expr></saw:condition></saw:seriesCondition>
+						<saw:visualFormats>
+							<saw:visualFormat color="#CC3333"/></saw:visualFormats></saw:seriesFormatRule>
+					<saw:seriesFormatRule>
+						<saw:seriesCondition columnID="c325bff94d2350bf9" position="1">
+							<saw:condition>
+								<sawx:expr op="greaterOrEqual" xsi:type="sawx:comparison">
+									<saw:columnRef columnID="c325bff94d2350bf9"/>
+									<sawx:expr xsi:type="xsd:decimal">95</sawx:expr></sawx:expr></saw:condition></saw:seriesCondition>
+						<saw:visualFormats>
+							<saw:visualFormat color="#336699"/></saw:visualFormats></saw:seriesFormatRule></saw:seriesFormatGroup></saw:seriesFormats></saw:view>
+		<saw:view xsi:type="saw:noresultsview" name="noresultsview!1">
+			<saw:headline>
+				<saw:caption>
+					<saw:text>No Results For SLA - CVC Modification</saw:text></saw:caption></saw:headline>
+			<saw:detail/></saw:view></saw:views>
+	<saw:prompts scope="report" subjectArea="&quot;Order Fulfilments&quot;"/></saw:report>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<saw:report xmlns:saw="com.siebel.analytics.web/report/v1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlVersion="201008230" xmlns:sawx="com.siebel.analytics.web/expression/v1.1">
+	<saw:criteria xsi:type="saw:simpleCriteria" subjectArea="&quot;Order Fulfilment Summary&quot;" withinHierarchy="true">
+		<saw:columns>
+			<saw:column xsi:type="saw:regularColumn" columnID="cce5c6c82fa0b4ec1">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Date&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="false" interaction="none" fontFamily="Arial" fontColor="#000000" fontSize="9" width="85" hAlign="right">
+						<saw:dataFormat customFormat="ddd dd/MM/yyyy" xsi:type="saw:custom"/></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Common Date</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Last 31 Days</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec interaction="none" fontFamily="Arial" fontColor="#000000" fontSize="11" wrapText="false" backgroundColor="#FCD4B4" borderColor="#000000" borderPosition="all" hAlign="center" fontStyle="bold"/></saw:displayFormat></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="ce6787f9be32b93c0">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">ifnull(&quot;- Service Snapshot&quot;.&quot;# Active Services&quot;,0.0)</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="true" interaction="none" fontFamily="Arial" fontColor="#000000" fontSize="9" width="82" hAlign="center"><saw:dataFormat minDigits="0" maxDigits="0" commas="false" negativeType="minus" xsi:type="saw:number"/></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Location</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec interaction="none" fontFamily="Arial" fontColor="#000000" fontSize="11" wrapText="true" backgroundColor="#FCD4B4" borderColor="#000000" borderPosition="all" hAlign="center" fontStyle="bold"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text>Active Services</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cab869639752dc811">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">IFNULL(&quot;- Premise Snapshot&quot;.&quot;# Active Premises&quot;, 0)</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="true" interaction="action" fontFamily="Arial" fontColor="#000000" fontSize="9" hAlign="center" width="82"><saw:dataFormat commas="false" negativeType="minus" minDigits="0" maxDigits="0" xsi:type="saw:number"/><saw:actionLinks showPopupMenuForOneLink="false"><saw:actionLink actionLinkID="cab869639752dc811_al01c9076dadb86f8b"><saw:action><saw:actionName>Active Premises Details</saw:actionName><saw:parameters allowExtraParameters="true"><saw:parameter name="__navigateToBIContent__" type="string" mandatory="true" removable="true" order="0" multiValues="false"><saw:prompt>__navigateToBIContent__</saw:prompt><saw:description/></saw:parameter></saw:parameters><saw:assignments><saw:assign name="__navigateToBIContent__" fixed="true" hidden="true" parentFixed="false" parentHidden="false" xsi:type="saw:stringAssign"><saw:value>/shared/Order Fulfilments/Fulfillment/Service Activations Summary/Reports/Active Premises Details</saw:value></saw:assign></saw:assignments><saw:implementation xsi:type="saw:ScriptActionType" executeOnClient="true"><saw:functionName>__navigateToBIContent__</saw:functionName><saw:scriptLanguage>JScript</saw:scriptLanguage><saw:scriptPath/></saw:implementation><saw:clientImplementation><saw:customisation invokeConfirmation="false" openNewWindow="true"/></saw:clientImplementation></saw:action><saw:linkText><saw:text>Active Premises Details</saw:text></saw:linkText></saw:actionLink></saw:actionLinks></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>no link</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Active Premises</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec interaction="none" fontFamily="Arial" fontColor="#000000" fontSize="11" wrapText="true" backgroundColor="#FCD4B4" borderColor="#000000" borderPosition="all" hAlign="center" fontStyle="bold"/></saw:displayFormat></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="ce7ac063bcbe66200">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">IFNULL(&quot;- Premise Snapshot&quot;.&quot;# Disconnected Premises&quot;, 0)</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="true" interaction="action" fontFamily="Arial" fontColor="#000000" fontSize="9" hAlign="center" width="82"><saw:dataFormat commas="false" negativeType="minus" minDigits="0" maxDigits="0" xsi:type="saw:number"/><saw:actionLinks showPopupMenuForOneLink="false"><saw:actionLink actionLinkID="ce7ac063bcbe66200_al5ebd9c4259f708b6"><saw:action><saw:actionName>Disconnected Premises Details</saw:actionName><saw:parameters allowExtraParameters="true"><saw:parameter name="__navigateToBIContent__" type="string" mandatory="true" removable="true" order="0" multiValues="false"><saw:prompt>__navigateToBIContent__</saw:prompt><saw:description/></saw:parameter></saw:parameters><saw:assignments><saw:assign name="__navigateToBIContent__" fixed="true" hidden="true" parentFixed="false" parentHidden="false" xsi:type="saw:stringAssign"><saw:value>/shared/Order Fulfilments/Fulfillment/Service Activations Summary/Reports/Disconnected Premises Details</saw:value></saw:assign></saw:assignments><saw:implementation xsi:type="saw:ScriptActionType" executeOnClient="true"><saw:functionName>__navigateToBIContent__</saw:functionName><saw:scriptLanguage>JScript</saw:scriptLanguage><saw:scriptPath/></saw:implementation><saw:clientImplementation><saw:customisation invokeConfirmation="false" openNewWindow="true"/></saw:clientImplementation></saw:action><saw:linkText><saw:text>Disconnected Premises Details</saw:text></saw:linkText></saw:actionLink></saw:actionLinks></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>no link</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec interaction="none" fontFamily="Arial" fontColor="#000000" fontSize="11" wrapText="true" backgroundColor="#FCD4B4" borderColor="#000000" borderPosition="all" hAlign="center" fontStyle="bold"/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text>Disconnected Premises</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cec8223c41bfaebd1">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">IFNULL(&quot;- Premise Snapshot&quot;.&quot;# Connected Premises&quot;, 0)</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="true" interaction="action" fontFamily="Arial" fontColor="#000000" fontSize="9" hAlign="center" width="82">
+						<saw:dataFormat commas="false" negativeType="minus" minDigits="0" maxDigits="0" xsi:type="saw:number"/><saw:actionLinks showPopupMenuForOneLink="false"><saw:actionLink actionLinkID="cec8223c41bfaebd1_al3e16f3a2d93304bc"><saw:action><saw:actionName>Connected Premises Details</saw:actionName><saw:parameters allowExtraParameters="true"><saw:parameter name="__navigateToBIContent__" type="string" mandatory="true" removable="true" order="0" multiValues="false"><saw:prompt>__navigateToBIContent__</saw:prompt><saw:description/></saw:parameter></saw:parameters><saw:assignments><saw:assign name="__navigateToBIContent__" fixed="true" hidden="true" parentFixed="false" parentHidden="false" xsi:type="saw:stringAssign"><saw:value>/shared/Order Fulfilments/Fulfillment/Service Activations Summary/Reports/Connected Premises Details</saw:value></saw:assign></saw:assignments><saw:implementation xsi:type="saw:ScriptActionType" executeOnClient="true"><saw:functionName>__navigateToBIContent__</saw:functionName><saw:scriptLanguage>JScript</saw:scriptLanguage><saw:scriptPath/></saw:implementation><saw:clientImplementation><saw:customisation invokeConfirmation="false" openNewWindow="true"/></saw:clientImplementation></saw:action><saw:linkText><saw:text>Connected Premises Details</saw:text></saw:linkText></saw:actionLink></saw:actionLinks></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>no link</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Connected Premises</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec interaction="none" fontFamily="Arial" fontColor="#000000" fontSize="11" wrapText="true" backgroundColor="#FCD4B4" borderColor="#000000" borderPosition="all" hAlign="center" fontStyle="bold"/></saw:displayFormat></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c3cdd4583490aee66">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">IFNULL(&quot;- Order Snapshot&quot;.&quot;# In-Flight Orders&quot;, 0.0)</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="true" interaction="action" fontFamily="Arial" fontColor="#000000" fontSize="9" hAlign="center" width="82"><saw:dataFormat minDigits="0" maxDigits="0" commas="false" negativeType="minus" xsi:type="saw:number"/><saw:actionLinks showPopupMenuForOneLink="false"><saw:actionLink actionLinkID="c3cdd4583490aee66_al8aaca4c4c7573bb8"><saw:action><saw:actionName>SAC Daily Order Details - In Flight</saw:actionName><saw:parameters allowExtraParameters="true"><saw:parameter name="__navigateToBIContent__" type="string" mandatory="true" removable="true" order="0" multiValues="false"><saw:prompt>__navigateToBIContent__</saw:prompt><saw:description/></saw:parameter></saw:parameters><saw:assignments><saw:assign name="__navigateToBIContent__" fixed="true" hidden="true" parentFixed="false" parentHidden="false" xsi:type="saw:stringAssign"><saw:value>/shared/Order Fulfilments/Fulfillment/SACD/Reports/SAC Daily Order Details - In Flight</saw:value></saw:assign></saw:assignments><saw:implementation xsi:type="saw:ScriptActionType" executeOnClient="true"><saw:functionName>__navigateToBIContent__</saw:functionName><saw:scriptLanguage>JScript</saw:scriptLanguage><saw:scriptPath/></saw:implementation><saw:clientImplementation><saw:customisation invokeConfirmation="false" openNewWindow="true"/></saw:clientImplementation></saw:action><saw:linkText><saw:text>SAC Daily Order Details - In Flight</saw:text></saw:linkText></saw:actionLink></saw:actionLinks></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>no link</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Pending Orders</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec interaction="none" fontFamily="Arial" fontColor="#000000" fontSize="11" wrapText="true" backgroundColor="#FCD4B4" borderColor="#000000" borderPosition="all" hAlign="center" fontStyle="bold"/></saw:displayFormat></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c43344b8f34f89469">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;- Service Order&quot;.&quot;Order Lead Time&quot;</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="true" interaction="none" fontFamily="Arial" fontColor="#000000" fontSize="9" hAlign="center" width="82">
+						<saw:dataFormat xsi:type="saw:custom" customFormat="#0.00"/></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>no link</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Order Lead Time (d)</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec interaction="none" fontFamily="Arial" fontColor="#000000" fontSize="11" wrapText="true" backgroundColor="#FCD4B4" borderColor="#000000" borderPosition="all" hAlign="center" fontStyle="bold"/></saw:displayFormat></saw:columnHeading></saw:column>
+		</saw:columns>
+		<saw:filter>
+			<sawx:expr xsi:type="sawx:logical" op="and">
+				<sawx:expr op="between" xsi:type="sawx:comparison">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Date&quot;</sawx:expr>
+					<sawx:expr xsi:type="sawx:variable" op="server">OSS_DATE_31_DAYS_AGO</sawx:expr><sawx:expr xsi:type="sawx:sqlExpression">CURRENT_DATE-1</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Location&quot;.&quot;Location Type Description&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Location&quot;.&quot;CSA ID&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Seeker&quot;.&quot;Access Seeker Name&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Service Product&quot;.&quot;Product Configuration&quot;</sawx:expr></sawx:expr></sawx:expr></saw:filter>
+		<saw:columnOrder>
+			<saw:columnOrderRef columnID="cec0e287d39407ef3" direction="ascending"/></saw:columnOrder></saw:criteria>
+	<saw:views textDelivery="compoundView!1" currentView="0">
+		<saw:view xsi:type="saw:compoundView" name="compoundView!1">
+			<saw:cvTable><saw:cvRow><saw:cvCell viewName="titleView!1">
+						<saw:displayFormat>
+							<saw:formatSpec paddingTop="38"/></saw:displayFormat></saw:cvCell>
+					<saw:cvCell viewName="titleView!2"/></saw:cvRow><saw:cvRow><saw:cvCell viewName="tableView!3" colSpan="2">
+						<saw:displayFormat>
+							<saw:formatSpec hAlign="left"/></saw:displayFormat></saw:cvCell></saw:cvRow><saw:cvRow><saw:cvCell viewName="filtersView!1" colSpan="2">
+						<saw:displayFormat>
+							<saw:formatSpec/></saw:displayFormat></saw:cvCell></saw:cvRow></saw:cvTable><saw:pageProps orientation="landscape" printRows="all" disableMargins="false" pageSize="a4">
+				<saw:pageHeader show="false">
+					<saw:zone position="top">
+						<saw:displayFormat>
+							<saw:formatSpec hAlign="center"/></saw:displayFormat></saw:zone>
+					<saw:zone position="left">
+						<saw:displayFormat>
+							<saw:formatSpec hAlign="left" width="33%"/></saw:displayFormat></saw:zone>
+					<saw:zone position="center">
+						<saw:displayFormat>
+							<saw:formatSpec hAlign="center" width="34%"/></saw:displayFormat></saw:zone>
+					<saw:zone position="right">
+						<saw:displayFormat>
+							<saw:formatSpec hAlign="right" width="33%"/></saw:displayFormat></saw:zone>
+					<saw:zone position="bottom">
+						<saw:displayFormat>
+							<saw:formatSpec hAlign="center"/></saw:displayFormat></saw:zone></saw:pageHeader>
+				<saw:pageFooter show="false"/></saw:pageProps></saw:view>
+		<saw:view xsi:type="saw:tableView" name="tableView!3" rowsPerPage="31" autoPreview="true" headingDisplay="columns">
+			<saw:sectionContent>
+				<saw:displayFormat>
+					<saw:formatSpec/></saw:displayFormat></saw:sectionContent>
+			<saw:edges>
+				<saw:edge axis="page" showColumnHeader="true"/>
+				<saw:edge axis="section" insertPageBreak="false" showBlankRows="false" showColumnHeader="false">
+					<saw:displayFormat>
+						<saw:formatSpec wrapText="true"/></saw:displayFormat></saw:edge>
+				<saw:edge axis="row" showColumnHeader="true">
+					<saw:edgeLayers>
+						<saw:edgeLayer type="column" columnID="cce5c6c82fa0b4ec1"/>
+						<saw:edgeLayer type="column" columnID="ce6787f9be32b93c0"/>
+						<saw:edgeLayer type="column" columnID="cab869639752dc811"/>
+						<saw:edgeLayer type="column" columnID="ce7ac063bcbe66200"/>
+						<saw:edgeLayer type="column" columnID="cec8223c41bfaebd1"/>
+						<saw:edgeLayer type="column" columnID="c3cdd4583490aee66"/>
+						<saw:edgeLayer type="column" columnID="c43344b8f34f89469"/></saw:edgeLayers></saw:edge>
+				<saw:edge axis="column"/></saw:edges></saw:view>
+		<saw:view xsi:type="saw:noresultsview" name="noresultsview!1">
+			<saw:headline>
+				<saw:caption>
+					<saw:text>&lt;span style=&quot;font-size:20px;color:#E46C0A;font-family:arial&quot;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;No Results for Service Activation Daily Report&lt;span&gt;</saw:text></saw:caption></saw:headline>
+			<saw:detail/></saw:view>
+		<saw:view xsi:type="saw:titleView" name="titleView!1" includeName="true" startedDisplay="dateTime"><saw:displayFormat>
+				<saw:formatSpec borderPosition="none" wrapText="true"/></saw:displayFormat><saw:createdTime>
+				<saw:displayFormat>
+					<saw:formatSpec fontFamily="Arial" fontColor="#E46C0A" fontStyle="italic" fontSize="12" wrapText="true"/></saw:displayFormat>
+				<saw:caption>
+					<saw:text>Data Last updated:- @{biServer.variables[&#39;OSS_LAST_DATA_REFRESH_DATE&#39;]}</saw:text></saw:caption></saw:createdTime><saw:title><saw:displayFormat>
+					<saw:formatSpec fontFamily="Arial" fontColor="#e46C0A" borderColor="#E46C0A" fontStyle="bold" borderStyle="double" fontSize="20" wrapText="true" borderPosition="none" width="310"/></saw:displayFormat></saw:title></saw:view>
+		<saw:view xsi:type="saw:narrativeView" name="narrativeView!1">
+			<saw:narrative rowCount="1">
+				<saw:caption fmt="text">
+					<saw:text>Product Configuration: @{cb84b576979dcba0c}[br/]Access Seeker: @{c3d5d3b4ff020c2e9}[br/]Location Type: @{cac23a768a2216b4c}[br/]CSA: @{cb7cd5b3b8d193da1}</saw:text></saw:caption></saw:narrative>
+			<saw:displayFormat>
+				<saw:formatSpec fontSize="14"/></saw:displayFormat></saw:view>
+		<saw:view xsi:type="saw:filtersView" name="filtersView!1"/>
+		<saw:view xsi:type="saw:titleView" name="titleView!2" includeName="false" startedDisplay="none" logoUrl="fmap:images/OSS_NBN_logo_01.jpg"><saw:displayFormat><saw:formatSpec borderPosition="none" hAlign="right" wrapText="false"/></saw:displayFormat><saw:logoFormat><saw:displayFormat><saw:formatSpec hAlign="right" width="310" wrapText="false"/></saw:displayFormat></saw:logoFormat></saw:view></saw:views></saw:report>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<saw:report xmlns:saw="com.siebel.analytics.web/report/v1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlVersion="201008230" xmlns:sawx="com.siebel.analytics.web/expression/v1.1">
+	<saw:criteria xsi:type="saw:simpleCriteria" subjectArea="&quot;Order Fulfilments&quot;" withinHierarchy="true">
+		<saw:columns>
+			<saw:column xsi:type="saw:regularColumn" columnID="c6cb16c3c3ce48198">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">Max(RCount(&quot;Connection&quot;.&quot;Connection Name&quot;))</sawx:expr></saw:columnFormula>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Connection</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Connection Type</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c3f3727dc405b6558"><saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">&quot;Connection&quot;.&quot;Connection Desc&quot;</sawx:expr></saw:columnFormula></saw:column></saw:columns>
+		<saw:filter>
+			<sawx:expr xsi:type="sawx:logical" op="and">
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;- Common Date&quot;.&quot;Calendar Date&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Type Desc&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Dim_Location&quot;.&quot;State Name&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Dim_Location&quot;.&quot;Suburb Name&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="equal" xsi:type="sawx:comparison">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Connection&quot;.&quot;Connection Name&quot;</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Connect</sawx:expr></sawx:expr><sawx:expr op="equal" xsi:type="sawx:comparison"><sawx:expr xsi:type="sawx:sqlExpression">&quot;Location&quot;.&quot;Location Type&quot;</sawx:expr><sawx:expr xsi:type="xsd:string">Greenfields</sawx:expr></sawx:expr><sawx:expr op="prompted" xsi:type="sawx:special"><sawx:expr xsi:type="sawx:sqlExpression">&quot;Service&quot;.&quot;Product Description&quot;</sawx:expr></sawx:expr><sawx:expr op="prompted" xsi:type="sawx:special"><sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Seeker&quot;.&quot;Access Seeker&quot;</sawx:expr></sawx:expr></sawx:expr></saw:filter></saw:criteria>
+	<saw:views textDelivery="compoundView!1" currentView="0">
+		<saw:view xsi:type="saw:compoundView" name="compoundView!1">
+			<saw:pageProps pageSize="a4" orientation="landscape" printRows="visible" disableMargins="false"><saw:pageHeader show="false"/><saw:pageFooter show="false"/></saw:pageProps><saw:cvTable><saw:cvRow><saw:cvCell viewName="tableView!1"/></saw:cvRow></saw:cvTable></saw:view>
+		<saw:view xsi:type="saw:titleView" name="titleView!2" includeName="false" startedDisplay="dateTime">
+			<saw:title>
+				<saw:caption fmt="text">
+					<saw:text>Greenfields - Connect Orders</saw:text></saw:caption>
+				<saw:displayFormat>
+					<saw:formatSpec wrapText="true"/></saw:displayFormat></saw:title>
+			<saw:displayFormat>
+				<saw:formatSpec wrapText="true"/></saw:displayFormat>
+			<saw:createdTime>
+				<saw:displayFormat>
+					<saw:formatSpec wrapText="true"/></saw:displayFormat>
+				<saw:caption>
+					<saw:text>Last Data Refresh Date Time: @{biServer.variables[&#39;OSS_LAST_DATA_REFRESH_DATE&#39;]}</saw:text></saw:caption></saw:createdTime></saw:view>
+		<saw:view xsi:type="saw:noresultsview" name="noresultsview!1"><saw:headline><saw:caption><saw:text>Greenfields - Connect Orders</saw:text></saw:caption></saw:headline><saw:detail><saw:caption><saw:text>The report does not return any data results. Please try different values in the dashboard prompt.</saw:text></saw:caption></saw:detail></saw:view><saw:view xsi:type="saw:tableView" name="tableView!2"><saw:edges><saw:edge axis="page" showColumnHeader="true"/><saw:edge axis="section"/><saw:edge axis="row" showColumnHeader="true"><saw:edgeLayers><saw:edgeLayer type="column" columnID="c6cb16c3c3ce48198"/></saw:edgeLayers></saw:edge><saw:edge axis="column"/></saw:edges></saw:view><saw:view xsi:type="saw:tableView" name="tableView!1"><saw:edges><saw:edge axis="page" showColumnHeader="true"/><saw:edge axis="section"/><saw:edge axis="row" showColumnHeader="true"><saw:edgeLayers><saw:edgeLayer type="column" columnID="c6cb16c3c3ce48198"/><saw:edgeLayer type="column" columnID="c3f3727dc405b6558"/></saw:edgeLayers></saw:edge><saw:edge axis="column"/></saw:edges></saw:view></saw:views></saw:report>

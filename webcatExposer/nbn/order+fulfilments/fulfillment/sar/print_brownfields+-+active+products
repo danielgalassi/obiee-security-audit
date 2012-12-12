@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<saw:report xmlns:saw="com.siebel.analytics.web/report/v1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlVersion="201008230" xmlns:sawx="com.siebel.analytics.web/expression/v1.1">
+	<saw:criteria xsi:type="saw:simpleCriteria" subjectArea="&quot;Order Fulfilments&quot;" withinHierarchy="true">
+		<saw:columns>
+			<saw:column xsi:type="saw:regularColumn" columnID="c6cf100da29994191">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Connection&quot;.&quot;Connection Name&quot;</sawx:expr></saw:columnFormula>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Connection</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Connection Type</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c116e77be2e65f20d">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Dim_Location&quot;.&quot;State Name&quot;</sawx:expr></saw:columnFormula>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Location</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>State</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c6441d8745cfbd552">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Dim_Location&quot;.&quot;Suburb Name&quot;</sawx:expr></saw:columnFormula>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Location</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Suburb</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c32fb9ec690e9a134">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Location&quot;.&quot;Location Svcblty Status&quot;</sawx:expr></saw:columnFormula>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Location</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Service Class Orig</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cafd93781d8c17e21">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Location&quot;.&quot;Service Class Calc&quot;</sawx:expr></saw:columnFormula>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Location</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Service Class</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cefc1f37903c43221">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Status Calc&quot;</sawx:expr></saw:columnFormula></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c296a6fa0796f74b6">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Dim_Order&quot;.&quot;Order Status&quot;</sawx:expr></saw:columnFormula></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c84a67b54c7131458">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;- Fact - Service Activation&quot;.&quot;# of Orders&quot;</sawx:expr></saw:columnFormula></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c243eda80ebf167de">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;- Fact - Service Activation&quot;.&quot;# Orders - Connect Completed&quot;</sawx:expr></saw:columnFormula>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Fact - Service Activation</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Connect</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c6d0105a652396f38">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;- Fact - Service Activation&quot;.&quot;# Orders - Disconnect Completed&quot;</sawx:expr></saw:columnFormula>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Fact - Service Activation</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Disconnect</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c4d0dc14f92008263">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;- Fact - Service Activation&quot;.&quot;# Orders - Active&quot;</sawx:expr></saw:columnFormula>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Fact - Service Activation</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:caption fmt="text">
+						<saw:text>Total Active</saw:text></saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="c3a80ae0f9fbf4087"><saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Seeker&quot;.&quot;Access Seeker&quot;</sawx:expr></saw:columnFormula></saw:column></saw:columns>
+		<saw:filter>
+			<sawx:expr xsi:type="sawx:logical" op="and">
+				<sawx:expr op="equal" xsi:type="sawx:comparison">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Dim_Location&quot;.&quot;Location Type&quot;</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Brownfields</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;- Common Date&quot;.&quot;Calendar Date&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="prompted" xsi:type="sawx:special">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Type Desc&quot;</sawx:expr></sawx:expr>
+				<sawx:expr op="in" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Connection&quot;.&quot;Connection Name&quot;</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Connect</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Disconnect</sawx:expr></sawx:expr><sawx:expr op="prompted" xsi:type="sawx:special"><sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Status Calc&quot;</sawx:expr></sawx:expr><sawx:expr op="prompted" xsi:type="sawx:special"><sawx:expr xsi:type="sawx:sqlExpression">&quot;Location&quot;.&quot;State Name&quot;</sawx:expr></sawx:expr><sawx:expr op="prompted" xsi:type="sawx:special"><sawx:expr xsi:type="sawx:sqlExpression">&quot;Location&quot;.&quot;Suburb Name&quot;</sawx:expr></sawx:expr><sawx:expr op="prompted" xsi:type="sawx:special"><sawx:expr xsi:type="sawx:sqlExpression">&quot;Service&quot;.&quot;Product Description&quot;</sawx:expr></sawx:expr><sawx:expr op="prompted" xsi:type="sawx:special"><sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Seeker&quot;.&quot;Access Seeker&quot;</sawx:expr></sawx:expr></sawx:expr></saw:filter></saw:criteria>
+	<saw:views currentView="0" textDelivery="compoundView!1">
+		<saw:view xsi:type="saw:compoundView" name="compoundView!1">
+			<saw:cvTable><saw:cvRow><saw:cvCell viewName="titleView!1"/></saw:cvRow><saw:cvRow><saw:cvCell viewName="pivotTableView!1">
+						<saw:displayFormat>
+							<saw:formatSpec/></saw:displayFormat></saw:cvCell></saw:cvRow></saw:cvTable></saw:view>
+		<saw:view xsi:type="saw:pivotTableView" name="pivotTableView!1">
+			<saw:sectionContent>
+				<saw:displayFormat>
+					<saw:formatSpec wrapText="true" width="1200"/></saw:displayFormat></saw:sectionContent>
+			<saw:edges><saw:edge axis="page" showColumnHeader="true">
+					<saw:displayGrandTotals>
+						<saw:displayGrandTotal id="t5" grandTotalPosition="none">
+							<saw:dataBodyFormat>
+								<saw:displayFormat>
+									<saw:formatSpec hAlign="center" wrapText="true"/></saw:displayFormat></saw:dataBodyFormat></saw:displayGrandTotal></saw:displayGrandTotals></saw:edge>
+				<saw:edge axis="section" insertPageBreak="false" showBlankRows="false" showColumnHeader="false">
+					<saw:displayFormat>
+						<saw:formatSpec hAlign="center" wrapText="false" borderPosition="all" backgroundColor="#996600" width="600"/></saw:displayFormat>
+					<saw:displayGrandTotals>
+						<saw:displayGrandTotal id="t3" grandTotalPosition="none">
+							<saw:dataBodyFormat>
+								<saw:displayFormat>
+									<saw:formatSpec hAlign="center" wrapText="true"/></saw:displayFormat></saw:dataBodyFormat></saw:displayGrandTotal></saw:displayGrandTotals>
+				</saw:edge>
+				<saw:edge axis="row" showColumnHeader="true">
+					<saw:displayGrandTotals>
+						<saw:displayGrandTotal id="t1" grandTotalPosition="after">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFCC99" fontStyle="bold" wrapText="true" fontSize="25"/></saw:displayFormat><saw:caption><saw:text>Total</saw:text></saw:caption></saw:memberFormat>
+							<saw:dataBodyFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFCC99" fontStyle="bold" wrapText="true" fontSize="24"/></saw:displayFormat></saw:dataBodyFormat></saw:displayGrandTotal></saw:displayGrandTotals>
+					<saw:edgeLayers><saw:edgeLayer type="column" columnID="c116e77be2e65f20d">
+							<saw:headerFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#CCFFFF" fontStyle="bold" wrapText="true" width="170" fontSize="25"/></saw:displayFormat></saw:headerFormat>
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec wrapText="true" fontSize="24"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer>
+						<saw:edgeLayer type="column" columnID="c6441d8745cfbd552">
+							<saw:headerFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#CCFFFF" fontStyle="bold" wrapText="true" width="280" fontSize="25"/></saw:displayFormat></saw:headerFormat>
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec wrapText="true" fontSize="24"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer></saw:edgeLayers></saw:edge>
+				<saw:edge axis="column" showColumnHeader="true">
+					<saw:displayGrandTotals>
+						<saw:displayGrandTotal id="t2" grandTotalPosition="none">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#CCFFFF" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:displayGrandTotal></saw:displayGrandTotals>
+					<saw:edgeLayers><saw:edgeLayer type="measure" visibility="visible"><saw:memberFormat><saw:displayFormat><saw:formatSpec width="100" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer></saw:edgeLayers></saw:edge></saw:edges><saw:measuresList>
+				<saw:measure columnID="c243eda80ebf167de">
+					<saw:memberFormat>
+						<saw:displayFormat>
+							<saw:formatSpec backgroundColor="#CCFFFF" fontStyle="bold" wrapText="true" hAlign="center" fontSize="25"/></saw:displayFormat></saw:memberFormat><saw:dataBodyFormat><saw:displayFormat><saw:formatSpec hAlign="center" wrapText="true" fontSize="24" width="130"/></saw:displayFormat></saw:dataBodyFormat></saw:measure>
+				<saw:measure columnID="c6d0105a652396f38">
+					<saw:memberFormat>
+						<saw:displayFormat>
+							<saw:formatSpec backgroundColor="#CCFFFF" fontStyle="bold" wrapText="true" hAlign="center" fontSize="25"/></saw:displayFormat></saw:memberFormat><saw:dataBodyFormat><saw:displayFormat><saw:formatSpec hAlign="center" wrapText="true" fontSize="24" width="60"/></saw:displayFormat></saw:dataBodyFormat></saw:measure>
+				<saw:measure columnID="c4d0dc14f92008263">
+					<saw:memberFormat>
+						<saw:displayFormat>
+							<saw:formatSpec backgroundColor="#CCFFFF" fontStyle="bold" wrapText="true" hAlign="center" fontSize="25"/></saw:displayFormat></saw:memberFormat><saw:dataBodyFormat><saw:displayFormat><saw:formatSpec hAlign="center" wrapText="true" fontSize="24" width="130"/></saw:displayFormat></saw:dataBodyFormat></saw:measure></saw:measuresList></saw:view>
+		<saw:view xsi:type="saw:titleView" name="titleView!2" includeName="true" startedDisplay="dateTime"><saw:displayFormat>
+				<saw:formatSpec wrapText="true"/></saw:displayFormat><saw:createdTime>
+				<saw:displayFormat>
+					<saw:formatSpec wrapText="true"/></saw:displayFormat>
+				<saw:caption>
+					<saw:text>Last Data Refresh Date Time: @{biServer.variables[&#39;OSS_LAST_DATA_REFRESH_DATE&#39;]}</saw:text></saw:caption></saw:createdTime></saw:view>
+		<saw:view xsi:type="saw:filtersView" name="filtersView!1"/>
+		<saw:view xsi:type="saw:tableView" name="tableView!1">
+			<saw:edges>
+				<saw:edge axis="page" showColumnHeader="true"/>
+				<saw:edge axis="section"/>
+				<saw:edge axis="row" showColumnHeader="true">
+					<saw:edgeLayers>
+						<saw:edgeLayer type="column" columnID="c5cc259630012e2be"/>
+						<saw:edgeLayer type="column" columnID="cdae749945683eec0"/>
+						<saw:edgeLayer type="column" columnID="c116e77be2e65f20d"/>
+						<saw:edgeLayer type="column" columnID="c6441d8745cfbd552"/>
+						<saw:edgeLayer type="column" columnID="c32fb9ec690e9a134"/>
+						<saw:edgeLayer type="column" columnID="cefc1f37903c43221"/>
+						<saw:edgeLayer type="column" columnID="c296a6fa0796f74b6"/>
+						<saw:edgeLayer type="column" columnID="c74711c2db34cf99f"/>
+						<saw:edgeLayer type="column" columnID="cdccd3d3206b1ec61"/>
+						<saw:edgeLayer type="column" columnID="c33c274083372e433"/>
+						<saw:edgeLayer type="column" columnID="c12492e4cfec5e9e9"/>
+						<saw:edgeLayer type="column" columnID="c7c3ca28aae80b094"/></saw:edgeLayers></saw:edge>
+				<saw:edge axis="column"/></saw:edges></saw:view>
+		<saw:view xsi:type="saw:pivotTableView" name="pivotTableView!2" headingDisplay="columns">
+			<saw:sectionContent>
+				<saw:displayFormat>
+					<saw:formatSpec width="600" wrapText="true"/></saw:displayFormat></saw:sectionContent>
+			<saw:edges>
+				<saw:edge axis="page" showColumnHeader="true">
+					<saw:displayGrandTotals>
+						<saw:displayGrandTotal id="t4" grandTotalPosition="none">
+							<saw:dataBodyFormat>
+								<saw:displayFormat>
+									<saw:formatSpec/></saw:displayFormat></saw:dataBodyFormat></saw:displayGrandTotal></saw:displayGrandTotals></saw:edge>
+				<saw:edge axis="section" insertPageBreak="false" showBlankRows="false" showColumnHeader="false">
+					<saw:displayFormat>
+						<saw:formatSpec hAlign="right" wrapText="false" vAlign="middle" borderPosition="all" backgroundColor="#CCCCCC"/></saw:displayFormat>
+					<saw:displayGrandTotals>
+						<saw:displayGrandTotal id="t3" grandTotalPosition="none">
+							<saw:dataBodyFormat>
+								<saw:displayFormat>
+									<saw:formatSpec hAlign="center" wrapText="true"/></saw:displayFormat></saw:dataBodyFormat></saw:displayGrandTotal></saw:displayGrandTotals></saw:edge>
+				<saw:edge axis="row" showColumnHeader="true">
+					<saw:displayGrandTotals>
+						<saw:displayGrandTotal id="t1" grandTotalPosition="after">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFCC99" fontStyle="bold" wrapText="true"/></saw:displayFormat></saw:memberFormat>
+							<saw:dataBodyFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#FFCC99" fontStyle="bold" wrapText="true"/></saw:displayFormat></saw:dataBodyFormat></saw:displayGrandTotal></saw:displayGrandTotals>
+					<saw:edgeLayers>
+						<saw:edgeLayer type="column" columnID="cafd93781d8c17e21">
+							<saw:headerFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#CCFFFF" fontStyle="bold" width="300" wrapText="true"/></saw:displayFormat></saw:headerFormat></saw:edgeLayer></saw:edgeLayers></saw:edge>
+				<saw:edge axis="column">
+					<saw:displayGrandTotals>
+						<saw:displayGrandTotal id="t2" grandTotalPosition="after">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#CCFFFF" wrapText="true"/></saw:displayFormat></saw:memberFormat></saw:displayGrandTotal></saw:displayGrandTotals>
+					<saw:edgeLayers>
+						<saw:edgeLayer type="column" columnID="cefc1f37903c43221">
+							<saw:memberFormat>
+								<saw:displayFormat>
+									<saw:formatSpec backgroundColor="#CCFFFF" wrapText="true" fontStyle="bold"/></saw:displayFormat></saw:memberFormat></saw:edgeLayer></saw:edgeLayers></saw:edge></saw:edges>
+			<saw:measuresList>
+				<saw:measure columnID="c84a67b54c7131458">
+					<saw:memberFormat>
+						<saw:displayFormat>
+							<saw:formatSpec wrapText="true"/></saw:displayFormat>
+						<saw:caption>
+							<saw:text>Total</saw:text></saw:caption></saw:memberFormat></saw:measure></saw:measuresList></saw:view><saw:view xsi:type="saw:noresultsview" name="noresultsview!1"><saw:headline><saw:caption><saw:text>Brownfields - Active Products</saw:text></saw:caption></saw:headline><saw:detail><saw:caption><saw:text>The report does not return any data results. Please try different values in the dashboard prompt.</saw:text></saw:caption></saw:detail></saw:view><saw:view xsi:type="saw:titleView" name="titleView!1" includeName="false" startedDisplay="none"><saw:displayFormat><saw:formatSpec borderPosition="none" width="1200" wrapText="true"/></saw:displayFormat><saw:title><saw:caption fmt="text"><saw:text>Brownfields - Active Products</saw:text></saw:caption><saw:displayFormat><saw:formatSpec fontColor="#FFFFFF" backgroundColor="#996600" hAlign="center" fontSize="25" wrapText="true"/></saw:displayFormat></saw:title></saw:view></saw:views></saw:report>

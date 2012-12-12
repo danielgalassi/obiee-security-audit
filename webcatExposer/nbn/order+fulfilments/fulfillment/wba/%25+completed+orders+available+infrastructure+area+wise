@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<saw:report xmlns:saw="com.siebel.analytics.web/report/v1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlVersion="201008230" xmlns:sawx="com.siebel.analytics.web/expression/v1.1">
+	<saw:criteria xsi:type="saw:simpleCriteria" subjectArea="&quot;Order Fulfilment Summary&quot;" withinHierarchy="true">
+		<saw:columns>
+			<saw:column xsi:type="saw:regularColumn" columnID="ccd853e54df6ec8db">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">case when &quot;Location&quot;.&quot;Location Serviceability Status&quot; = &#39;Class 3&#39;
+then&#39;In Place Infrastructure&#39;
+else
+&#39;Available Infrastructure&#39;
+end
+</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="suppress" wrapText="true"/></saw:displayFormat>
+				<saw:tableHeading>
+					<saw:caption fmt="text">
+						<saw:text>Location</saw:text></saw:caption></saw:tableHeading>
+				<saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec/></saw:displayFormat>
+					<saw:caption fmt="text">
+						<saw:text>Premises Status</saw:text></saw:caption></saw:columnHeading></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="cbf6bb2749d471c81">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Location&quot;.&quot;Location Band&quot;</sawx:expr></saw:columnFormula></saw:column>
+			<saw:column xsi:type="saw:regularColumn" columnID="c1e53e34bac737654">
+				<saw:columnFormula>
+					<sawx:expr xsi:type="sawx:sqlExpression">100.0 * ( cast(&quot;- Service Order&quot;.&quot;# Orders Met SLA&quot; as double)/ cast(&quot;- Service Order&quot;.&quot;# Completed Orders&quot; as double))</sawx:expr></saw:columnFormula>
+				<saw:displayFormat>
+					<saw:formatSpec suppress="repeat" wrapText="true">
+						<saw:dataFormat minDigits="2" maxDigits="2" commas="true" negativeType="minus" xsi:type="saw:percent"/></saw:formatSpec></saw:displayFormat>
+				<saw:tableHeading><saw:caption fmt="text"><saw:text>Service Order</saw:text></saw:caption></saw:tableHeading><saw:columnHeading>
+					<saw:displayFormat>
+						<saw:formatSpec/></saw:displayFormat><saw:caption fmt="text"><saw:text>% Completed for SLA by Connection</saw:text></saw:caption></saw:columnHeading></saw:column><saw:column xsi:type="saw:regularColumn" columnID="c90abd8fb5aee237b"><saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">&quot;- Service Order&quot;.&quot;# Orders Met SLA&quot;</sawx:expr></saw:columnFormula></saw:column><saw:column xsi:type="saw:regularColumn" columnID="c2cb30f92864782fb"><saw:columnFormula><sawx:expr xsi:type="sawx:sqlExpression">&quot;- Service Order&quot;.&quot;# Orders Met Outside SLA&quot;</sawx:expr></saw:columnFormula></saw:column></saw:columns>
+		<saw:filter>
+			<sawx:expr xsi:type="sawx:logical" op="and">
+				<sawx:expr op="in" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Month Name&quot;</sawx:expr><sawx:expr xsi:type="sawx:eval" default="May">variables.var_main_cal_mon</sawx:expr></sawx:expr>
+				<sawx:expr op="in" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Date&quot;.&quot;Year&quot;</sawx:expr><sawx:expr xsi:type="sawx:eval" default="2011">variables.var_main_yr</sawx:expr></sawx:expr>
+				<sawx:expr op="containsAny" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Location&quot;.&quot;Location Serviceability Status&quot;</sawx:expr><sawx:expr xsi:type="sawx:untypedLiteral">Class 1</sawx:expr><sawx:expr xsi:type="sawx:untypedLiteral">Class 2</sawx:expr></sawx:expr>
+				<sawx:expr op="in" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Seeker&quot;.&quot;Access Seeker Name&quot;</sawx:expr>
+					<sawx:expr xsi:type="sawx:eval">variables.var_main_aseeker</sawx:expr></sawx:expr>
+				<sawx:expr op="in" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Component&quot;.&quot;Access Component Description&quot;</sawx:expr><sawx:expr xsi:type="sawx:eval" default="TYPE 1">variables.var_type12</sawx:expr></sawx:expr>
+				<sawx:expr op="notIn" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Access Component&quot;.&quot;Access Component Description&quot;</sawx:expr><sawx:expr xsi:type="sawx:untypedLiteral">Access Component Desc Unknown</sawx:expr><sawx:expr xsi:type="sawx:untypedLiteral">Priority Assist Connection</sawx:expr></sawx:expr>
+				<sawx:expr op="notEqual" xsi:type="sawx:comparison">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Location&quot;.&quot;Location Band&quot;</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">LOCATION BAND to be determined</sawx:expr></sawx:expr>
+				<sawx:expr op="in" xsi:type="sawx:list">
+					<sawx:expr xsi:type="sawx:sqlExpression">&quot;Order&quot;.&quot;Order Status&quot;</sawx:expr>
+					<sawx:expr xsi:type="xsd:string">Completed</sawx:expr><sawx:expr xsi:type="xsd:string">Complete</sawx:expr></sawx:expr></sawx:expr></saw:filter></saw:criteria>
+	<saw:views textDelivery="compoundView!1" currentView="0">
+		<saw:view xsi:type="saw:compoundView" name="compoundView!1">
+			<saw:cvTable>
+				<saw:cvRow>
+					<saw:cvCell viewName="dvtchart!1"/></saw:cvRow><saw:cvRow><saw:cvCell viewName="tableView!1"/></saw:cvRow></saw:cvTable></saw:view>
+		<saw:view xsi:type="saw:dvtchart" name="dvtchart!1" autoPreview="true">
+			<saw:display type="bar" subtype="default" renderFormat="default" mode="online" xAxisLiveScrolling="false" yAxisLiveScrolling="false" clientEventEnabled="false" animateOnDisplay="true">
+				<saw:style barStyle="default" lineStyle="default" scatterStyle="default" fillStyle="default" bubblePercentSize="100" effect="3d"/></saw:display>
+			<saw:canvasFormat height="250" width="450" showGradient="true">
+				<saw:dataLabels display="default" label="default" position="below" transparentBackground="true" valueAs="default"/>
+				<saw:title mode="custom">
+					<saw:caption truncate="false" truncateLength="0">
+						<saw:text>% Completed by Available Infrastructure</saw:text></saw:caption>
+					<saw:displayFormat>
+						<saw:formatSpec fontFamily="Arial" fontSize="16" fontStyle="bold" fontEffects="underline"/></saw:displayFormat></saw:title>
+				<saw:gridlines default="true">
+					<saw:horizontal>
+						<saw:major visible="false"/>
+						<saw:minor visible="false"/></saw:horizontal>
+					<saw:vertical>
+						<saw:major visible="false"/>
+						<saw:minor visible="false"/></saw:vertical></saw:gridlines></saw:canvasFormat>
+			<saw:selections>
+				<saw:categories>
+					<saw:category>
+						<saw:columnRef columnID="cbf6bb2749d471c81"/></saw:category></saw:categories>
+				<saw:measures showMeasureLabelsOnCategory="false">
+					<saw:column measureType="y">
+						<saw:columnRef columnID="c1e53e34bac737654"/></saw:column></saw:measures>
+				<saw:seriesGenerators>
+					<saw:measureLabels/></saw:seriesGenerators>
+				<saw:sections/></saw:selections>
+			<saw:legendFormat position="none" transparentFill="true">
+				<saw:textFormat/></saw:legendFormat>
+			<saw:axesFormats syncAxis="false">
+				<saw:axisFormat axis="Y1" displayScaleLabels="true">
+					<saw:title mode="custom">
+						<saw:caption truncate="false" truncateLength="0">
+							<saw:text>% Within SLA</saw:text></saw:caption>
+						<saw:displayFormat>
+							<saw:formatSpec fontFamily="Arial" fontColor="#666699" fontSize="13"/></saw:displayFormat></saw:title>
+					<saw:scale scaleValues="custom" showMajorTicks="false" showMinorTicks="false" logarithmic="false" defaultTicks="true" min="0" max="100"/>
+					<saw:labels rotate="0" rotateLabels="false" stagger="false" skip="false" abbreviation="default">
+						<saw:dataFormat xsi:type="saw:percent" commas="false" negativeType="minus" minDigits="0" maxDigits="0"/></saw:labels>
+					<saw:textFormat fontSize="10" fontFamily="Arial" fontColor="#666666"/></saw:axisFormat>
+				<saw:axisFormat axis="X" displayScaleLabels="true">
+					<saw:title mode="custom">
+						<saw:caption truncate="false" truncateLength="0">
+							<saw:text/></saw:caption>
+						<saw:displayFormat>
+							<saw:formatSpec fontFamily="Arial" fontSize="12" fontColor="#666699"/></saw:displayFormat></saw:title>
+					<saw:scale scaleValues="auto" showMajorTicks="false" showMinorTicks="false" logarithmic="false"/>
+					<saw:labels rotate="0" rotateLabels="false" stagger="false" skip="false" abbreviation="default"/>
+					<saw:textFormat fontFamily="Arial" fontSize="13" fontColor="#9999CC"/></saw:axisFormat>
+				<saw:axisFormat axis="Y2" displayScaleLabels="true">
+					<saw:scale scaleValues="auto" showMajorTicks="false" showMinorTicks="false" logarithmic="false" defaultTicks="true"/>
+					<saw:title mode="auto">
+						<saw:caption>
+							<saw:text>% Orders Completed</saw:text></saw:caption></saw:title>
+					<saw:labels rotate="0" rotateLabels="false" stagger="false" skip="false" abbreviation="default"/>
+					<saw:textFormat fontFamily="Arial" fontColor="#666666" fontSize="20"/></saw:axisFormat></saw:axesFormats>
+			<saw:seriesFormats>
+				<saw:seriesFormatGroup name="bar">
+					<saw:seriesFormatRule>
+						<saw:seriesCondition columnID="c1e53e34bac737654" position="0">
+							<saw:condition>
+								<sawx:expr op="less" xsi:type="sawx:comparison">
+									<saw:columnRef columnID="c1e53e34bac737654"/>
+									<sawx:expr xsi:type="xsd:decimal">95</sawx:expr></sawx:expr></saw:condition></saw:seriesCondition>
+						<saw:visualFormats>
+							<saw:visualFormat color="#CC3333"/></saw:visualFormats></saw:seriesFormatRule>
+					<saw:seriesFormatRule>
+						<saw:seriesCondition columnID="c1e53e34bac737654" position="1">
+							<saw:condition>
+								<sawx:expr op="greaterOrEqual" xsi:type="sawx:comparison">
+									<saw:columnRef columnID="c1e53e34bac737654"/>
+									<sawx:expr xsi:type="xsd:decimal">95</sawx:expr></sawx:expr></saw:condition></saw:seriesCondition>
+						<saw:visualFormats>
+							<saw:visualFormat color="#336699"/></saw:visualFormats></saw:seriesFormatRule></saw:seriesFormatGroup></saw:seriesFormats></saw:view>
+		<saw:view xsi:type="saw:noresultsview" name="noresultsview!1">
+			<saw:headline>
+				<saw:caption>
+					<saw:text>No Results For % Completed by Available Infrastructure</saw:text></saw:caption></saw:headline>
+			<saw:detail/></saw:view><saw:view xsi:type="saw:tableView" name="tableView!1"><saw:edges><saw:edge axis="page" showColumnHeader="true"/><saw:edge axis="section"/><saw:edge axis="row" showColumnHeader="true"><saw:edgeLayers><saw:edgeLayer type="column" columnID="ccd853e54df6ec8db"/><saw:edgeLayer type="column" columnID="cbf6bb2749d471c81"/><saw:edgeLayer type="column" columnID="c1e53e34bac737654"/><saw:edgeLayer type="column" columnID="c90abd8fb5aee237b"/><saw:edgeLayer type="column" columnID="c2cb30f92864782fb"/></saw:edgeLayers></saw:edge><saw:edge axis="column"/></saw:edges></saw:view></saw:views>
+	<saw:prompts scope="report" subjectArea="&quot;Order Fulfilments&quot;"/></saw:report>

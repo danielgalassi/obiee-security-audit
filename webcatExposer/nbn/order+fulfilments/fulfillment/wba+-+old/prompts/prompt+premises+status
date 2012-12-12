@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<saw:view xmlns:saw="com.siebel.analytics.web/report/v1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="saw:globalFilterPrompt" name=""><saw:prompts scope="dashboard" subjectArea="&quot;Order Fulfilments&quot;"><saw:promptStep><saw:individualPrompts><saw:prompt xsi:type="saw:columnFilterPrompt" columnID="c1" subjectArea="&quot;Order Fulfilments&quot;" required="true"><saw:formula><sawx:expr xmlns:sawx="com.siebel.analytics.web/expression/v1.1" xsi:type="sawx:sqlExpression">case &quot;Location&quot;.&quot;Location Svcblty Status&quot;
+when &#39;Class 1&#39; then &#39;Available Infrastructure&#39;
+when &#39;Class 2&#39; then &#39;Available Infrastructure&#39;
+when &#39;Class 3&#39; then &#39;In Place Infrastructure&#39;
+else
+&quot;Location&quot;.&quot;Location Svcblty Status&quot;
+end</sawx:expr></saw:formula><saw:promptOperator op="in"/><saw:promptUIControl includeAllChoices="true" maxChoices="1" xsi:type="saw:dropDown"><saw:customWidth width="120" using="custompixels"/></saw:promptUIControl><saw:label><saw:caption><saw:text>Premises Status</saw:text></saw:caption></saw:label><saw:promptDefaultValues type="allChoices" usingCodeValue="false"/><saw:constrainPrompt type="none"/><saw:setPromptVariables><saw:setPromptVariable location="value" type="none" variableFormula=""/></saw:setPromptVariables><saw:promptSource xsi:type="saw:allChoices"/></saw:prompt></saw:individualPrompts><saw:customWidth width="120" using="custompixels"/><saw:displayFormat/><saw:title/></saw:promptStep></saw:prompts></saw:view>
