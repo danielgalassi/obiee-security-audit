@@ -46,7 +46,7 @@ public class WebcatExposer {
 		String	sSAWName = "";
 		byte	b_data = 0;
 		int		l = 0;
-		int		n = 0;
+		int		nGroups = 0;
 
 		//checking the .atr file, where the long/Answers name is stored
 		try {
@@ -81,9 +81,9 @@ public class WebcatExposer {
 				getNewNameAndPermissions (3, 3, file_input, "(Owner)");
 
 				//looking for the number of groups / users
-				n = data_in.readByte();
+				nGroups = data_in.readByte();
 
-				System.out.println(n + " groups / users found.");
+				System.out.println(nGroups + " groups / users found.");
 
 				getNewNameAndPermissions (2, 3, file_input,"Group 1");
 				getNewNameAndPermissions (3, 3, file_input,"Group 2");
