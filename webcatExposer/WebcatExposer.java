@@ -8,7 +8,7 @@ public class WebcatExposer {
 	private static void getNewNameAndPermissions (int o, int p, FileInputStream file_input, String prof) {
 		DataInputStream data_in    = new DataInputStream (file_input);
 		byte	b_data = 0;
-		int x;
+		int iGroupLength;
 
 		try {
 			for (int i = 0; i<o; i++)
@@ -16,20 +16,22 @@ public class WebcatExposer {
 				data_in.read();
 			//+" + ");
 
-			x = data_in.read();
-			//System.out.print("\t\tGroup length = "+x+"\t\t");
+			iGroupLength = data_in.read();
+
 			for (int i = 0; i<p; i++)
 				//System.out.print(
 						data_in.read();
 						//);
 
 			String y = "";
-			for (int i = 0; i<x; i++) {
+			//Concatenating Group / User name
+			for (int i = 0; i<iGroupLength; i++) {
 				b_data = data_in.readByte();
 				char c = (char)b_data;
 				if (b_data < 0)
 					c = '-';
 				y = y + c;
+				//System.out.println(y);
 			}
 			System.out.println("\n" + prof + " name = "+y+" "+data_in.read()+" "+data_in.read());
 			
@@ -81,7 +83,7 @@ public class WebcatExposer {
 				//looking for the number of groups / users
 				n = data_in.readByte();
 
-				System.out.println("Reading " + n + " groups / users.");
+				System.out.println(n + " groups / users found.");
 
 				getNewNameAndPermissions (2, 3, file_input,"Group 1");
 				getNewNameAndPermissions (3, 3, file_input,"Group 2");
@@ -103,7 +105,9 @@ public class WebcatExposer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		File f = new File("C:\data\workspace\obiee-security-audit\webcatExposer\sampleCases\test.atr");
+		File f = new File("C:\\data\\workspace\\obiee-security-audit\\sampleCases\\test.atr");
+		if (!f.canRead())
+			System.out.println("Please check path.");
 		System.out.println("Fancy Name: " + getSAWNameUnscrambled(f));
 	}
 
