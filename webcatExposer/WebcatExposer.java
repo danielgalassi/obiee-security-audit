@@ -85,15 +85,13 @@ public class WebcatExposer {
 
 				System.out.println(nGroups + " groups / users found.");
 
-				getNewNameAndPermissions (2, 3, file_input,"Group 1");
-				getNewNameAndPermissions (3, 3, file_input,"Group 2");
-				getNewNameAndPermissions (3, 3, file_input,"Group 3");
-				getNewNameAndPermissions (3, 3, file_input,"Group 4");
-				getNewNameAndPermissions (3, 3, file_input,"Group 5");
-				getNewNameAndPermissions (3, 3, file_input,"Group 6");
-				getNewNameAndPermissions (3, 3, file_input,"Group 7");
-				getNewNameAndPermissions (3, 3, file_input,"Group 8");
-				
+				int iOffset = 2;
+				for (int iGCounter = 0; iGCounter < nGroups; iGCounter++) {
+					if (iGCounter == 1)
+						iOffset++;
+					getNewNameAndPermissions (iOffset, 3, file_input,"Group "+(iGCounter+1));
+				}
+
 				data_in.close ();
 			} catch  (IOException e) {
 				e.printStackTrace();
