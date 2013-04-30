@@ -33,8 +33,8 @@ public class WebcatExposer {
 			}
 
 			int val = 0;
-			System.out.println("\n" + prof + " name1 = "+y+" ");//+data_in.read()+" "+data_in.read());
-			;
+			System.out.println("\n" + prof + " name1 = "+y+" ");
+			
 			val = data_in.readUnsignedByte() + data_in.readUnsignedByte() * 256;
 			System.out.println(val);
 
@@ -107,7 +107,7 @@ public class WebcatExposer {
 	 */
 	public static void main(String[] args) {
 		//File f = new File("C:\\data\\workspace\\obiee-security-audit\\sampleCases\\test.atr");
-		File f = new File("C:\\danielgalassi\\workspace\\obiee-security-audit\\sampleCases\\test2.atr");
+		File f = new File("C:\\danielgalassi\\workspace\\obiee-security-audit\\sampleCases\\drafts.atr");
 		if (!f.canRead())
 			System.out.println("Please check path.");
 		System.out.println("Fancy Name: " + getSAWNameUnscrambled(f));
