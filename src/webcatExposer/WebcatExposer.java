@@ -106,8 +106,8 @@ public class WebcatExposer {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//File f = new File("C:\\data\\workspace\\obiee-security-audit\\sampleCases\\test.atr");
-		File f = new File("C:\\danielgalassi\\workspace\\obiee-security-audit\\sampleCases\\drafts.atr");
+		//File f = new File(".\\sampleCases\\test.atr");
+		File f = new File(".\\sampleCases\\drafts.atr");
 		if (!f.canRead())
 			System.out.println("Please check path.");
 		System.out.println("Fancy Name: " + getSAWNameUnscrambled(f));
