@@ -14,16 +14,12 @@ public class WebcatExposer {
 
 		try {
 			for (int i = 0; i<o; i++)
-				//System.out.print(
 				data_in.read();
-			//+" + ");
 
 			iGroupLength = data_in.read();
 
 			for (int i = 0; i<p; i++)
-				//System.out.print(
-						data_in.read();
-						//);
+				data_in.read();
 
 			String y = "";
 			//Concatenating Group / User name
@@ -36,7 +32,11 @@ public class WebcatExposer {
 				//System.out.println(y);
 			}
 
-			System.out.println("\n" + prof + " name = "+y+" "+data_in.read()+" "+data_in.read());
+			int val = 0;
+			System.out.println("\n" + prof + " name1 = "+y+" ");//+data_in.read()+" "+data_in.read());
+			;
+			val = data_in.readUnsignedByte() + data_in.readUnsignedByte() * 256;
+			System.out.println(val);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -107,7 +107,7 @@ public class WebcatExposer {
 	 */
 	public static void main(String[] args) {
 		//File f = new File("C:\\data\\workspace\\obiee-security-audit\\sampleCases\\test.atr");
-		File f = new File("C:\\danielgalassi\\workspace\\obiee-security-audit\\sampleCases\\order+fulfilments.atr");
+		File f = new File("C:\\danielgalassi\\workspace\\obiee-security-audit\\sampleCases\\test2.atr");
 		if (!f.canRead())
 			System.out.println("Please check path.");
 		System.out.println("Fancy Name: " + getSAWNameUnscrambled(f));
