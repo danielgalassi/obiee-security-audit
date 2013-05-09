@@ -44,7 +44,7 @@ public class WebCatalog {
 		fList = getPrivilegesDirectory().listFiles(filter);
 		for (int i=0; i<fList.length; i++) {
 			privsFile = new PrivilegeSettingsFile(fList[i]);
-			System.out.println(privsFile.getSAWNameUnscrambled(true));
+			System.out.println(privsFile.getUnscrambledName());
 		}
 	}
 
