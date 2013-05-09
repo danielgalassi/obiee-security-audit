@@ -208,7 +208,8 @@ public class WebcatExposer {
 
 		if (sWebcatLocation != null) {
 			wc = new WebCatalog(sWebcatLocation);
-			processWebCatPrivileges(wc.getPrivilegesDirectory());
+			wc.processWebCatPrivileges();
+//			processWebCatPrivileges(wc.getPrivilegesDirectory());
 		}
 
 /*
