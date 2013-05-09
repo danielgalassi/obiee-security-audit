@@ -3,6 +3,7 @@ package webcatExposer;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 
 public class WebcatExposer {
@@ -44,7 +45,7 @@ public class WebcatExposer {
 
 	}
 
-	public static String getSAWNameUnscrambled(File fWorkingNode) {
+	public static String getSAWNameUnscrambled(File fWorkingNode, boolean isPrivsFile) {
 		File	fSAW = null;
 		String	sSAWName = "";
 		byte	b_data = 0;
@@ -79,6 +80,10 @@ public class WebcatExposer {
 						c = '-';
 					sSAWName = sSAWName + c;
 				}
+
+				//trimming the Privs suffix
+				if (isPrivsFile && sSAWName.endsWith("Privs"))
+					sSAWName = sSAWName.substring(0, (sSAWName.length()-5));
 
 				//getting the owner of this object
 				getNewNameAndPermissions (3, 3, file_input, "(Owner)");
@@ -169,6 +174,35 @@ public class WebcatExposer {
 			System.out.println("Please check path.");
 		//System.out.println("Fancy Name: " + getSAWNameUnscrambled(f));
 		readPrivileges(f);
+
+		f = new File(".\\sampleCases\\myaccountprivs.atr");
+		System.out.println("\n\n----------\nPrivs file");
+		System.out.println(getSAWNameUnscrambled(f, true));
+
+		f = new File(".\\sampleCases\\SampleAppLite\\root\\system\\privs");
+
+		FilenameFilter myFilter = new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+				if(name.lastIndexOf('.')>0)
+				{
+					// get last index for '.' char
+					int lastIndex = name.lastIndexOf('.');
+					// get extension
+					String str = name.substring(lastIndex);
+					// match path name extension
+					if(str.equals(".atr"))
+						return true;
+				}
+				return false;
+			}
+		};
+
+		System.out.println("\n\nOnly .atr (Privs) files...");
+		String[] sd = f.list(myFilter);
+		for (int i=0; i<sd.length; i++)
+			System.out.println(sd[i]);
 	}
 
 }
