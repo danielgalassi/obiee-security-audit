@@ -24,7 +24,7 @@ public class WebCatalog {
 
 	public void processWebCatPrivileges() {
 		File[] fList = null;
-		PrivilegeSettingsFile privsFile = null;
+		PrivilegeSettings privsFile = null;
 		
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
@@ -43,7 +43,7 @@ public class WebCatalog {
 		System.out.println("Only .atr (Privs) files...");
 		fList = getPrivilegesDirectory().listFiles(filter);
 		for (int i=0; i<fList.length; i++) {
-			privsFile = new PrivilegeSettingsFile(fList[i]);
+			privsFile = new PrivilegeSettings(fList[i]);
 			System.out.println(privsFile.getUnscrambledName());
 		}
 	}
