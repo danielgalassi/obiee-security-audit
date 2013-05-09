@@ -210,6 +210,7 @@ public class WebcatExposer {
 			wc = new WebCatalog(sWebcatLocation);
 			processWebCatPrivileges(wc.getPrivilegesDirectory());
 		}
+
 /*
 		File f = new File(".\\sampleCases\\answers.atr");
 		if (!f.canRead())
