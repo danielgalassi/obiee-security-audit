@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
+import webcatObjects.WebCatalog;
+
 public class WebcatExposer {
 
 	private static void getNewNameAndPermissions (int o, int p, FileInputStream file_input, String prof) {
@@ -82,24 +84,29 @@ public class WebcatExposer {
 				}
 
 				//trimming the Privs suffix
-				if (isPrivsFile && sSAWName.endsWith("Privs"))
-					sSAWName = sSAWName.substring(0, (sSAWName.length()-5));
-
-				//getting the owner of this object
-				getNewNameAndPermissions (3, 3, file_input, "(Owner)");
-
-				//looking for the number of groups / users
-				nGroups = data_in.readByte();
-
-				System.out.println(nGroups + " groups / users found.");
-
-				int iOffset = 2;
-				for (int iGCounter = 0; iGCounter < nGroups; iGCounter++) {
-					if (iGCounter == 1)
-						iOffset++;
-					getNewNameAndPermissions (iOffset, 3, file_input,"Group "+(iGCounter+1));
+				if (isPrivsFile) {
+					if (sSAWName.endsWith("Privs"))
+						sSAWName = sSAWName.substring(0, (sSAWName.length()-5));
+					if (sSAWName.startsWith("SA.\""))
+						sSAWName = sSAWName.replace("SA.\"", "Subject Area \"");
 				}
 
+				if (!isPrivsFile) {
+					//getting the owner of this object
+					getNewNameAndPermissions (3, 3, file_input, "(Owner)");
+
+					//looking for the number of groups / users
+					nGroups = data_in.readByte();
+
+					System.out.println(nGroups + " groups / users found.");
+
+					int iOffset = 2;
+					for (int iGCounter = 0; iGCounter < nGroups; iGCounter++) {
+						if (iGCounter == 1)
+							iOffset++;
+						getNewNameAndPermissions (iOffset, 3, file_input,"Group "+(iGCounter+1));
+					}
+				}
 				data_in.close ();
 			} catch  (IOException e) {
 				e.printStackTrace();
@@ -163,13 +170,48 @@ public class WebcatExposer {
 
 	}
 
+	private static void processWebCatPrivileges(File fWebCatLocation) {
+		FilenameFilter filter = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				if(name.lastIndexOf('.')>0)
+				{
+					int lastIndex = name.lastIndexOf('.');
+					String str = name.substring(lastIndex);
+					if(str.equals(".atr"))
+						return true;
+				}
+				return false;
+			}
+		};
+
+		System.out.println("Only .atr (Privs) files...");
+		String[] sd = fWebCatLocation.list(filter);
+		for (int i=0; i<sd.length; i++) {
+			System.out.println(sd[i] + "\t\t-->\t" + getSAWNameUnscrambled(new File(fWebCatLocation.getPath() + "\\" + sd[i]), true));
+		}
+	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
+
+		WebCatalog wc = null;
+		String sWebcatLocation = null;
+
+		//picking up parameters
+		for (int a=0; a<args.length; a++)
+			//Web Catalogue Location
+			if (args[a].startsWith("-w="))
+				sWebcatLocation = args[a].replaceAll("-w=", "");
+
+		if (sWebcatLocation != null) {
+			wc = new WebCatalog(sWebcatLocation);
+			processWebCatPrivileges(wc.getPrivilegesDirectory());
+		}
+/*
 		File f = new File(".\\sampleCases\\answers.atr");
-		//File f = new File(".\\sampleCases\\drafts.atr");
 		if (!f.canRead())
 			System.out.println("Please check path.");
 		//System.out.println("Fancy Name: " + getSAWNameUnscrambled(f));
@@ -178,39 +220,6 @@ public class WebcatExposer {
 		f = new File(".\\sampleCases\\myaccountprivs.atr");
 		System.out.println("\n\n----------\nPrivs file");
 		System.out.println(getSAWNameUnscrambled(f, true));
-
-		//f = new File(".\\sampleCases\\SampleAppLite\\root\\system\\privs");
-
-		FilenameFilter myFilter = new FilenameFilter() {
-
-			@Override
-			public boolean accept(File dir, String name) {
-				if(name.lastIndexOf('.')>0)
-				{
-					// get last index for '.' char
-					int lastIndex = name.lastIndexOf('.');
-					// get extension
-					String str = name.substring(lastIndex);
-					// match path name extension
-					if(str.equals(".atr"))
-						return true;
-				}
-				return false;
-			}
-		};
-
-		String sWebcatLocation = null;
-		for (int a=0; a<args.length; a++)
-			if (args[a].startsWith("-w="))
-				sWebcatLocation = args[a].replaceAll("-w=", "");
-
-		if (sWebcatLocation != null)
-			f = new File(sWebcatLocation+"\\root\\system\\privs");
-
-		System.out.println("\n\nOnly .atr (Privs) files...");
-		String[] sd = f.list(myFilter);
-		for (int i=0; i<sd.length; i++)
-			System.out.println(sd[i]);
+*/
 	}
-
 }
