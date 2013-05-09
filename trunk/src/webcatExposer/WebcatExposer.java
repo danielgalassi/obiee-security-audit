@@ -179,7 +179,7 @@ public class WebcatExposer {
 		System.out.println("\n\n----------\nPrivs file");
 		System.out.println(getSAWNameUnscrambled(f, true));
 
-		f = new File(".\\sampleCases\\SampleAppLite\\root\\system\\privs");
+		//f = new File(".\\sampleCases\\SampleAppLite\\root\\system\\privs");
 
 		FilenameFilter myFilter = new FilenameFilter() {
 
@@ -198,6 +198,14 @@ public class WebcatExposer {
 				return false;
 			}
 		};
+
+		String sWebcatLocation = null;
+		for (int a=0; a<args.length; a++)
+			if (args[a].startsWith("-w="))
+				sWebcatLocation = args[a].replaceAll("-w=", "");
+
+		if (sWebcatLocation != null)
+			f = new File(sWebcatLocation+"\\root\\system\\privs");
 
 		System.out.println("\n\nOnly .atr (Privs) files...");
 		String[] sd = f.list(myFilter);
