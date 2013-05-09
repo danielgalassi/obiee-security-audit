@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class PrivilegeSettings {
 
-	File fPriv;
+	File fPrivATR;
 
 	public String getUnscrambledName() {
 		String	sSAWName = "";
@@ -15,7 +15,7 @@ public class PrivilegeSettings {
 		int		l = 0;
 
 		try {
-			FileInputStream file_input = new FileInputStream (fPriv);
+			FileInputStream file_input = new FileInputStream (fPrivATR);
 			DataInputStream data_in    = new DataInputStream (file_input);
 
 			//looking for the length of the actual name
@@ -62,7 +62,7 @@ public class PrivilegeSettings {
 
 	public PrivilegeSettings(File f) {
 		if (f.canRead()) {
-			fPriv = f;
+			fPrivATR = f;
 		}
 	}
 }
