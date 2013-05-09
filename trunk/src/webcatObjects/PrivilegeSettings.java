@@ -9,6 +9,10 @@ public class PrivilegeSettings {
 
 	File fPrivATR, fPrivDir;
 
+	public void getPrivileges() {
+		
+	}
+	
 	public String getUnscrambledName() {
 		String	sSAWName = "";
 		byte	b_data = 0;
