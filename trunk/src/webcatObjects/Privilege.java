@@ -95,7 +95,7 @@ public class Privilege {
 		byte	b_data = 0;
 		int		l = 0;
 
-		if (sCustomGroup.equals("ActionPrivs"))
+		if (sOOTBGroup.equals("ActionPrivs"))
 			sCustomGroup = "Action";
 
 		try {
