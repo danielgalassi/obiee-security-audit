@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.Vector;
 
 public class Privilege {
@@ -12,8 +13,11 @@ public class Privilege {
 	private String sPrivName = "";
 	private String sCustomPriv;
 	private String sCustomGroup;
+	private String sOOTBGroup;
 	private Vector <String> vsGranted;
 	private Vector <String> vsDenied;
+
+	private Hashtable <String, String> htNames = new Hashtable();
 
 	public Vector <String> getRolesGrantedAccess () {
 		return vsGranted;
@@ -91,7 +95,8 @@ public class Privilege {
 		byte	b_data = 0;
 		int		l = 0;
 
-		sCustomGroup = "xyz";
+		if (sCustomGroup.equals("ActionPrivs"))
+			sCustomGroup = "Action";
 
 		try {
 			FileInputStream file_input = new FileInputStream (fPrivName);
@@ -114,6 +119,8 @@ public class Privilege {
 				sPrivName = sPrivName + c;
 			}
 
+			sCustomPriv = getName().replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+
 			data_in.close ();
 		} catch  (IOException e) {
 			e.printStackTrace();
@@ -130,14 +137,23 @@ public class Privilege {
 
 	/***
 	 * 
+	 * @return
+	 */
+	public String getCustomName () {
+		return sCustomPriv;
+	}
+
+	/***
+	 * 
 	 * @param f
 	 */
-	public Privilege (File f) {
+	public Privilege (File f, String sGroup) {
 		if (f.canRead()) {
 			fPrivName = f;
-			
+
+			sOOTBGroup = sGroup;
 			setName();
-			System.out.println(getName());
+			System.out.println(getName() + "\t\t" + getCustomName());
 			try {
 				fPriv = new File(fPrivName.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPriv.canRead())

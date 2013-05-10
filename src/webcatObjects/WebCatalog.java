@@ -56,7 +56,8 @@ public class WebCatalog {
 		};
 
 		fList = getPrivilegesDirectory().listFiles(filter);
-		for (int i=0; i<fList.length; i++)
+		//for (int i=0; i<fList.length; i++)
+		int i=0;
 			privsFile = new PrivilegeSettings(fList[i]);
 	}
 
