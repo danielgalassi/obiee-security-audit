@@ -42,6 +42,8 @@ public class PrivilegeSettings {
 			//making privilege names user friendly
 			if (sSAWName.endsWith("Privs"))
 				sSAWName = sSAWName.replace("Privs", "");
+			if (sSAWName.startsWith("MarketingSystem"))
+				sSAWName = sSAWName.replace("MarketingSystem", "");
 			if (sSAWName.endsWith("privs"))
 				sSAWName = sSAWName.replace("privs", "");
 			if (sSAWName.startsWith("SA.\""))
