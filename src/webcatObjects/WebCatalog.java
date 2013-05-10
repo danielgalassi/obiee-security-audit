@@ -25,7 +25,7 @@ public class WebCatalog {
 	public void processWebCatPrivileges() {
 		File[] fList = null;
 		PrivilegeSettings privsFile = null;
-		
+
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
@@ -33,7 +33,7 @@ public class WebCatalog {
 				{
 					int lastIndex = name.lastIndexOf('.');
 					String str = name.substring(lastIndex);
-					if(str.equals(".atr"))
+					if(str.equals(".atr") && name.indexOf("dvt") == -1)
 						return true;
 				}
 				return false;
