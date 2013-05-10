@@ -209,7 +209,6 @@ public class WebcatExposer {
 		if (sWebcatLocation != null) {
 			wc = new WebCatalog(sWebcatLocation);
 			wc.processWebCatPrivileges();
-//			processWebCatPrivileges(wc.getPrivilegesDirectory());
 		}
 
 /*
@@ -218,10 +217,9 @@ public class WebcatExposer {
 			System.out.println("Please check path.");
 		//System.out.println("Fancy Name: " + getSAWNameUnscrambled(f));
 		readPrivileges(f);
-
-		f = new File(".\\sampleCases\\myaccountprivs.atr");
+*/
+		File f = new File(".\\sampleCases\\myaccountprivs.atr");
 		System.out.println("\n\n----------\nPrivs file");
 		System.out.println(getSAWNameUnscrambled(f, true));
-*/
 	}
 }
