@@ -28,6 +28,7 @@ public class PrivilegeSettings {
 				{
 					int lastIndex = name.lastIndexOf('.');
 					String str = name.substring(lastIndex);
+					//selecting only attribute files
 					if(str.equals(".atr") && name.indexOf("dvt") == -1)
 						return true;
 				}
@@ -87,6 +88,7 @@ public class PrivilegeSettings {
 			}
 
 			//making privilege names user friendly
+			/*
 			if (sPrivGroupName.endsWith("Privs"))
 				sPrivGroupName = sPrivGroupName.replace("Privs", "");
 			if (sPrivGroupName.startsWith("MarketingSystem"))
@@ -110,6 +112,7 @@ public class PrivilegeSettings {
 				sPrivGroupName = (""+sPrivGroupName.charAt(0)).toUpperCase()+sPrivGroupName.substring(1);
 			if (sPrivGroupName.endsWith("Prompt"))
 				sPrivGroupName = sPrivGroupName.replace("Prompt", " Prompt");
+			*/
 
 			data_in.close ();
 		} catch  (IOException e) {
