@@ -11,13 +11,8 @@ public class Privilege {
 
 	private File fPrivName, fPriv;
 	private String sPrivName = "";
-	private String sCustomPriv;
-	private String sCustomGroup;
-	private String sOOTBGroup;
 	private Vector <String> vsGranted;
 	private Vector <String> vsDenied;
-
-	private Hashtable <String, String> htNames = new Hashtable();
 
 	public Vector <String> getRolesGrantedAccess () {
 		return vsGranted;
@@ -95,9 +90,6 @@ public class Privilege {
 		byte	b_data = 0;
 		int		l = 0;
 
-		if (sOOTBGroup.equals("ActionPrivs"))
-			sCustomGroup = "Action";
-
 		try {
 			FileInputStream file_input = new FileInputStream (fPrivName);
 			DataInputStream data_in    = new DataInputStream (file_input);
@@ -119,7 +111,7 @@ public class Privilege {
 				sPrivName = sPrivName + c;
 			}
 
-			sCustomPriv = getName().replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+			sPrivName = sPrivName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
 
 			data_in.close ();
 		} catch  (IOException e) {
@@ -137,23 +129,14 @@ public class Privilege {
 
 	/***
 	 * 
-	 * @return
-	 */
-	public String getCustomName () {
-		return sCustomPriv;
-	}
-
-	/***
-	 * 
 	 * @param f
 	 */
 	public Privilege (File f, String sGroup) {
 		if (f.canRead()) {
 			fPrivName = f;
 
-			sOOTBGroup = sGroup;
 			setName();
-			System.out.println(getName() + "\t\t" + getCustomName());
+			System.out.println(getName());
 			try {
 				fPriv = new File(fPrivName.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPriv.canRead())
