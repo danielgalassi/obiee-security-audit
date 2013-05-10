@@ -2,10 +2,12 @@ package webcatObjects;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Vector;
 
 public class WebCatalog {
 
 	private File fWebcat;
+	private Vector <PrivilegeSettings> privs;
 
 	/***
 	 * 
@@ -39,12 +41,12 @@ public class WebCatalog {
 	 */
 	public void processWebCatPrivileges() {
 		File[] fList = null;
-		PrivilegeSettings privsFile = null;
+		privs = new Vector <PrivilegeSettings> ();
 
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				if(name.lastIndexOf('.')>0)
+				if(name.lastIndexOf('.') > 0)
 				{
 					int lastIndex = name.lastIndexOf('.');
 					String str = name.substring(lastIndex);
@@ -57,7 +59,7 @@ public class WebCatalog {
 
 		fList = getPrivilegesDirectory().listFiles(filter);
 		for (int i=0; i<fList.length; i++)
-			privsFile = new PrivilegeSettings(fList[i]);
+			privs.add(new PrivilegeSettings(fList[i]));
 	}
 
 	/***
