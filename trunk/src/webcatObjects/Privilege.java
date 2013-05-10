@@ -13,6 +13,14 @@ public class Privilege {
 	private Vector <String> vsGranted;
 	private Vector <String> vsDenied;
 
+	public Vector <String> getRolesGrantedAccess () {
+		return vsGranted;
+	}
+
+	public Vector <String> getRolesDeniedAccess () {
+		return vsDenied;
+	}
+
 	/***
 	 * Parse files to find all groups / roles that have been granted / denied access to a feature.
 	 */
