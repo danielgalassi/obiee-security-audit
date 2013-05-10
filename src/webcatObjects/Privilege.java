@@ -1,23 +1,61 @@
 package webcatObjects;
 
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Privilege {
 
-	File fPrivATR, fPrivDir;
-	
-	public Privilege(File f) {
+	File fPrivName, fPriv;
+	String sPrivName = "";
+
+	private void setName () {
+		byte	b_data = 0;
+		int		l = 0;
+
+		try {
+			FileInputStream file_input = new FileInputStream (fPrivName);
+			DataInputStream data_in    = new DataInputStream (file_input);
+
+			//looking for the length of the actual name
+			for (int i = 0; i<8; i++) {
+				b_data = data_in.readByte();
+				if (i==4)
+					l = b_data;
+			}
+
+			//retrieving the name reading bytes,
+			//converting them to a string
+			for (int i = 0; i<l; i++) {
+				b_data = data_in.readByte();
+				char c = (char)b_data;
+				if (b_data < 0)
+					c = '-';
+				sPrivName = sPrivName + c;
+			}
+
+			data_in.close ();
+		} catch  (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getName () {
+		return sPrivName;
+	}
+
+	public Privilege (File f) {
 		if (f.canRead()) {
-			fPrivATR = f;
+			fPrivName = f;
+			setName();
 			try {
-				fPrivDir = new File(fPrivATR.getCanonicalFile().toString().replace(".atr", ""));
-				if (fPrivDir.canRead())
-					fPrivDir = null;
+				fPriv = new File(fPrivName.getCanonicalFile().toString().replace(".atr", ""));
+				if (!fPriv.canRead())
+					fPriv = null;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
 }
