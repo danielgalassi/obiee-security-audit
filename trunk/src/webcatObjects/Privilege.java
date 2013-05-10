@@ -113,6 +113,9 @@ public class Privilege {
 			}
 
 			//making privilege names user friendly
+			sPrivName = sPrivName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+			
+			//making privilege names user friendly
 			if (sPrivName.startsWith("Global "))
 				sPrivName = sPrivName.replaceAll("Global ", "Access to ");
 
