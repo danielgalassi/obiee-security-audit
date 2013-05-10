@@ -37,9 +37,8 @@ public class PrivilegeSettings {
 		};
 
 		fPrivList = fPrivDir.listFiles(filter);
-		for (int i=0; i<fPrivList.length; i++) {
-			vPrivs.add(new Privilege(fPrivList[i]));
-		}
+		for (int i=0; i<fPrivList.length; i++)
+			vPrivs.add(new Privilege(fPrivList[i], getName()));
 
 	}
 
