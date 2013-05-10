@@ -87,24 +87,29 @@ public class PrivilegeSettings {
 				sPrivGroupName = sPrivGroupName + c;
 			}
 
+			//System.out.println(sPrivGroupName.replace("MarketingSystem", "***"));
 			//making privilege names user friendly
 			sPrivGroupName = sPrivGroupName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
-			
-
-			//making privilege names user friendly
-			/*
-			if (sPrivGroupName.endsWith("Privs"))
+			sPrivGroupName = sPrivGroupName.replace(".", " ");
+			if (sPrivGroupName.charAt(0) == sPrivGroupName.toLowerCase().charAt(0))
+				sPrivGroupName = (""+sPrivGroupName.charAt(0)).toUpperCase()+sPrivGroupName.substring(1);
+			if (sPrivGroupName.startsWith("SA \""))
+				sPrivGroupName = sPrivGroupName.replace("SA \"", "Subject Area \"");
+			if (sPrivGroupName.endsWith("rivs")) {
 				sPrivGroupName = sPrivGroupName.replace("Privs", "");
-			if (sPrivGroupName.startsWith("MarketingSystem"))
-				sPrivGroupName = sPrivGroupName.replace("MarketingSystem", "(Marketing) ");
-			if (sPrivGroupName.endsWith("privs"))
 				sPrivGroupName = sPrivGroupName.replace("privs", "");
-			if (sPrivGroupName.startsWith("SA.\""))
-				sPrivGroupName = sPrivGroupName.replace("SA.\"", "Subject Area \"");
+			}
+			if (sPrivGroupName.contains("ystem")) {
+				sPrivGroupName = sPrivGroupName.replace("system", "");
+				sPrivGroupName = sPrivGroupName.replace("System", "");
+			}
+			if (sPrivGroupName.startsWith("MarketingSystem"))
+				sPrivGroupName = sPrivGroupName.replace("MarketingSystem", "Marketing ");
 			if (sPrivGroupName.startsWith("general"))
 				sPrivGroupName = sPrivGroupName.replace("general", "Access");
-			if (sPrivGroupName.endsWith("System"))
-				sPrivGroupName = sPrivGroupName.replace("System", "");
+			System.out.println(sPrivGroupName);
+			//making privilege names user friendly
+			/*
 			if (sPrivGroupName.startsWith("View.")) {
 				if (sPrivGroupName.endsWith("iew"))
 					sPrivGroupName = sPrivGroupName.substring(0, (sPrivGroupName.length()-4));
@@ -112,8 +117,6 @@ public class PrivilegeSettings {
 			}
 			if (sPrivGroupName.startsWith("Search"))
 				sPrivGroupName = sPrivGroupName.replace("Search", "Answers");
-			if (sPrivGroupName.charAt(0) == sPrivGroupName.toLowerCase().charAt(0))
-				sPrivGroupName = (""+sPrivGroupName.charAt(0)).toUpperCase()+sPrivGroupName.substring(1);
 			if (sPrivGroupName.endsWith("Prompt"))
 				sPrivGroupName = sPrivGroupName.replace("Prompt", " Prompt");
 			*/
@@ -132,7 +135,7 @@ public class PrivilegeSettings {
 		if (f.canRead()) {
 			fPrivATR = f;
 			setName();
-			System.out.println(sPrivGroupName);
+			//System.out.println(sPrivGroupName);
 			try {
 				fPrivDir = new File(fPrivATR.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPrivDir.canRead())
