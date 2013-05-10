@@ -114,7 +114,7 @@ public class Privilege {
 
 			//making privilege names user friendly
 			sPrivName = sPrivName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
-			
+
 			//making privilege names user friendly
 			if (sPrivName.startsWith("Global "))
 				sPrivName = sPrivName.replaceAll("Global ", "Access to ");
@@ -141,7 +141,7 @@ public class Privilege {
 		if (f.canRead()) {
 			fPrivName = f;
 			setName();
-			System.out.println("\t" + sPrivName);
+			//System.out.println("\t" + getName());
 			try {
 				fPriv = new File(fPrivName.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPriv.canRead())
