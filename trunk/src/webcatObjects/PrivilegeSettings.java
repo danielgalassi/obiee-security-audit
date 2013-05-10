@@ -42,12 +42,18 @@ public class PrivilegeSettings {
 			//making privilege names user friendly
 			if (sSAWName.endsWith("Privs"))
 				sSAWName = sSAWName.replace("Privs", "");
+			if (sSAWName.endsWith("privs"))
+				sSAWName = sSAWName.replace("privs", "");
 			if (sSAWName.startsWith("SA.\""))
 				sSAWName = sSAWName.replace("SA.\"", "Subject Area \"");
+			if (sSAWName.startsWith("general"))
+				sSAWName = sSAWName.replace("general", "Access");
 			if (sSAWName.endsWith("System"))
 				sSAWName = sSAWName.replace("System", "");
 			if (sSAWName.startsWith("View."))
 				sSAWName = sSAWName.replace("View.", "");
+			if (sSAWName.startsWith("Search"))
+				sSAWName = sSAWName.replace("Search", "Answers");
 			if (sSAWName.endsWith("View"))
 				sSAWName = sSAWName.replace("View", " View");
 			if (sSAWName.endsWith("view"))
