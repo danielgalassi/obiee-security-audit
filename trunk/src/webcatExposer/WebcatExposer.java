@@ -10,6 +10,13 @@ import webcatObjects.WebCatalog;
 
 public class WebcatExposer {
 
+	/***
+	 * 
+	 * @param o
+	 * @param p
+	 * @param file_input
+	 * @param prof
+	 */
 	private static void getNewNameAndPermissions (int o, int p, FileInputStream file_input, String prof) {
 		DataInputStream data_in    = new DataInputStream (file_input);
 		byte	b_data = 0;
@@ -47,6 +54,12 @@ public class WebcatExposer {
 
 	}
 
+	/***
+	 * 
+	 * @param fWorkingNode
+	 * @param isPrivsFile
+	 * @return
+	 */
 	public static String getSAWNameUnscrambled(File fWorkingNode, boolean isPrivsFile) {
 		File	fSAW = null;
 		String	sSAWName = "";
@@ -114,6 +127,10 @@ public class WebcatExposer {
 		return sSAWName.replaceAll("---", "-");
 	}
 
+	/***
+	 * 
+	 * @param f
+	 */
 	private static void readPrivileges (File f) {
 		FileInputStream file_input = null;
 		DataInputStream data_in    = null;
@@ -170,6 +187,10 @@ public class WebcatExposer {
 
 	}
 
+	/***
+	 * 
+	 * @param fWebCatLocation
+	 */
 	private static void processWebCatPrivileges(File fWebCatLocation) {
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
@@ -217,9 +238,9 @@ public class WebcatExposer {
 			System.out.println("Please check path.");
 		//System.out.println("Fancy Name: " + getSAWNameUnscrambled(f));
 		readPrivileges(f);
-*/
 		File f = new File(".\\sampleCases\\myaccountprivs.atr");
 		System.out.println("\n\n----------\nPrivs file");
 		System.out.println(getSAWNameUnscrambled(f, true));
+*/
 	}
 }

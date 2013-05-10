@@ -5,16 +5,28 @@ import java.io.FilenameFilter;
 
 public class WebCatalog {
 
-	File fWebcat;
+	private File fWebcat;
 
+	/***
+	 * 
+	 * @return
+	 */
 	public boolean isValid() {
 		return fWebcat.canRead();
 	}
 
+	/***
+	 * 
+	 * @param sLocation
+	 */
 	public void setLocation(String sLocation) {
 		fWebcat = new File (sLocation);
 	}
 
+	/***
+	 * 
+	 * @return
+	 */
 	public File getPrivilegesDirectory() {
 		File f = new File(fWebcat + "\\root\\system\\privs");
 		if (!f.canRead())
@@ -22,6 +34,9 @@ public class WebCatalog {
 		return (f);
 	}
 
+	/***
+	 * 
+	 */
 	public void processWebCatPrivileges() {
 		File[] fList = null;
 		PrivilegeSettings privsFile = null;
@@ -41,12 +56,14 @@ public class WebCatalog {
 		};
 
 		fList = getPrivilegesDirectory().listFiles(filter);
-		for (int i=0; i<fList.length; i++) {
+		for (int i=0; i<fList.length; i++)
 			privsFile = new PrivilegeSettings(fList[i]);
-			System.out.println(privsFile.getName());
-		}
 	}
 
+	/***
+	 * 
+	 * @param sLocation
+	 */
 	public WebCatalog(String sLocation) {
 		if (!sLocation.isEmpty())
 			setLocation(sLocation);
