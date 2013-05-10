@@ -4,11 +4,13 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Vector;
 
 public class Privilege {
 
 	File fPrivName, fPriv;
 	String sPrivName = "";
+	Vector <String> vsGranted;
 
 	private void setName () {
 		byte	b_data = 0;
@@ -35,6 +37,10 @@ public class Privilege {
 				sPrivName = sPrivName + c;
 			}
 
+			//making privilege names user friendly
+			if (sPrivName.startsWith("Global "))
+				sPrivName = sPrivName.replaceAll("Global ", "Access to ");
+			
 			data_in.close ();
 		} catch  (IOException e) {
 			e.printStackTrace();
