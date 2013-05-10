@@ -40,7 +40,6 @@ public class WebCatalog {
 			}
 		};
 
-		System.out.println("Only .atr (Privs) files...");
 		fList = getPrivilegesDirectory().listFiles(filter);
 		for (int i=0; i<fList.length; i++) {
 			privsFile = new PrivilegeSettings(fList[i]);
