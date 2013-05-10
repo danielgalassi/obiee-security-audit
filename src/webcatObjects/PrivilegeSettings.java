@@ -9,11 +9,14 @@ import java.util.Vector;
 
 public class PrivilegeSettings {
 
-	File fPrivATR = null;
-	File fPrivDir = null;
-	String sPrivGroupName = "";
-	Vector <Privilege> vPrivs;
+	private File fPrivATR = null;
+	private File fPrivDir = null;
+	private String sPrivGroupName = "";
+	private Vector <Privilege> vPrivs;
 
+	/***
+	 * 
+	 */
 	private void setPrivs () {
 		vPrivs = new Vector <Privilege>();
 		File[] fPrivList;
@@ -35,19 +38,29 @@ public class PrivilegeSettings {
 		fPrivList = fPrivDir.listFiles(filter);
 		for (int i=0; i<fPrivList.length; i++) {
 			vPrivs.add(new Privilege(fPrivList[i]));
-			System.out.println("\t\t" + vPrivs.get(i).getName());
 		}
 
 	}
 
+	/***
+	 * 
+	 * @return
+	 */
 	public String getDirectory () {
 		return fPrivDir.toString();
 	}
 
+	/***
+	 * 
+	 * @return
+	 */
 	public String getName () {
 		return sPrivGroupName;
 	}
 
+	/***
+	 * 
+	 */
 	private void setName () {
 		byte	b_data = 0;
 		int		l = 0;
@@ -104,10 +117,15 @@ public class PrivilegeSettings {
 		}
 	}
 
+	/***
+	 * 
+	 * @param f
+	 */
 	public PrivilegeSettings (File f) {
 		if (f.canRead()) {
 			fPrivATR = f;
 			setName();
+			System.out.println(sPrivGroupName);
 			try {
 				fPrivDir = new File(fPrivATR.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPrivDir.canRead())
