@@ -101,6 +101,7 @@ public class PrivilegeSettings {
 			fPrivATR = f;
 
 			setName();
+			System.out.println(getName());
 			try {
 				fPrivDir = new File(fPrivATR.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPrivDir.canRead())

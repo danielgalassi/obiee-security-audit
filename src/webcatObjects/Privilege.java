@@ -136,12 +136,22 @@ public class Privilege {
 			fPrivName = f;
 
 			setName();
+			System.out.println("\t"+getName());
 			try {
 				fPriv = new File(fPrivName.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPriv.canRead())
 					fPriv = null;
-				else
+				else {
 					readPrivileges();
+					if (vsGranted.size() > 0)
+						System.out.println("\t\tGranted:");
+					for (int i=0; i<vsGranted.size(); i++)
+						System.out.println("\t\t\t" + vsGranted.get(i));
+					if (vsDenied.size() > 0)
+						System.out.println("\t\tDenied:");
+					for (int i=0; i<vsDenied.size(); i++)
+						System.out.println("\t\t\t" + vsDenied.get(i));
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
