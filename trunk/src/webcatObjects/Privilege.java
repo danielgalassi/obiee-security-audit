@@ -136,7 +136,6 @@ public class Privilege {
 			fPrivName = f;
 
 			setName();
-			System.out.println(getName());
 			try {
 				fPriv = new File(fPrivName.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPriv.canRead())

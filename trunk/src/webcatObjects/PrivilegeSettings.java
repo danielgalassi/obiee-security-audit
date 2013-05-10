@@ -99,8 +99,8 @@ public class PrivilegeSettings {
 	public PrivilegeSettings (File f) {
 		if (f.canRead()) {
 			fPrivATR = f;
+
 			setName();
-			System.out.println(sPrivGroupName);
 			try {
 				fPrivDir = new File(fPrivATR.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPrivDir.canRead())
