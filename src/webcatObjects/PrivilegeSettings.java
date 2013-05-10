@@ -88,6 +88,10 @@ public class PrivilegeSettings {
 			}
 
 			//making privilege names user friendly
+			sPrivGroupName = sPrivGroupName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+			
+
+			//making privilege names user friendly
 			/*
 			if (sPrivGroupName.endsWith("Privs"))
 				sPrivGroupName = sPrivGroupName.replace("Privs", "");
