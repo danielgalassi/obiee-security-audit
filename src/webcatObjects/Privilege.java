@@ -14,15 +14,15 @@ public class Privilege {
 	private Vector <String> vsDenied;
 
 	/***
-	 * 
+	 * Parse files to find all groups / roles that have been granted / denied access to a feature.
 	 */
 	private void readPrivileges () {
 		FileInputStream file_input = null;
 		DataInputStream data_in    = null;
-		
+
 		vsGranted = new Vector <String> ();
 		vsDenied  = new Vector <String> ();
-		
+
 		byte	b_data = 0;
 		int iRead;
 		int iGroupLength;
@@ -64,8 +64,10 @@ public class Privilege {
 						c = '-';
 					sTempGroupName = sTempGroupName + c;
 				}
-				System.out.println("\t\t" + sTempGroupName + " --> " + data_in.read());
-
+				if (data_in.read() == 0)
+					vsDenied.add (sTempGroupName);
+				else
+					vsGranted.add (sTempGroupName);
 			}
 
 		} catch (IOException e) {
@@ -105,7 +107,7 @@ public class Privilege {
 			//making privilege names user friendly
 			if (sPrivName.startsWith("Global "))
 				sPrivName = sPrivName.replaceAll("Global ", "Access to ");
-			
+
 			data_in.close ();
 		} catch  (IOException e) {
 			e.printStackTrace();
