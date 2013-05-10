@@ -4,17 +4,19 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Vector;
 
 public class PrivilegeSettings {
 
 	File fPrivATR, fPrivDir;
+	String sSAWName = "";
+	Vector <Privilege> vPrivs;
 
-	public void getPrivileges() {
-		
+	public String getName () {
+		return sSAWName;
 	}
 	
-	public String getUnscrambledName() {
-		String	sSAWName = "";
+	private void setName() {
 		byte	b_data = 0;
 		int		l = 0;
 
@@ -69,7 +71,6 @@ public class PrivilegeSettings {
 		} catch  (IOException e) {
 			e.printStackTrace();
 		}
-		return sSAWName;
 	}
 
 	public PrivilegeSettings(File f) {
@@ -79,6 +80,7 @@ public class PrivilegeSettings {
 				fPrivDir = new File(fPrivATR.getCanonicalFile().toString().replace(".atr", ""));
 				if (fPrivDir.canRead())
 					fPrivDir = null;
+				setName();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
