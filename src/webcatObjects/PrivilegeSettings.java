@@ -87,40 +87,6 @@ public class PrivilegeSettings {
 				sPrivGroupName = sPrivGroupName + c;
 			}
 
-			//System.out.println(sPrivGroupName.replace("MarketingSystem", "***"));
-			//making privilege names user friendly
-			sPrivGroupName = sPrivGroupName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
-			sPrivGroupName = sPrivGroupName.replace(".", " ");
-			if (sPrivGroupName.charAt(0) == sPrivGroupName.toLowerCase().charAt(0))
-				sPrivGroupName = (""+sPrivGroupName.charAt(0)).toUpperCase()+sPrivGroupName.substring(1);
-			if (sPrivGroupName.startsWith("SA \""))
-				sPrivGroupName = sPrivGroupName.replace("SA \"", "Subject Area \"");
-			if (sPrivGroupName.endsWith("rivs")) {
-				sPrivGroupName = sPrivGroupName.replace("Privs", "");
-				sPrivGroupName = sPrivGroupName.replace("privs", "");
-			}
-			if (sPrivGroupName.contains("ystem")) {
-				sPrivGroupName = sPrivGroupName.replace("system", "");
-				sPrivGroupName = sPrivGroupName.replace("System", "");
-			}
-			if (sPrivGroupName.startsWith("MarketingSystem"))
-				sPrivGroupName = sPrivGroupName.replace("MarketingSystem", "Marketing ");
-			if (sPrivGroupName.startsWith("general"))
-				sPrivGroupName = sPrivGroupName.replace("general", "Access");
-			System.out.println(sPrivGroupName);
-			//making privilege names user friendly
-			/*
-			if (sPrivGroupName.startsWith("View.")) {
-				if (sPrivGroupName.endsWith("iew"))
-					sPrivGroupName = sPrivGroupName.substring(0, (sPrivGroupName.length()-4));
-				sPrivGroupName = sPrivGroupName.replace("View.", "View: ");
-			}
-			if (sPrivGroupName.startsWith("Search"))
-				sPrivGroupName = sPrivGroupName.replace("Search", "Answers");
-			if (sPrivGroupName.endsWith("Prompt"))
-				sPrivGroupName = sPrivGroupName.replace("Prompt", " Prompt");
-			*/
-
 			data_in.close ();
 		} catch  (IOException e) {
 			e.printStackTrace();
@@ -135,7 +101,7 @@ public class PrivilegeSettings {
 		if (f.canRead()) {
 			fPrivATR = f;
 			setName();
-			//System.out.println(sPrivGroupName);
+			System.out.println(sPrivGroupName);
 			try {
 				fPrivDir = new File(fPrivATR.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPrivDir.canRead())

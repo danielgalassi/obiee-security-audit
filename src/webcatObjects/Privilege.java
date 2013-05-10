@@ -10,6 +10,8 @@ public class Privilege {
 
 	private File fPrivName, fPriv;
 	private String sPrivName = "";
+	private String sCustomPriv;
+	private String sCustomGroup;
 	private Vector <String> vsGranted;
 	private Vector <String> vsDenied;
 
@@ -48,7 +50,6 @@ public class Privilege {
 
 			//reading the number of groups granted access in this file
 			nGroups = data_in.read();
-			//System.out.println("# of Groups: " + nGroups);
 
 			for (int n=0; n<nGroups; n++) {
 
@@ -58,7 +59,6 @@ public class Privilege {
 					iRead = data_in.read();
 
 				iGroupLength = data_in.read();
-				//System.out.println("Group name length: " + iGroupLength);
 
 				//ignoring next three bytes
 				for (int i=0; i<3; i++)
@@ -91,6 +91,8 @@ public class Privilege {
 		byte	b_data = 0;
 		int		l = 0;
 
+		sCustomGroup = "xyz";
+
 		try {
 			FileInputStream file_input = new FileInputStream (fPrivName);
 			DataInputStream data_in    = new DataInputStream (file_input);
@@ -111,13 +113,6 @@ public class Privilege {
 					c = '-';
 				sPrivName = sPrivName + c;
 			}
-
-			//making privilege names user friendly
-			sPrivName = sPrivName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
-
-			//making privilege names user friendly
-			if (sPrivName.startsWith("Global "))
-				sPrivName = sPrivName.replaceAll("Global ", "Access to ");
 
 			data_in.close ();
 		} catch  (IOException e) {
@@ -140,8 +135,9 @@ public class Privilege {
 	public Privilege (File f) {
 		if (f.canRead()) {
 			fPrivName = f;
+			
 			setName();
-			//System.out.println("\t" + getName());
+			System.out.println(getName());
 			try {
 				fPriv = new File(fPrivName.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPriv.canRead())
