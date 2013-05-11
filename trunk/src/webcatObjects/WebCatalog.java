@@ -4,9 +4,16 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Vector;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import xmlutils.XMLUtils;
+
 public class WebCatalog {
 
 	private File fWebcat;
+	protected static Document docWebcat = XMLUtils.createDOMDocument();
+	protected static Element eWebcat = docWebcat.createElement("WebCat");
 	private Vector <PrivilegeSettings> privs;
 
 	/***
@@ -60,6 +67,10 @@ public class WebCatalog {
 		fList = getPrivilegesDirectory().listFiles(filter);
 		for (int i=0; i<fList.length; i++)
 			privs.add(new PrivilegeSettings(fList[i]));
+
+		System.out.println("Final # of children nodes: " + eWebcat.getChildNodes().getLength());
+		docWebcat.appendChild(eWebcat);
+		XMLUtils.Document2File((WebCatalog.docWebcat), ".\\PRIVS.xml");
 	}
 
 	/***
