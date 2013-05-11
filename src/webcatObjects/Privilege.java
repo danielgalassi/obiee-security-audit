@@ -4,8 +4,12 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Hashtable;
 import java.util.Vector;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
+import xmlutils.XMLUtils;
 
 public class Privilege {
 
@@ -127,6 +131,38 @@ public class Privilege {
 		return sPrivName;
 	}
 
+	public void serialize () {
+		Element eRole;
+		Node nRole;
+
+		Element ePriv = (WebCatalog.docWebcat).createElement("Privilege");
+		Element ePrivName = (WebCatalog.docWebcat).createElement("PrivilegeName");
+		Element eRoleList = (WebCatalog.docWebcat).createElement("RoleList");
+
+		Node nPrivName = (WebCatalog.docWebcat).createTextNode(sPrivName);
+		ePrivName.appendChild(nPrivName);
+
+		for (int i=0; i<vsGranted.size(); i++) {
+			nRole = (WebCatalog.docWebcat).createTextNode(vsGranted.get(i));
+			eRole = (WebCatalog.docWebcat).createElement("Role");
+			eRole.appendChild(nRole);
+			eRole.setAttribute("isDenied", "false");
+			eRoleList.appendChild(eRole);
+		}
+		for (int i=0; i<vsDenied.size(); i++) {
+			nRole = (WebCatalog.docWebcat).createTextNode(vsDenied.get(i));
+			eRole = (WebCatalog.docWebcat).createElement("Role");
+			eRole.appendChild(nRole);
+			eRole.setAttribute("isDenied", "true");
+			eRoleList.appendChild(eRole);
+		}
+
+		ePriv.appendChild(ePrivName);
+		ePriv.appendChild(eRoleList);
+
+		(WebCatalog.eWebcat).appendChild(ePriv);
+	}
+
 	/***
 	 * 
 	 * @param f
@@ -136,13 +172,14 @@ public class Privilege {
 			fPrivName = f;
 
 			setName();
-			System.out.println("\t"+getName());
+
 			try {
 				fPriv = new File(fPrivName.getCanonicalFile().toString().replace(".atr", ""));
 				if (!fPriv.canRead())
 					fPriv = null;
 				else {
 					readPrivileges();
+/*
 					if (vsGranted.size() > 0)
 						System.out.println("\t\tGranted:");
 					for (int i=0; i<vsGranted.size(); i++)
@@ -151,6 +188,8 @@ public class Privilege {
 						System.out.println("\t\tDenied:");
 					for (int i=0; i<vsDenied.size(); i++)
 						System.out.println("\t\t\t" + vsDenied.get(i));
+*/
+					serialize();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
