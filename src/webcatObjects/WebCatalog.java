@@ -68,7 +68,6 @@ public class WebCatalog {
 		for (int i=0; i<fList.length; i++)
 			privs.add(new PrivilegeSettings(fList[i]));
 
-		System.out.println("Final # of children nodes: " + eWebcat.getChildNodes().getLength());
 		docWebcat.appendChild(eWebcat);
 		XMLUtils.Document2File((WebCatalog.docWebcat), ".\\Webcat.xml");
 	}
