@@ -7,6 +7,9 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Vector;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+
 public class PrivilegeSettings {
 
 	private File fPrivATR = null;
@@ -37,8 +40,12 @@ public class PrivilegeSettings {
 		};
 
 		fPrivList = fPrivDir.listFiles(filter);
-		for (int i=0; i<fPrivList.length; i++)
+		Element e = serialize();
+		for (int i=0; i<fPrivList.length; i++) {
 			vPrivs.add(new Privilege(fPrivList[i], getName()));
+			e.appendChild(vPrivs.get(i).serialize());
+			(WebCatalog.eWebcat).appendChild(e);
+		}
 
 	}
 
@@ -91,6 +98,14 @@ public class PrivilegeSettings {
 			e.printStackTrace();
 		}
 	}
+
+	public Element serialize () {
+		Element eGroup = (WebCatalog.docWebcat).createElement("Component");
+		eGroup.setAttribute("ComponentName", sPrivGroupName);
+
+		return (eGroup);
+	}
+
 
 	/***
 	 * 
