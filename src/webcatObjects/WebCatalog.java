@@ -11,7 +11,7 @@ import xmlutils.XMLUtils;
 
 public class WebCatalog {
 
-	private File fWebcat;
+	private File fWebcat = null;
 	protected static Document docWebcat = XMLUtils.createDOMDocument();
 	protected static Element eWebcat = docWebcat.createElement("WebCat");
 	private Vector <PrivilegeSettings> privs;
@@ -22,14 +22,6 @@ public class WebCatalog {
 	 */
 	public boolean isValid() {
 		return fWebcat.canRead();
-	}
-
-	/***
-	 * 
-	 * @param sLocation
-	 */
-	public void setLocation(String sLocation) {
-		fWebcat = new File (sLocation);
 	}
 
 	/***
@@ -68,6 +60,8 @@ public class WebCatalog {
 		for (int i=0; i<fList.length; i++)
 			privs.add(new PrivilegeSettings(fList[i]));
 
+		eWebcat.setAttribute("app", "obiee-security-audit");
+		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
 		docWebcat.appendChild(eWebcat);
 		XMLUtils.Document2File((WebCatalog.docWebcat), ".\\Webcat.xml");
 	}
@@ -78,6 +72,6 @@ public class WebCatalog {
 	 */
 	public WebCatalog(String sLocation) {
 		if (!sLocation.isEmpty())
-			setLocation(sLocation);
+			fWebcat = new File (sLocation);
 	}
 }
