@@ -70,7 +70,7 @@ public class WebCatalog {
 
 		System.out.println("Final # of children nodes: " + eWebcat.getChildNodes().getLength());
 		docWebcat.appendChild(eWebcat);
-		XMLUtils.Document2File((WebCatalog.docWebcat), ".\\PRIVS.xml");
+		XMLUtils.Document2File((WebCatalog.docWebcat), ".\\Webcat.xml");
 	}
 
 	/***
