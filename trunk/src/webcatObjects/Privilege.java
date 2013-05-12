@@ -104,6 +104,11 @@ public class Privilege {
 		return sPrivName;
 	}
 
+	/**
+	 * Evaluates whether a role is out-of-the-box or not.
+	 * @param sRoleName
+	 * @return true when evaluating an OBIE 11g OOTB role.
+	 */
 	private boolean isOOTBRole (String sRoleName) {
 		boolean isOOTB = false;
 		for (int i=0; i<sOOTBRoles.length; i++)
