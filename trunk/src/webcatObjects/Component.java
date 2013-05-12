@@ -16,8 +16,8 @@ import org.w3c.dom.Element;
  */
 public class Component {
 
-	private File fPrivATR = null;
-	private File fPrivDir = null;
+	private File fComponentATR = null;
+	private File fComponentDir = null;
 	private String sPrivGroupName = "";
 	private Vector <Privilege> vPrivs;
 
@@ -43,7 +43,7 @@ public class Component {
 			}
 		};
 
-		fPrivList = fPrivDir.listFiles(filter);
+		fPrivList = fComponentDir.listFiles(filter);
 		Element e = serialize();
 		for (int i=0; i<fPrivList.length; i++) {
 			vPrivs.add(new Privilege(fPrivList[i], getName()));
@@ -69,7 +69,7 @@ public class Component {
 		int		l = 0;
 
 		try {
-			FileInputStream file_input = new FileInputStream (fPrivATR);
+			FileInputStream file_input = new FileInputStream (fComponentATR);
 			DataInputStream data_in    = new DataInputStream (file_input);
 
 			//looking for the length of the actual name
@@ -113,14 +113,14 @@ public class Component {
 	 */
 	public Component (File f) {
 		if (f.canRead()) {
-			fPrivATR = f;
+			fComponentATR = f;
 
 			setName();
 			System.out.println(getName());
 			try {
-				fPrivDir = new File(fPrivATR.getCanonicalFile().toString().replace(".atr", ""));
-				if (!fPrivDir.canRead())
-					fPrivDir = null;
+				fComponentDir = new File(fComponentATR.getCanonicalFile().toString().replace(".atr", ""));
+				if (!fComponentDir.canRead())
+					fComponentDir = null;
 				else
 					setPrivs();
 			} catch (IOException e) {

@@ -11,11 +11,15 @@ import org.w3c.dom.Node;
 
 public class Privilege {
 
-	private File fPrivName, fPriv;
+	private File privilegeAttribs, privilegeDir;
 	private String sPrivName = "";
 	private Vector <String> vsGranted;
 	private Vector <String> vsDenied;
 
+	/**
+	 * Provides a list of roles that have been granted access to the privilege.
+	 * @return List of roles as stored in 
+	 */
 	public Vector <String> getRolesGrantedAccess () {
 		return vsGranted;
 	}
@@ -41,7 +45,7 @@ public class Privilege {
 		String sTempGroupName;
 
 		try {
-			file_input = new FileInputStream(fPriv.toString());
+			file_input = new FileInputStream(privilegeDir.toString());
 			data_in = new DataInputStream (file_input);
 
 			//ignoring first two bytes
@@ -93,7 +97,7 @@ public class Privilege {
 		int		l = 0;
 
 		try {
-			FileInputStream file_input = new FileInputStream (fPrivName);
+			FileInputStream file_input = new FileInputStream (privilegeAttribs);
 			DataInputStream data_in    = new DataInputStream (file_input);
 
 			//looking for the length of the actual name
@@ -163,14 +167,15 @@ public class Privilege {
 	 */
 	public Privilege (File f, String sGroup) {
 		if (f.canRead()) {
-			fPrivName = f;
+			privilegeAttribs = f;
 
 			setName();
 
 			try {
-				fPriv = new File(fPrivName.getCanonicalFile().toString().replace(".atr", ""));
-				if (!fPriv.canRead())
-					fPriv = null;
+				privilegeDir = new File(privilegeAttribs.
+						getCanonicalFile().toString().replace(".atr", ""));
+				if (!privilegeDir.canRead())
+					privilegeDir = null;
 				else
 					readPrivileges();
 			} catch (IOException e) {
