@@ -54,7 +54,7 @@ public class Component {
 	}
 
 	/***
-	 * Returns the name of this privilege.
+	 * Returns the name of this Component.
 	 * @return the component name.
 	 */
 	public String getName () {
@@ -62,7 +62,7 @@ public class Component {
 	}
 
 	/***
-	 * Retrieves the actual name of the privilege from the attribute file
+	 * Retrieves the actual name of the Component from the attribute file
 	 */
 	private void setName () {
 		byte	b_data = 0;
@@ -96,8 +96,8 @@ public class Component {
 	}
 
 	/***
-	 * 
-	 * @return
+	 * Creates an XML structure for the component.
+	 * @return Element with the Component tag with a ComponentName attribute.
 	 */
 	public Element serialize () {
 		Element eGroup = (WebCatalog.docWebcat).createElement("Component");
@@ -107,9 +107,9 @@ public class Component {
 	}
 
 
-	/***
-	 * 
-	 * @param f
+	/**
+	 * Constructor of each component.
+	 * @param f Attribute file storing the unscrambled name of the component.
 	 */
 	public Component (File f) {
 		if (f.canRead()) {
