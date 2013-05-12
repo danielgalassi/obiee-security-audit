@@ -21,7 +21,10 @@ public class Privilege {
 	private String sPrivName = "";
 	private Vector <String> vsGranted;
 	private Vector <String> vsDenied;
-
+	private static final String[] sOOTBRoles = {"BIConsumer",
+												"BIAuthor",
+												"BIAdministrator"};
+	
 	/**
 	 * Provides a list of roles that have been granted access to the privilege.
 	 * @return List of roles as stored in 
@@ -88,11 +91,9 @@ public class Privilege {
 				else
 					vsGranted.add (sTempGroupName);
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -103,6 +104,14 @@ public class Privilege {
 		return sPrivName;
 	}
 
+	private boolean isOOTBRole (String sRoleName) {
+		boolean isOOTB = false;
+		for (int i=0; i<sOOTBRoles.length; i++)
+			if (sOOTBRoles[i].equals(sRoleName))
+				isOOTB = true;
+		return isOOTB;
+	}
+	
 	/**
 	 * 
 	 * @return
@@ -119,6 +128,7 @@ public class Privilege {
 			eRole = (WebCatalog.docWebcat).createElement("Role");
 			eRole.appendChild(nRole);
 			eRole.setAttribute("access", "Granted");
+			eRole.setAttribute("isOOTBRole", isOOTBRole(vsGranted.get(i))+"");
 			eRoleList.appendChild(eRole);
 		}
 		for (int i=0; i<vsDenied.size(); i++) {
@@ -126,6 +136,7 @@ public class Privilege {
 			eRole = (WebCatalog.docWebcat).createElement("Role");
 			eRole.appendChild(nRole);
 			eRole.setAttribute("access", "Denied");
+			eRole.setAttribute("isOOTBRole", isOOTBRole(vsDenied.get(i))+"");
 			eRoleList.appendChild(eRole);
 		}
 
