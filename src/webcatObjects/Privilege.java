@@ -9,9 +9,15 @@ import java.util.Vector;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+/**
+ * 
+ * @author danielgalassi@gmail.com
+ *
+ */
 public class Privilege {
 
-	private File privilegeAttribs, privilegeDir;
+	private PrivilegeAttribFile privilegeAttrib;
+	private File privilegeDir;
 	private String sPrivName = "";
 	private Vector <String> vsGranted;
 	private Vector <String> vsDenied;
@@ -97,7 +103,7 @@ public class Privilege {
 		int		l = 0;
 
 		try {
-			FileInputStream file_input = new FileInputStream (privilegeAttribs);
+			FileInputStream file_input = new FileInputStream (privilegeAttrib);
 			DataInputStream data_in    = new DataInputStream (file_input);
 
 			//looking for the length of the actual name
@@ -167,20 +173,15 @@ public class Privilege {
 	 */
 	public Privilege (File f, String sGroup) {
 		if (f.canRead()) {
-			privilegeAttribs = f;
+			privilegeAttrib = new PrivilegeAttribFile(f.toString());
 
 			setName();
 
-			try {
-				privilegeDir = new File(privilegeAttribs.
-						getCanonicalFile().toString().replace(".atr", ""));
+				privilegeDir = new File(privilegeAttrib.getAttribDir());
 				if (!privilegeDir.canRead())
 					privilegeDir = null;
 				else
 					readPrivileges();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

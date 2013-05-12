@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
  */
 public class Component {
 
-	private File fComponentATR = null;
+	private PrivilegeAttribFile ComponentAttrib = null;
 	private File fComponentDir = null;
 	private String sPrivGroupName = "";
 	private Vector <Privilege> vPrivs;
@@ -69,7 +69,7 @@ public class Component {
 		int		l = 0;
 
 		try {
-			FileInputStream file_input = new FileInputStream (fComponentATR);
+			FileInputStream file_input = new FileInputStream (ComponentAttrib);
 			DataInputStream data_in    = new DataInputStream (file_input);
 
 			//looking for the length of the actual name
@@ -97,7 +97,7 @@ public class Component {
 
 	/***
 	 * Creates an XML structure for the component.
-	 * @return Element with the Component tag with a ComponentName attribute.
+	 * @return <code>Element</code> with the Component tag with a ComponentName attribute.
 	 */
 	public Element serialize () {
 		Element eGroup = (WebCatalog.docWebcat).createElement("Component");
@@ -113,19 +113,15 @@ public class Component {
 	 */
 	public Component (File f) {
 		if (f.canRead()) {
-			fComponentATR = f;
+			ComponentAttrib = new PrivilegeAttribFile(f.toString());
 
 			setName();
 			System.out.println(getName());
-			try {
-				fComponentDir = new File(fComponentATR.getCanonicalFile().toString().replace(".atr", ""));
-				if (!fComponentDir.canRead())
-					fComponentDir = null;
-				else
-					setPrivs();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			fComponentDir = new File(ComponentAttrib.getAttribDir());
+			if (!fComponentDir.canRead())
+				fComponentDir = null;
+			else
+				setPrivs();
 		}
 	}
 }

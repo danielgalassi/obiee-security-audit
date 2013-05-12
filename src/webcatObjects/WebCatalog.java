@@ -9,6 +9,11 @@ import org.w3c.dom.Element;
 
 import xmlutils.XMLUtils;
 
+/**
+ * 
+ * @author danielgalassi@gmail.com
+ *
+ */
 public class WebCatalog {
 
 	private File fWebcat = null;
