@@ -14,7 +14,7 @@ public class WebCatalog {
 	private File fWebcat = null;
 	protected static Document docWebcat = XMLUtils.createDOMDocument();
 	protected static Element eWebcat = docWebcat.createElement("WebCat");
-	private Vector <PrivilegeSettings> privs;
+	private Vector <Component> privs;
 
 	/***
 	 * 
@@ -40,7 +40,7 @@ public class WebCatalog {
 	 */
 	public void processWebCatPrivileges() {
 		File[] fList = null;
-		privs = new Vector <PrivilegeSettings> ();
+		privs = new Vector <Component> ();
 
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
@@ -58,7 +58,7 @@ public class WebCatalog {
 
 		fList = getPrivilegesDirectory().listFiles(filter);
 		for (int i=0; i<fList.length; i++)
-			privs.add(new PrivilegeSettings(fList[i]));
+			privs.add(new Component(fList[i]));
 
 		eWebcat.setAttribute("app", "obiee-security-audit");
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");

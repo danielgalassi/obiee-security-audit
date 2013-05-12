@@ -9,15 +9,20 @@ import java.util.Vector;
 
 import org.w3c.dom.Element;
 
-public class PrivilegeSettings {
+/**
+ * Low-level privileges are grouped into Components.
+ * @author danielgalassi@gmail.com
+ *
+ */
+public class Component {
 
 	private File fPrivATR = null;
 	private File fPrivDir = null;
 	private String sPrivGroupName = "";
 	private Vector <Privilege> vPrivs;
 
-	/***
-	 * 
+	/**
+	 * Analyses the list of privileges for each component.
 	 */
 	private void setPrivs () {
 		vPrivs = new Vector <Privilege>();
@@ -49,23 +54,15 @@ public class PrivilegeSettings {
 	}
 
 	/***
-	 * 
-	 * @return
-	 */
-	public String getDirectory () {
-		return fPrivDir.toString();
-	}
-
-	/***
-	 * 
-	 * @return
+	 * Returns the name of this privilege.
+	 * @return the component name.
 	 */
 	public String getName () {
 		return sPrivGroupName;
 	}
 
 	/***
-	 * 
+	 * Retrieves the actual name of the privilege from the attribute file
 	 */
 	private void setName () {
 		byte	b_data = 0;
@@ -98,6 +95,10 @@ public class PrivilegeSettings {
 		}
 	}
 
+	/***
+	 * 
+	 * @return
+	 */
 	public Element serialize () {
 		Element eGroup = (WebCatalog.docWebcat).createElement("Component");
 		eGroup.setAttribute("ComponentName", sPrivGroupName);
@@ -110,7 +111,7 @@ public class PrivilegeSettings {
 	 * 
 	 * @param f
 	 */
-	public PrivilegeSettings (File f) {
+	public Component (File f) {
 		if (f.canRead()) {
 			fPrivATR = f;
 
