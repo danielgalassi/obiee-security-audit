@@ -62,40 +62,6 @@ public class Component {
 	}
 
 	/***
-	 * Retrieves the actual name of the Component from the attribute file
-	 */
-	private void setName () {
-		byte	b_data = 0;
-		int		l = 0;
-
-		try {
-			FileInputStream file_input = new FileInputStream (ComponentAttrib);
-			DataInputStream data_in    = new DataInputStream (file_input);
-
-			//looking for the length of the actual name
-			for (int i = 0; i<8; i++) {
-				b_data = data_in.readByte();
-				if (i==4)
-					l = b_data;
-			}
-
-			//retrieving the name reading bytes,
-			//converting them to a string
-			for (int i = 0; i<l; i++) {
-				b_data = data_in.readByte();
-				char c = (char)b_data;
-				if (b_data < 0)
-					c = '-';
-				sPrivGroupName = sPrivGroupName + c;
-			}
-
-			data_in.close ();
-		} catch  (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/***
 	 * Creates an XML structure for the component.
 	 * @return <code>Element</code> with the Component tag with a ComponentName attribute.
 	 */
@@ -115,7 +81,7 @@ public class Component {
 		if (f.canRead()) {
 			ComponentAttrib = new PrivilegeAttribFile(f.toString());
 
-			setName();
+			sPrivGroupName = ComponentAttrib.getName();
 			System.out.println(getName());
 			fComponentDir = new File(ComponentAttrib.getAttribDir());
 			if (!fComponentDir.canRead())

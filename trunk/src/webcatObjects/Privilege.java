@@ -95,43 +95,7 @@ public class Privilege {
 
 	}
 
-	/***
-	 * 
-	 */
-	private void setName () {
-		byte	b_data = 0;
-		int		l = 0;
-
-		try {
-			FileInputStream file_input = new FileInputStream (privilegeAttrib);
-			DataInputStream data_in    = new DataInputStream (file_input);
-
-			//looking for the length of the actual name
-			for (int i = 0; i<8; i++) {
-				b_data = data_in.readByte();
-				if (i==4)
-					l = b_data;
-			}
-
-			//retrieving the name reading bytes,
-			//converting them to a string
-			for (int i = 0; i<l; i++) {
-				b_data = data_in.readByte();
-				char c = (char)b_data;
-				if (b_data < 0)
-					c = '-';
-				sPrivName = sPrivName + c;
-			}
-
-			sPrivName = sPrivName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
-
-			data_in.close ();
-		} catch  (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/***
+	/**
 	 * 
 	 * @return
 	 */
@@ -139,6 +103,10 @@ public class Privilege {
 		return sPrivName;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Element serialize () {
 		Element eRole;
 		Node nRole;
@@ -175,13 +143,14 @@ public class Privilege {
 		if (f.canRead()) {
 			privilegeAttrib = new PrivilegeAttribFile(f.toString());
 
-			setName();
+			sPrivName = privilegeAttrib.getName();
+			System.out.println(getName());
 
-				privilegeDir = new File(privilegeAttrib.getAttribDir());
-				if (!privilegeDir.canRead())
-					privilegeDir = null;
-				else
-					readPrivileges();
+			privilegeDir = new File(privilegeAttrib.getAttribDir());
+			if (!privilegeDir.canRead())
+				privilegeDir = null;
+			else
+				readPrivileges();
 		}
 	}
 }
