@@ -140,7 +140,7 @@ public class WebcatAudit {
 		int nGroups;
 		String y;
 
-		System.out.println("Starting...");
+		System.out.println("\nStarting...");
 
 		try {
 			file_input = new FileInputStream(f);
@@ -187,32 +187,6 @@ public class WebcatAudit {
 
 	}
 
-	/***
-	 * 
-	 * @param fWebCatLocation
-	 */
-	private static void processWebCatPrivileges(File fWebCatLocation) {
-		FilenameFilter filter = new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				if(name.lastIndexOf('.')>0)
-				{
-					int lastIndex = name.lastIndexOf('.');
-					String str = name.substring(lastIndex);
-					if(str.equals(".atr"))
-						return true;
-				}
-				return false;
-			}
-		};
-
-		System.out.println("Only .atr (Privs) files...");
-		String[] sd = fWebCatLocation.list(filter);
-		for (int i=0; i<sd.length; i++) {
-			System.out.println(sd[i] + "\t\t-->\t" + getSAWNameUnscrambled(new File(fWebCatLocation.getPath() + "\\" + sd[i]), true));
-		}
-	}
-
 	/**
 	 * @param args
 	 */
@@ -223,7 +197,7 @@ public class WebcatAudit {
 
 		//picking up parameters
 		for (int a=0; a<args.length; a++)
-			//Web Catalogue Location
+			//Web Catalog Location
 			if (args[a].startsWith("-w="))
 				sWebcatLocation = args[a].replaceAll("-w=", "");
 
@@ -232,15 +206,14 @@ public class WebcatAudit {
 			wc.processWebCatPrivileges();
 		}
 
-/*
 		File f = new File(".\\sampleCases\\answers.atr");
 		if (!f.canRead())
 			System.out.println("Please check path.");
-		//System.out.println("Fancy Name: " + getSAWNameUnscrambled(f));
 		readPrivileges(f);
-		File f = new File(".\\sampleCases\\myaccountprivs.atr");
-		System.out.println("\n\n----------\nPrivs file");
+
+		f = new File(".\\sampleCases\\myaccountprivs.atr");
+		System.out.println("\n----------\nPrivs file");
 		System.out.println(getSAWNameUnscrambled(f, true));
-*/
+
 	}
 }
