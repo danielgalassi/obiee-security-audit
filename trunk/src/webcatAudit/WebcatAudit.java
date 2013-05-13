@@ -158,7 +158,7 @@ public class WebcatAudit {
 					iRead = data_in.read();
 
 				iGroupLength = data_in.read();
-				System.out.println("Group name length: " + iGroupLength);
+				System.out.print("Group name length: " + iGroupLength + "\t");
 
 				//ignoring next three bytes
 				for (int i=0; i<3; i++)
