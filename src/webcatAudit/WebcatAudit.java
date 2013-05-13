@@ -39,7 +39,6 @@ public class WebcatAudit {
 				if (b_data < 0)
 					c = '-';
 				y = y + c;
-				//System.out.println(y);
 			}
 
 			int val = 0;
@@ -54,12 +53,7 @@ public class WebcatAudit {
 
 	}
 
-	/***
-	 * 
-	 * @param fWorkingNode
-	 * @param isPrivsFile
-	 * @return
-	 */
+/*
 	public static String getSAWNameUnscrambled(File fWorkingNode, boolean isPrivsFile) {
 		File	fSAW = null;
 		String	sSAWName = "";
@@ -126,6 +120,7 @@ public class WebcatAudit {
 			}
 		return sSAWName.replaceAll("---", "-");
 	}
+*/
 
 	/***
 	 * 
@@ -210,10 +205,5 @@ public class WebcatAudit {
 		if (!f.canRead())
 			System.out.println("Please check path.");
 		readPrivileges(f);
-
-		f = new File(".\\sampleCases\\myaccountprivs.atr");
-		System.out.println("\n----------\nPrivs file");
-		System.out.println(getSAWNameUnscrambled(f, true));
-
 	}
 }
