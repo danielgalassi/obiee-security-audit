@@ -205,8 +205,8 @@ public class WebcatAudit {
 		if (sWebcatLocation != null)
 			wc = new WebCatalog(sWebcatLocation);
 
-		if (wc != null && isPrivilegeAuditInvoked)
-			wc.processWebCatPrivileges();
+		//if (wc != null && isPrivilegeAuditInvoked)
+		//	wc.processWebCatPrivileges();
 
 		if (wc != null && isDashboardAuditInvoked)
 			wc.processDashboards();
