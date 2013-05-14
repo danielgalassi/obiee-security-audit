@@ -7,7 +7,7 @@ import java.util.Vector;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import webcatSharedObjects.SharedFolder;
+import webcatSharedObjects.DashboardGroup;
 import webcatSystemObjects.Component;
 import xmlutils.XMLUtils;
 
@@ -24,7 +24,7 @@ public class WebCatalog {
 	public static Element		eCompList	= docWebcat.createElement("ComponentList");
 	public static Element		eDashList	= docWebcat.createElement("DashboardList");
 	private Vector <Component>	privs;
-	private Vector <SharedFolder>	dash;
+	private Vector <DashboardGroup>	dash;
 
 	/***
 	 * 
@@ -61,7 +61,7 @@ public class WebCatalog {
 	 */
 	public void processDashboards() {
 		File[] folderList = null;
-		dash = new Vector <SharedFolder> ();
+		dash = new Vector <DashboardGroup> ();
 
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
@@ -73,7 +73,7 @@ public class WebCatalog {
 
 		folderList = getSharedDirectory().listFiles(filter);
 		for (int i=0; i<folderList.length; i++)
-			dash.add(new SharedFolder(folderList[i]));
+			dash.add(new DashboardGroup(folderList[i]));
 
 		eWebcat.appendChild(eDashList);
 	}
