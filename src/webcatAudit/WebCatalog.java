@@ -20,7 +20,7 @@ public class WebCatalog {
 	private File fWebcat = null;
 	public static Document docWebcat = XMLUtils.createDOMDocument();
 	private static Element eWebcat = docWebcat.createElement("WebCat");
-	public static Element eCompList = docWebcat.createElement("ComponenetList");
+	public static Element eCompList = docWebcat.createElement("ComponentList");
 	private Vector <Component> privs;
 
 	/***
@@ -67,8 +67,6 @@ public class WebCatalog {
 		for (int i=0; i<fList.length; i++)
 			privs.add(new Component(fList[i]));
 
-		eWebcat.setAttribute("app", "obiee-security-audit");
-		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
 		eWebcat.appendChild(eCompList);
 		docWebcat.appendChild(eWebcat);
 		XMLUtils.Document2File((WebCatalog.docWebcat), ".\\Webcat.xml");
@@ -81,5 +79,8 @@ public class WebCatalog {
 	public WebCatalog(String sLocation) {
 		if (!sLocation.isEmpty())
 			fWebcat = new File (sLocation);
+		eWebcat.setAttribute("app", "obiee-security-audit");
+		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
+
 	}
 }
