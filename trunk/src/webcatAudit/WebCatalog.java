@@ -1,4 +1,4 @@
-package webcatSystemObjects;
+package webcatAudit;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -7,6 +7,7 @@ import java.util.Vector;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import webcatSystemObjects.Component;
 import xmlutils.XMLUtils;
 
 /**
@@ -17,8 +18,8 @@ import xmlutils.XMLUtils;
 public class WebCatalog {
 
 	private File fWebcat = null;
-	protected static Document docWebcat = XMLUtils.createDOMDocument();
-	protected static Element eWebcat = docWebcat.createElement("WebCat");
+	public static Document docWebcat = XMLUtils.createDOMDocument();
+	public static Element eWebcat = docWebcat.createElement("WebCat");
 	private Vector <Component> privs;
 
 	/***

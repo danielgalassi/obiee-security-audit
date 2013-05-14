@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
-import webcatSystemObjects.WebCatalog;
 
 public class WebcatAudit {
 
