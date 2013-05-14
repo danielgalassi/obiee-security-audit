@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import org.w3c.dom.Element;
 
+import utils.PrivilegeAttribFile;
 import webcatAudit.WebCatalog;
 
 /**

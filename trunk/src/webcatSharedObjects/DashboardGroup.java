@@ -2,7 +2,7 @@ package webcatSharedObjects;
 
 import java.io.File;
 
-import webcatSystemObjects.PrivilegeAttribFile;
+import utils.PrivilegeAttribFile;
 
 public class DashboardGroup {
 
