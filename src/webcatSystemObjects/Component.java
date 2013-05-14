@@ -6,6 +6,8 @@ import java.util.Vector;
 
 import org.w3c.dom.Element;
 
+import webcatAudit.WebCatalog;
+
 /**
  * Low-level privileges are grouped into Components.
  * @author danielgalassi@gmail.com
