@@ -8,6 +8,9 @@ import java.io.IOException;
 
 public class WebcatAudit {
 
+	private static boolean isPrivilegeAuditInvoked = false;
+	private static boolean isDashboardAuditInvoked = false;
+
 	/***
 	 * 
 	 * @param o
@@ -189,14 +192,23 @@ public class WebcatAudit {
 		String sWebcatLocation = null;
 
 		//picking up parameters
-		for (int a=0; a<args.length; a++)
+		for (int a=0; a<args.length; a++) {
 			//Web Catalog Location
 			if (args[a].startsWith("-w="))
 				sWebcatLocation = args[a].replaceAll("-w=", "");
+			if (args[a].startsWith("-privs"))
+				isPrivilegeAuditInvoked = true;
+			if (args[a].startsWith("-dashboards"))
+				isDashboardAuditInvoked = true;
+		}
 
-		if (sWebcatLocation != null) {
+		if (sWebcatLocation != null && isPrivilegeAuditInvoked) {
 			wc = new WebCatalog(sWebcatLocation);
 			wc.processWebCatPrivileges();
+		}
+
+		if (sWebcatLocation != null && isDashboardAuditInvoked) {
+			;
 		}
 
 		File f = new File(".\\sampleCases\\answers.atr");
