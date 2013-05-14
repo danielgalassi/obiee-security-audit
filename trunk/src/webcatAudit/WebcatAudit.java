@@ -3,7 +3,6 @@ package webcatAudit;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 
 
@@ -52,7 +51,7 @@ public class WebcatAudit {
 
 	}
 
-/*
+	/*
 	public static String getSAWNameUnscrambled(File fWorkingNode, boolean isPrivsFile) {
 		File	fSAW = null;
 		String	sSAWName = "";
@@ -119,7 +118,7 @@ public class WebcatAudit {
 			}
 		return sSAWName.replaceAll("---", "-");
 	}
-*/
+	 */
 
 	/***
 	 * 
@@ -203,6 +202,7 @@ public class WebcatAudit {
 		File f = new File(".\\sampleCases\\answers.atr");
 		if (!f.canRead())
 			System.out.println("Please check path.");
-		readPrivileges(f);
+		else
+			readPrivileges(f);
 	}
 }
