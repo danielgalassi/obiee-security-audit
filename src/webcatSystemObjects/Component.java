@@ -47,7 +47,7 @@ public class Component {
 		for (int i=0; i<fPrivList.length; i++) {
 			vPrivs.add(new Privilege(fPrivList[i], getName()));
 			e.appendChild(vPrivs.get(i).serialize());
-			(WebCatalog.eWebcat).appendChild(e);
+			(WebCatalog.eCompList).appendChild(e);
 		}
 
 	}
