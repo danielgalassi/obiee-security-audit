@@ -7,6 +7,7 @@ import java.util.Vector;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import webcatSharedObjects.Dashboard;
 import webcatSystemObjects.Component;
 import xmlutils.XMLUtils;
 
@@ -18,10 +19,12 @@ import xmlutils.XMLUtils;
 public class WebCatalog {
 
 	private File fWebcat = null;
-	public static Document docWebcat = XMLUtils.createDOMDocument();
-	private static Element eWebcat = docWebcat.createElement("WebCat");
-	public static Element eCompList = docWebcat.createElement("ComponentList");
-	private Vector <Component> privs;
+	public static Document		docWebcat	= XMLUtils.createDOMDocument();
+	private static Element		eWebcat		= docWebcat.createElement("WebCat");
+	public static Element		eCompList	= docWebcat.createElement("ComponentList");
+	public static Element		eDashList	= docWebcat.createElement("DashboardList");
+	private Vector <Component>	privs;
+	private Vector <Dashboard>	dash;
 
 	/***
 	 * 
@@ -40,6 +43,39 @@ public class WebCatalog {
 		if (!f.canRead())
 			f = null;
 		return (f);
+	}
+
+	/***
+	 * 
+	 * @return
+	 */
+	public File getSharedDirectory() {
+		File f = new File(fWebcat + "\\root\\shared");
+		if (!f.canRead())
+			f = null;
+		return (f);
+	}
+
+	/***
+	 * 
+	 */
+	public void processDashboards() {
+		File[] folderList = null;
+		dash = new Vector <Dashboard> ();
+
+		FilenameFilter filter = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				File f = new File (dir, name + "\\_portal");
+				return (f.isDirectory() && f.canRead());
+			}
+		};
+
+		folderList = getSharedDirectory().listFiles(filter);
+		for (int i=0; i<folderList.length; i++)
+			dash.add(new Dashboard(folderList[i]));
+
+		eWebcat.appendChild(eDashList);
 	}
 
 	/***
@@ -68,6 +104,9 @@ public class WebCatalog {
 			privs.add(new Component(fList[i]));
 
 		eWebcat.appendChild(eCompList);
+	}
+
+	public void save() {
 		docWebcat.appendChild(eWebcat);
 		XMLUtils.Document2File((WebCatalog.docWebcat), ".\\Webcat.xml");
 	}

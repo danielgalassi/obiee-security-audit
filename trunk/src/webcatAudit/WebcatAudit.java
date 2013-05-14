@@ -202,14 +202,16 @@ public class WebcatAudit {
 				isDashboardAuditInvoked = true;
 		}
 
-		if (sWebcatLocation != null && isPrivilegeAuditInvoked) {
+		if (sWebcatLocation != null)
 			wc = new WebCatalog(sWebcatLocation);
-			wc.processWebCatPrivileges();
-		}
 
-		if (sWebcatLocation != null && isDashboardAuditInvoked) {
-			;
-		}
+		if (wc != null && isPrivilegeAuditInvoked)
+			wc.processWebCatPrivileges();
+
+		if (wc != null && isDashboardAuditInvoked)
+			wc.processDashboards();
+
+		wc.save();
 
 		File f = new File(".\\sampleCases\\answers.atr");
 		if (!f.canRead())
