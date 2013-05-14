@@ -2,20 +2,20 @@ package webcatSharedObjects;
 
 import java.io.File;
 
+import webcatSystemObjects.PrivilegeAttribFile;
+
 public class DashboardGroup {
 
-	private String sDashboardGroup = "";
-
+	private PrivilegeAttribFile groupAttrib = null;
+	private String sDashboardGroupName = "";
 
 	public DashboardGroup (File f) {
 		if (f.canRead()) {
-			System.out.println(f.toString()+".atr");
+			groupAttrib = new PrivilegeAttribFile(f.toString()+".atr");
 
-			
+			sDashboardGroupName = groupAttrib.getName();
+			System.out.println(sDashboardGroupName);
 			/*
-			ComponentAttrib = new PrivilegeAttribFile(f.toString());
-
-			sPrivGroupName = ComponentAttrib.getName();
 			System.out.println(getName());
 			fComponentDir = new File(ComponentAttrib.getAttribDir());
 			if (!fComponentDir.canRead())
