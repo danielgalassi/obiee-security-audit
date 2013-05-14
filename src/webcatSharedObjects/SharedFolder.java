@@ -4,14 +4,14 @@ import java.io.File;
 
 public class SharedFolder {
 
-	private String sDashboardName = "";
+	private String sDashboardGroup = "";
 
 
 	public SharedFolder (File f) {
 		if (f.canRead()) {
-			System.out.println(f);
+			System.out.println(f.toString()+".atr");
 
-
+			
 			/*
 			ComponentAttrib = new PrivilegeAttribFile(f.toString());
 
