@@ -4,8 +4,14 @@ import java.io.File;
 
 public class Dashboard {
 
+	private String sDashboardName = "";
+
+
 	public Dashboard (File f) {
 		if (f.canRead()) {
+			System.out.println(f);
+
+
 			/*
 			ComponentAttrib = new PrivilegeAttribFile(f.toString());
 
