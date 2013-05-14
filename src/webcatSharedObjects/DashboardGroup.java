@@ -2,12 +2,12 @@ package webcatSharedObjects;
 
 import java.io.File;
 
-public class SharedFolder {
+public class DashboardGroup {
 
 	private String sDashboardGroup = "";
 
 
-	public SharedFolder (File f) {
+	public DashboardGroup (File f) {
 		if (f.canRead()) {
 			System.out.println(f.toString()+".atr");
 
