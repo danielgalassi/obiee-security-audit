@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Vector;
 
+import org.w3c.dom.Element;
+
 import utils.PrivilegeAttribFile;
+import webcatAudit.WebCatalog;
 
 public class Dashboard {
 
@@ -29,8 +32,14 @@ public class Dashboard {
 		pageList = fDashboardDir.listFiles(filter);
 		for (int i=0; i<pageList.length; i++)
 			vPages.add(new DashboardPage(pageList[i]));
+	}
 
-		//eWebcat.appendChild(eDashList);
+	public Element serialize() {
+		Element eDashboard = (WebCatalog.docWebcat).createElement("Dashboard");
+
+		eDashboard.setAttribute("DashboardName", sDashboardName);
+
+		return eDashboard;
 	}
 
 	public Dashboard (File fDashboard) {

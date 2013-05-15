@@ -19,10 +19,10 @@ import xmlutils.XMLUtils;
 public class WebCatalog {
 
 	private File fWebcat = null;
-	public static Document		docWebcat	= XMLUtils.createDOMDocument();
-	private static Element		eWebcat		= docWebcat.createElement("WebCat");
-	public static Element		eCompList	= docWebcat.createElement("ComponentList");
-	public static Element		eDashList	= docWebcat.createElement("DashboardList");
+	public static Document		docWebcat		= XMLUtils.createDOMDocument();
+	private static Element		eWebcat			= docWebcat.createElement("WebCat");
+	public static Element		eCompList		= docWebcat.createElement("ComponentList");
+	public static Element		eDashGroupList	= docWebcat.createElement("DashboardGroupList");
 	private Vector <Component>	privs;
 	private Vector <DashboardGroup>	dash;
 
@@ -75,7 +75,7 @@ public class WebCatalog {
 		for (int i=0; i<folderList.length; i++)
 			dash.add(new DashboardGroup(folderList[i]));
 
-		eWebcat.appendChild(eDashList);
+		eWebcat.appendChild(eDashGroupList);
 	}
 
 	/***
