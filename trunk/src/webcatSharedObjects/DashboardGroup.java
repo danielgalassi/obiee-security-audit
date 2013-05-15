@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Vector;
 
+import org.w3c.dom.Element;
+
 import utils.PrivilegeAttribFile;
+import webcatAudit.WebCatalog;
 
 public class DashboardGroup {
 
@@ -33,10 +36,12 @@ public class DashboardGroup {
 		};
 
 		dashboardList = portal.listFiles(filter);
-		for (int i=0; i<dashboardList.length; i++)
+		Element e = serialize();
+		for (int i=0; i<dashboardList.length; i++) {
 			vDashboards.add(new Dashboard(dashboardList[i]));
-
-		//eWebcat.appendChild(eDashList);
+			e.appendChild(vDashboards.get(i).serialize());
+			(WebCatalog.eDashGroupList).appendChild(e);
+		}
 	}
 
 	/***
@@ -45,6 +50,13 @@ public class DashboardGroup {
 	 */
 	public String getName () {
 		return sDashboardGroupName;
+	}
+
+	public Element serialize () {
+		Element eGroup = (WebCatalog.docWebcat).createElement("DashboardGroup");
+		eGroup.setAttribute("DashboardGroupName", sDashboardGroupName);
+
+		return (eGroup);
 	}
 
 	public DashboardGroup (File f) {
