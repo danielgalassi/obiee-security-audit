@@ -10,34 +10,29 @@ public class DashboardGroup {
 
 	private PrivilegeAttribFile groupAttrib = null;
 	private String sDashboardGroupName = "";
-	private File fDashboardDir = null;
+	private File fDashboardGroupDir = null;
 	private Vector <Dashboard> vDashboards;
 
 
-	private void setDashboards() {
+	private void traverseDashboards() {
+		File portal = new File (fDashboardGroupDir+"\\_portal");
 		File[] dashboardList = null;
 		vDashboards = new Vector <Dashboard> ();
-		
+
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				System.out.println(new File(dir, name));
-				if(name.lastIndexOf('.')>0)
-				{
-					int lastIndex = name.lastIndexOf('.');
-					String str = name.substring(lastIndex);
-					//selecting only attribute files
-					if(str.equals(".atr") && 
-						name.indexOf("dvt") == -1 && 
-						!name.startsWith("_"))
+				File dashboard = null;
+				if (!name.endsWith(".atr")) {
+					dashboard = new File(dir+"\\"+name+"\\dashboard+layout");
+					if(dashboard.canRead() && dashboard.isFile())
 						return true;
 				}
 				return false;
 			}
 		};
 
-		System.out.println(sDashboardGroupName);
-		dashboardList = fDashboardDir.listFiles(filter);
+		dashboardList = portal.listFiles(filter);
 		for (int i=0; i<dashboardList.length; i++)
 			vDashboards.add(new Dashboard(dashboardList[i]));
 
@@ -54,11 +49,12 @@ public class DashboardGroup {
 
 	public DashboardGroup (File f) {
 		if (f.canRead()) {
-			fDashboardDir = f;
-			groupAttrib = new PrivilegeAttribFile(fDashboardDir+".atr");
+			fDashboardGroupDir = f;
+			groupAttrib = new PrivilegeAttribFile(fDashboardGroupDir+".atr");
 
 			sDashboardGroupName = groupAttrib.getName();
-			setDashboards();
+			System.out.println(sDashboardGroupName);
+			traverseDashboards();
 		}
 	}
 
