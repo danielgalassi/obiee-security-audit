@@ -72,8 +72,10 @@ public class WebCatalog {
 		};
 
 		folderList = getSharedDirectory().listFiles(filter);
-		for (int i=0; i<folderList.length; i++)
+		for (int i=0; i<folderList.length; i++) {
 			dash.add(new DashboardGroup(folderList[i]));
+			eDashGroupList.appendChild(dash.get(i).serialize());
+		}
 
 		eWebcat.appendChild(eDashGroupList);
 	}
