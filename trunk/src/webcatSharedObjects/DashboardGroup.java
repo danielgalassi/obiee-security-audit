@@ -56,6 +56,8 @@ public class DashboardGroup {
 		for (int i=0; i<vDashboards.size(); i++)
 			eDashList.appendChild(vDashboards.get(i).serialize());
 
+		eGroup.appendChild(eDashList);
+
 		return (eGroup);
 	}
 

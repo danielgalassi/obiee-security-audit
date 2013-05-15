@@ -37,12 +37,14 @@ public class Dashboard {
 	}
 
 	public Element serialize() {
+		Element eDashboardPageList = (WebCatalog.docWebcat).createElement("DashboardPageList");
 		Element eDashboard = (WebCatalog.docWebcat).createElement("Dashboard");
 		eDashboard.setAttribute("DashboardName", sDashboardName);
 
 		for (int i=0; i<vPages.size(); i++)
-			eDashboard.appendChild(vPages.get(i).serialize());
+			eDashboardPageList.appendChild(vPages.get(i).serialize());
 
+		eDashboard.appendChild(eDashboardPageList);
 		return eDashboard;
 	}
 
