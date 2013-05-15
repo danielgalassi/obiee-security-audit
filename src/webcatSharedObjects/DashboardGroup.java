@@ -36,25 +36,26 @@ public class DashboardGroup {
 		};
 
 		dashboardList = portal.listFiles(filter);
-		Element e = serialize();
-		for (int i=0; i<dashboardList.length; i++) {
+		for (int i=0; i<dashboardList.length; i++)
 			vDashboards.add(new Dashboard(dashboardList[i]));
-			e.appendChild(vDashboards.get(i).serialize());
-			(WebCatalog.eDashGroupList).appendChild(e);
-		}
 	}
 
 	/***
 	 * Returns the name of this Dashboard Group.
 	 * @return the group name.
 	 */
-	public String getName () {
+	public String getName() {
 		return sDashboardGroupName;
 	}
 
-	public Element serialize () {
+	public Element serialize() {
 		Element eGroup = (WebCatalog.docWebcat).createElement("DashboardGroup");
+		Element eDashList = (WebCatalog.docWebcat).createElement("DashboardList");
 		eGroup.setAttribute("DashboardGroupName", sDashboardGroupName);
+
+		for (int i=0; i<vDashboards.size(); i++)
+			eDashList.appendChild(vDashboards.get(i).serialize());
+
 		return (eGroup);
 	}
 
