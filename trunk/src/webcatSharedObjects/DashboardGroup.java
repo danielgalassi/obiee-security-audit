@@ -55,7 +55,6 @@ public class DashboardGroup {
 	public Element serialize () {
 		Element eGroup = (WebCatalog.docWebcat).createElement("DashboardGroup");
 		eGroup.setAttribute("DashboardGroupName", sDashboardGroupName);
-
 		return (eGroup);
 	}
 
