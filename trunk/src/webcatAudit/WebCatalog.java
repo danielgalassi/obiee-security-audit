@@ -67,7 +67,12 @@ public class WebCatalog {
 			@Override
 			public boolean accept(File dir, String name) {
 				File f = new File (dir, name + "\\_portal");
-				return (f.isDirectory() && f.canRead());
+
+				if (f.isDirectory() && f.canRead())
+					if (f.listFiles().length>0)
+						return true;
+
+				return false;
 			}
 		};
 
