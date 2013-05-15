@@ -13,7 +13,7 @@ public class DashboardPage {
 		fPage = file;
 		PrivilegeAttribFile pageAttrib = new PrivilegeAttribFile(file+".atr");
 		sPageName = pageAttrib.getName();
-		System.out.println("\t\t\t" + sPageName);
+		System.out.println("\t\t" + sPageName);
 
 	}
 
