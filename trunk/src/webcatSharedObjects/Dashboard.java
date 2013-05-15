@@ -30,17 +30,19 @@ public class Dashboard {
 		};
 
 		pageList = fDashboardDir.listFiles(filter);
-		Element e = serialize();
 		for (int i=0; i<pageList.length; i++) {
 			vPages.add(new DashboardPage(pageList[i]));
-			//e.appendChild(vPages.get(i).serialize());
-			//(WebCatalog.eDashGroupList).appendChild(e);
 		}
+
 	}
 
 	public Element serialize() {
 		Element eDashboard = (WebCatalog.docWebcat).createElement("Dashboard");
 		eDashboard.setAttribute("DashboardName", sDashboardName);
+
+		for (int i=0; i<vPages.size(); i++)
+			eDashboard.appendChild(vPages.get(i).serialize());
+
 		return eDashboard;
 	}
 
