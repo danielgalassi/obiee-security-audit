@@ -2,11 +2,14 @@ package webcatSharedObjects;
 
 import java.io.File;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import utils.PrivilegeAttribFile;
 import webcatAudit.WebCatalog;
@@ -31,24 +34,21 @@ public class DashboardPage {
 
 	private void getPageAttributes(String tag) {
 		File fDashLayout = new File(fPage.getParent()+"\\dashboard+layout");
-		Document dashLayoutDOM = null;
-		NamedNodeMap attribs = null;
-		Node dashboardTag = null;
-		NodeList dashChildNodes = null;
+		Document layoutDOM = null;
 
 		if (fDashLayout.canRead()) {
-			dashLayoutDOM = XMLUtils.File2Document(fDashLayout);
-			dashboardTag = dashLayoutDOM.getFirstChild();
-			if (dashboardTag.getNodeName().equals("sawd:dashboard"))
-				if (dashboardTag.hasChildNodes()) {
-					dashChildNodes = dashboardTag.getChildNodes();
-					for (int x=0; x<dashChildNodes.getLength(); x++) {
-						attribs = dashChildNodes.item(x).getAttributes();
-						if (attribs != null) {
-							isHidden = (new Boolean(attribs.getNamedItem(tag).getNodeValue())).booleanValue();
-						}
-					}
-				}
+			layoutDOM = XMLUtils.File2Document(fDashLayout);
+
+			XPath xPath = XPathFactory.newInstance().newXPath();
+			try {
+				Node nTag = (Node)xPath.evaluate(tag, 
+												layoutDOM.getDocumentElement(),
+												XPathConstants.NODE);
+				if (nTag != null)
+					isHidden = (new Boolean(nTag.getNodeValue())).booleanValue();
+			} catch (XPathExpressionException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -56,7 +56,7 @@ public class DashboardPage {
 		fPage = file;
 		PrivilegeAttribFile pageAttrib = new PrivilegeAttribFile(file+".atr");
 		sPageName = pageAttrib.getName();
-		getPageAttributes("hidden");
+		getPageAttributes("/dashboard/dashboardPageRef[@path='"+sPageName+"']/@hidden");
 		System.out.println("\t\t" + sPageName);
 	}
 
