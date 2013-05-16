@@ -39,7 +39,7 @@ public class DashboardPage {
 		if (fDashLayout.canRead()) {
 			dashLayoutDOM = XMLUtils.File2Document(fDashLayout);
 			dashboardTag = dashLayoutDOM.getFirstChild();
-			if (dashboardTag.getNodeName().equals("sawd:dashboard")) {
+			if (dashboardTag.getNodeName().equals("sawd:dashboard"))
 				if (dashboardTag.hasChildNodes()) {
 					dashChildNodes = dashboardTag.getChildNodes();
 					for (int x=0; x<dashChildNodes.getLength(); x++) {
@@ -49,7 +49,6 @@ public class DashboardPage {
 						}
 					}
 				}
-			}
 		}
 	}
 
