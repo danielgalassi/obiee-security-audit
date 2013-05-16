@@ -4,9 +4,13 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Vector;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import utils.PrivilegeAttribFile;
@@ -21,20 +25,19 @@ public class Dashboard {
 	private Vector <DashboardPage> vPages;
 
 	private void getPageAttributes(String tag) {
-		File fDashLayout = new File(fDashboardDir+"\\dashboard+layout");
-
 		Document dashLayoutDOM = null;
-		NamedNodeMap attribs = null;
-		Node dashboardTag = null;
-
+		File fDashLayout = new File(fDashboardDir+"\\dashboard+layout");
 		if (fDashLayout.canRead()) {
 			dashLayoutDOM = XMLUtils.File2Document(fDashLayout);
-			dashboardTag = dashLayoutDOM.getFirstChild();
-			if (dashboardTag.getNodeName().equals("sawd:dashboard")) {
-				attribs = dashboardTag.getAttributes();
-				for (int x=0; x<attribs.getLength(); x++)
-					if (attribs.getNamedItem(tag) != null)
-						isOOTB = true;
+
+			XPath xPath = XPathFactory.newInstance().newXPath();
+			try {
+				Node nTag = (Node) xPath.evaluate(tag,
+						dashLayoutDOM.getDocumentElement(), XPathConstants.NODE);
+				if (nTag != null)
+					isOOTB = true;
+			} catch (XPathExpressionException e) {
+				e.printStackTrace();
 			}
 		}
 	}
@@ -80,6 +83,6 @@ public class Dashboard {
 		System.out.println("\t" + sDashboardName);
 
 		traversePages();
-		getPageAttributes("appObjectID");
+		getPageAttributes("/dashboard/@appObjectID");
 	}
 }
