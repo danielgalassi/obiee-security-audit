@@ -4,16 +4,40 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Vector;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 
 import utils.PrivilegeAttribFile;
 import webcatAudit.WebCatalog;
+import xmlutils.XMLUtils;
 
 public class Dashboard {
 
 	private File fDashboardDir = null;
+	private boolean isOOTB = false;
 	private String sDashboardName = "";
 	private Vector <DashboardPage> vPages;
+
+	private void getPageAttributes(String tag) {
+		File fDashLayout = new File(fDashboardDir+"\\dashboard+layout");
+
+		Document dashLayoutDOM = null;
+		NamedNodeMap attribs = null;
+		Node dashboardTag = null;
+
+		if (fDashLayout.canRead()) {
+			dashLayoutDOM = XMLUtils.File2Document(fDashLayout);
+			dashboardTag = dashLayoutDOM.getFirstChild();
+			if (dashboardTag.getNodeName().equals("sawd:dashboard")) {
+				attribs = dashboardTag.getAttributes();
+				for (int x=0; x<attribs.getLength(); x++)
+					if (attribs.getNamedItem(tag) != null)
+						isOOTB = true;
+			}
+		}
+	}
 
 	private void traversePages() {
 		File[] pageList = null;
@@ -40,6 +64,7 @@ public class Dashboard {
 		Element eDashboardPageList = (WebCatalog.docWebcat).createElement("DashboardPageList");
 		Element eDashboard = (WebCatalog.docWebcat).createElement("Dashboard");
 		eDashboard.setAttribute("DashboardName", sDashboardName);
+		eDashboard.setAttribute("isOOTB", isOOTB+"");
 
 		for (int i=0; i<vPages.size(); i++)
 			eDashboardPageList.appendChild(vPages.get(i).serialize());
@@ -55,5 +80,6 @@ public class Dashboard {
 		System.out.println("\t" + sDashboardName);
 
 		traversePages();
+		getPageAttributes("appObjectID");
 	}
 }
