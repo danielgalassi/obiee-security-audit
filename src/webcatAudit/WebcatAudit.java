@@ -208,8 +208,8 @@ public class WebcatAudit {
 		//if (wc != null && isPrivilegeAuditInvoked)
 		//	wc.processWebCatPrivileges();
 
-		if (wc != null && isDashboardAuditInvoked)
-			wc.processDashboards();
+		//if (wc != null && isDashboardAuditInvoked)
+		//	wc.processDashboards();
 
 		wc.save();
 

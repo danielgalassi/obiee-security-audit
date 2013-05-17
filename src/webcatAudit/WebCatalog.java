@@ -7,6 +7,7 @@ import java.util.Vector;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import utils.PrivilegeAttribFile;
 import webcatSharedObjects.DashboardGroup;
 import webcatSystemObjects.Component;
 import xmlutils.XMLUtils;
@@ -25,6 +26,32 @@ public class WebCatalog {
 	public static Element		eDashGroupList	= docWebcat.createElement("DashboardGroupList");
 	private Vector <Component>	privs;
 	private Vector <DashboardGroup>	dash;
+
+	private void listAllReports (File fSharedFolder, String tab, String unscrambledPath) {
+		System.out.println(tab + "Filesystem: " + fSharedFolder.getName() + "\t" + unscrambledPath);
+		tab += "\t";
+		FilenameFilter filter = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				if (!name.endsWith(".atr"))
+					return true;
+				return false;
+			}
+		};
+
+		File s[] = fSharedFolder.listFiles(filter);
+		for (int i=0; i<s.length; i++) {
+			PrivilegeAttribFile p = new PrivilegeAttribFile(s[i]+".atr");
+			if (s[i].isFile())
+				System.out.println("\t" + tab + "Report: " + p.getName());
+
+			if (s[i].isDirectory()) {
+				//				PrivilegeAttribFile p = new PrivilegeAttribFile(s[i]+".atr");
+				System.out.print(tab + "Unscrambled Name: " + p.getName());
+				listAllReports(s[i], tab, unscrambledPath + "\\" + p.getName());
+			}
+		}
+	}
 
 	/***
 	 * 
@@ -128,5 +155,6 @@ public class WebCatalog {
 		eWebcat.setAttribute("app", "obiee-security-audit");
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
 
+		listAllReports(getSharedDirectory(), "", "shared");
 	}
 }
