@@ -34,16 +34,15 @@ public class DashboardPage {
 
 	private void getPageAttributes(String tag) {
 		File fDashLayout = new File(fPage.getParent()+"\\dashboard+layout");
-		Document layoutDOM = null;
 
 		if (fDashLayout.canRead()) {
-			layoutDOM = XMLUtils.File2Document(fDashLayout);
-
+			Document layoutDOM = XMLUtils.File2Document(fDashLayout);
 			XPath xPath = XPathFactory.newInstance().newXPath();
+
 			try {
 				Node nTag = (Node)xPath.evaluate(tag, 
-												layoutDOM.getDocumentElement(),
-												XPathConstants.NODE);
+						layoutDOM.getDocumentElement(),
+						XPathConstants.NODE);
 				if (nTag != null)
 					isHidden = (new Boolean(nTag.getNodeValue())).booleanValue();
 			} catch (XPathExpressionException e) {
