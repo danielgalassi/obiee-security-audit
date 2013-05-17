@@ -60,7 +60,6 @@ public class Dashboard {
 		for (int i=0; i<pageList.length; i++) {
 			vPages.add(new DashboardPage(pageList[i]));
 		}
-
 	}
 
 	public Element serialize() {
