@@ -25,15 +25,15 @@ public class Dashboard {
 	private Vector <DashboardPage> vPages;
 
 	private void getPageAttributes(String tag) {
-		Document dashLayoutDOM = null;
 		File fDashLayout = new File(fDashboardDir+"\\dashboard+layout");
 		if (fDashLayout.canRead()) {
-			dashLayoutDOM = XMLUtils.File2Document(fDashLayout);
-
+			Document dashLayoutDOM = XMLUtils.File2Document(fDashLayout);
 			XPath xPath = XPathFactory.newInstance().newXPath();
+
 			try {
 				Node nTag = (Node) xPath.evaluate(tag,
-						dashLayoutDOM.getDocumentElement(), XPathConstants.NODE);
+						dashLayoutDOM.getDocumentElement(),
+						XPathConstants.NODE);
 				if (nTag != null)
 					isOOTB = true;
 			} catch (XPathExpressionException e) {
