@@ -42,6 +42,7 @@ public class WebCatalog {
 		File s[] = fSharedFolder.listFiles(filter);
 		for (int i=0; i<s.length; i++) {
 			PrivilegeAttribFile p = new PrivilegeAttribFile(s[i]+".atr");
+
 			if (s[i].isFile())
 				System.out.println("\t" + tab + "Report: " + p.getName());
 
