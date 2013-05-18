@@ -32,4 +32,7 @@ public class SharedObject {
 		return (sName.equals("<?xml"));
 	}
 
+	public static boolean isReport(File s) {
+		return false;
+	}
 }
