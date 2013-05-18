@@ -8,7 +8,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import utils.PrivilegeAttribFile;
+import utils.SharedObject;
 import webcatSharedObjects.DashboardGroup;
+import webcatSharedObjects.Report;
 import webcatSystemObjects.Component;
 import xmlutils.XMLUtils;
 
@@ -41,15 +43,19 @@ public class WebCatalog {
 
 		File s[] = fSharedFolder.listFiles(filter);
 		for (int i=0; i<s.length; i++) {
-			PrivilegeAttribFile p = new PrivilegeAttribFile(s[i]+".atr");
+			if ((new File(s[i]+".atr").canRead())) {
+				PrivilegeAttribFile p = new PrivilegeAttribFile(s[i]+".atr");
 
-			if (s[i].isFile())
-				System.out.println("\t" + tab + "Report: " + p.getName());
+				if (s[i].isFile()) {
+					//System.out.println("\t" + tab + "Report: " + p.getName());
+					if (SharedObject.isXML(s[i]))
+						new Report(s[i]);
+				}
 
-			if (s[i].isDirectory()) {
-				//				PrivilegeAttribFile p = new PrivilegeAttribFile(s[i]+".atr");
-				System.out.print(tab + "Unscrambled Name: " + p.getName());
-				listAllReports(s[i], tab, unscrambledPath + "\\" + p.getName());
+				if (s[i].isDirectory()) {
+					System.out.print(tab + "Unscrambled Name: " + p.getName());
+					listAllReports(s[i], tab, unscrambledPath + "\\" + p.getName());
+				}
 			}
 		}
 	}
