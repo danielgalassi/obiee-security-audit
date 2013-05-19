@@ -42,6 +42,24 @@ public class SharedObject {
 		return (sName.startsWith("<?xml"));
 	}
 
+	public static boolean isDashboard(File s) {
+		Node nTag = null;
+		if (isXML(s)) {
+			Document docReport = XMLUtils.File2Document(s);
+			XPath xPath = XPathFactory.newInstance().newXPath();
+
+			try {
+				nTag = (Node) xPath.evaluate("/dashboard",
+						docReport.getDocumentElement(),
+						XPathConstants.NODE);
+			} catch (XPathExpressionException e) {
+				e.printStackTrace();
+			}
+
+		}
+		return (nTag != null);
+	}
+
 	public static boolean isReport(File s) {
 		Node nTag = null;
 		if (isXML(s)) {
