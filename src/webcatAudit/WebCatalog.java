@@ -30,7 +30,6 @@ public class WebCatalog {
 	private Vector <DashboardGroup>	dash;
 
 	private void listAllReports (File fSharedFolder, String tab, String unscrambledPath) {
-		//System.out.println(tab + "Filesystem: " + fSharedFolder.getName() + "\t" + unscrambledPath);
 		tab += "\t";
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
@@ -53,10 +52,8 @@ public class WebCatalog {
 						System.out.println();
 					}
 
-				if (s[i].isDirectory()) {
-					//System.out.print(tab + "Unscrambled Name: " + p.getName());
-					listAllReports(s[i], tab, unscrambledPath + "\\" + p.getName());
-				}
+				if (s[i].isDirectory())
+					listAllReports(s[i], tab, unscrambledPath + "/" + p.getName());
 			}
 		}
 	}
