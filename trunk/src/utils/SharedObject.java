@@ -67,12 +67,24 @@ public class SharedObject {
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
-				nTag = (Node) xPath.evaluate("/report",
+				nTag = (Node) xPath.evaluate("/report/@dataModel",
 						docReport.getDocumentElement(),
 						XPathConstants.NODE);
 			} catch (XPathExpressionException e) {
 				e.printStackTrace();
 			}
+
+			//If a dataModel tag cannot be found, it is a good indicator that
+			//an actual report or just a different type of object.
+			if (nTag == null)
+				try {
+					nTag = (Node) xPath.evaluate("/report",
+							docReport.getDocumentElement(),
+							XPathConstants.NODE);
+				} catch (XPathExpressionException e) {
+					e.printStackTrace();
+				}
+			else nTag = null;
 
 		}
 		return (nTag != null);
