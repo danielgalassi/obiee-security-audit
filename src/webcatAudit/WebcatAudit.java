@@ -11,6 +11,99 @@ public class WebcatAudit {
 	private static boolean isPrivilegeAuditInvoked = false;
 	private static boolean isDashboardAuditInvoked = false;
 
+	private static void getPrivileges2(File fReport) {
+		File f = fReport;
+		FileInputStream file_input = null;
+		DataInputStream data_in    = null;
+		byte	b_data = 0;
+		int iRead;
+		int l = 0;
+		int iGroupLength;
+		int nGroups = 0;
+		String y;
+		String sOwner = "";
+
+		System.out.println("\nProcessing: " + f);
+
+		try {
+			file_input = new FileInputStream(f);
+			data_in = new DataInputStream (file_input);
+
+			//looking for the length of the actual name
+			for (int i = 0; i<8; i++) {
+				b_data = data_in.readByte();
+				if (i==4)
+					l = b_data;
+			}
+
+			//skipping the bytes used for the name
+			for (int i = 0; i<l; i++)
+				b_data = data_in.readByte();
+
+			b_data = data_in.readByte();
+			while (b_data != 2)
+				b_data = data_in.readByte();
+
+			//length of the owner's name
+			l = data_in.readByte();
+
+			//skipping a few sterile bytes
+			for (int i = 0; i<3; i++)
+				b_data = data_in.readByte();
+
+			for (int i = 0; i<l; i++) {
+				b_data = data_in.readByte();
+				char c = (char)b_data;
+				if (b_data < 0)
+					c = '-';
+				sOwner = sOwner + c;
+			}
+			System.out.println("Owner: " + sOwner);
+
+			//reading the # of groups, first two bytes are overwritten since
+			//they do not contain any data
+			for (int i = 0; i<3; i++)
+				nGroups = data_in.readByte();
+
+			for (int i=0; i<10; i++) {
+				b_data = data_in.readByte();
+				System.out.println(b_data);
+			}
+
+			System.out.println("# of Groups: " + nGroups);
+			/*
+			for (int n=0; n<nGroups; n++) {
+
+				//skipping bytes till the "size mark" (2) is found
+				iRead = data_in.read();
+				while (iRead != 2)
+					iRead = data_in.read();
+
+				iGroupLength = data_in.read();
+				System.out.print("Group name length: " + iGroupLength + "\t");
+
+				//ignoring next three bytes
+				for (int i=0; i<3; i++)
+					data_in.read();
+
+				y = "";
+				for (int j = 0; j<iGroupLength; j++) {
+					b_data = data_in.readByte();
+					char c = (char)b_data;
+					if (b_data < 0)
+						c = '-';
+					y = y + c;
+				}
+				System.out.println(y + " --> " + data_in.read());
+
+			}*/
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	/***
 	 * 
 	 * @param o
@@ -169,18 +262,17 @@ public class WebcatAudit {
 				for (int j = 0; j<iGroupLength; j++) {
 					b_data = data_in.readByte();
 					char c = (char)b_data;
+					System.out.println(b_data);
 					if (b_data < 0)
 						c = '-';
 					y = y + c;
 				}
 				System.out.println(y + " --> " + data_in.read());
-
 			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
@@ -204,21 +296,19 @@ public class WebcatAudit {
 
 		if (sWebcatLocation != null)
 			wc = new WebCatalog(sWebcatLocation);
-
+		/*
 		if (wc != null && isPrivilegeAuditInvoked)
 			wc.processWebCatPrivileges();
 
 		if (wc != null && isDashboardAuditInvoked)
 			wc.processDashboards();
-
+		 */
 		wc.save();
 
-		/*
-		File f = new File(".\\sampleCases\\answers.atr");
+		File f = new File(".\\sampleCases\\sample1.atr");
 		if (!f.canRead())
 			System.out.println("Please check path.");
 		else
-			readPrivileges(f);
-		*/
+			getPrivileges2(f);
 	}
 }
