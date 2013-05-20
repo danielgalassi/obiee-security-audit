@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Vector;
 
 import org.w3c.dom.Element;
@@ -127,24 +128,30 @@ public class Privilege {
 	public Element serialize () {
 		Element eRole;
 		Node nRole;
+		String p;
 
 		Element ePriv = (WebCatalog.docWebcat).createElement("Privilege");
 		Element eRoleList = (WebCatalog.docWebcat).createElement("RoleList");
 
-		for (int i=0; i<vsGranted.size(); i++) {
-			nRole = (WebCatalog.docWebcat).createTextNode(vsGranted.get(i));
+		Iterator <String> privilegeList = vsGranted.listIterator();
+
+		while (privilegeList.hasNext()) {
+			p = privilegeList.next();
+			nRole = (WebCatalog.docWebcat).createTextNode(p);
 			eRole = (WebCatalog.docWebcat).createElement("Role");
 			eRole.appendChild(nRole);
 			eRole.setAttribute("access", "Granted");
-			eRole.setAttribute("isOOTBRole", isOOTBRole(vsGranted.get(i))+"");
+			eRole.setAttribute("isOOTBRole", isOOTBRole(p)+"");
 			eRoleList.appendChild(eRole);
 		}
-		for (int i=0; i<vsDenied.size(); i++) {
-			nRole = (WebCatalog.docWebcat).createTextNode(vsDenied.get(i));
+		privilegeList = vsDenied.listIterator();
+		while (privilegeList.hasNext()) {
+			p = privilegeList.next();
+			nRole = (WebCatalog.docWebcat).createTextNode(p);
 			eRole = (WebCatalog.docWebcat).createElement("Role");
 			eRole.appendChild(nRole);
 			eRole.setAttribute("access", "Denied");
-			eRole.setAttribute("isOOTBRole", isOOTBRole(vsDenied.get(i))+"");
+			eRole.setAttribute("isOOTBRole", isOOTBRole(p)+"");
 			eRoleList.appendChild(eRole);
 		}
 

@@ -2,6 +2,7 @@ package webcatSharedObjects;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Iterator;
 import java.util.Vector;
 
 import javax.xml.xpath.XPath;
@@ -63,13 +64,14 @@ public class Dashboard {
 	}
 
 	public Element serialize() {
+		Iterator <DashboardPage> listPages = vPages.listIterator();
 		Element eDashboardPageList = (WebCatalog.docWebcat).createElement("DashboardPageList");
 		Element eDashboard = (WebCatalog.docWebcat).createElement("Dashboard");
 		eDashboard.setAttribute("DashboardName", sDashboardName);
 		eDashboard.setAttribute("isOOTB", isOOTB+"");
 
-		for (int i=0; i<vPages.size(); i++)
-			eDashboardPageList.appendChild(vPages.get(i).serialize());
+		while (listPages.hasNext())
+			eDashboardPageList.appendChild(listPages.next().serialize());
 
 		eDashboard.appendChild(eDashboardPageList);
 		return eDashboard;
