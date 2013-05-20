@@ -11,6 +11,11 @@ public class Report {
 	private File fReport;
 	private Vector <Vector <String>> privileges;
 
+	private void getPrivileges() {
+		System.out.println(fReport);
+		
+	}
+
 	public String getName() {
 		return sReportName;
 	}

@@ -2,6 +2,7 @@ package webcatSharedObjects;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Iterator;
 import java.util.Vector;
 
 import org.w3c.dom.Element;
@@ -15,7 +16,6 @@ public class DashboardGroup {
 	private String sDashboardGroupName = "";
 	private File fDashboardGroupDir = null;
 	private Vector <Dashboard> vDashboards;
-
 
 	private void traverseDashboards() {
 		File portal = new File (fDashboardGroupDir+"\\_portal");
@@ -49,12 +49,13 @@ public class DashboardGroup {
 	}
 
 	public Element serialize() {
+		Iterator <Dashboard> listDashboards = vDashboards.listIterator();
 		Element eGroup = (WebCatalog.docWebcat).createElement("DashboardGroup");
 		Element eDashList = (WebCatalog.docWebcat).createElement("DashboardList");
 		eGroup.setAttribute("DashboardGroupName", sDashboardGroupName);
 
-		for (int i=0; i<vDashboards.size(); i++)
-			eDashList.appendChild(vDashboards.get(i).serialize());
+		while (listDashboards.hasNext())
+			eDashList.appendChild(listDashboards.next().serialize());
 
 		eGroup.appendChild(eDashList);
 
