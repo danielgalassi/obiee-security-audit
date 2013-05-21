@@ -81,7 +81,7 @@ public class Dashboard {
 		fDashboardDir = fDashboard;
 		PrivilegeAttribFile dashboardAttrib = new PrivilegeAttribFile(fDashboardDir+".atr");
 		sDashboardName = dashboardAttrib.getName();
-		System.out.println("\t" + sDashboardName);
+		System.out.println("\tDashboard: " + sDashboardName);
 
 		traversePages();
 		getPageAttributes("/dashboard/@appObjectID");
