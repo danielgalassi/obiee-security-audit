@@ -65,15 +65,8 @@ public class WebcatAudit {
 			for (int i = 0; i<3; i++)
 				nGroups = data_in.readByte();
 
-			for (int i=0; i<10; i++) {
-				b_data = data_in.readByte();
-				System.out.println(b_data);
-			}
-
 			System.out.println("# of Groups: " + nGroups);
-			/*
 			for (int n=0; n<nGroups; n++) {
-
 				//skipping bytes till the "size mark" (2) is found
 				iRead = data_in.read();
 				while (iRead != 2)
@@ -94,14 +87,13 @@ public class WebcatAudit {
 						c = '-';
 					y = y + c;
 				}
-				System.out.println(y + " --> " + data_in.read());
-
-			}*/
+				int val = data_in.readUnsignedByte() + data_in.readUnsignedByte() * 256;
+				System.out.println(y + " --> " + val);
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/***
