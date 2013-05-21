@@ -10,6 +10,7 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import utils.PrivilegeAttribFile;
 import utils.SharedObject;
@@ -22,27 +23,33 @@ public class DashboardPage {
 	private boolean isHidden = false;
 	private String sPageName = "";
 
-	private Node findReports() {
-		
-		if (!SharedObject.isPage(fPage))
-			return null;
+	private void findReports() {
 
-		Node nTag = null;
-		System.out.println("My name is " + sPageName + "\t" + fPage);
+		if (!SharedObject.isPage(fPage))
+			return;
+
+		NodeList nTag = null;
 
 		if (fPage.canRead()) {
 			Document layoutDOM = XMLUtils.File2Document(fPage);
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
-				nTag = (Node) xPath.evaluate("/dashboardPage//reportRef/@path",
+				nTag = (NodeList) xPath.evaluate("/dashboardPage//reportRef/@path",
 						layoutDOM.getDocumentElement(),
-						XPathConstants.NODE);
+						XPathConstants.NODESET);
+
+				if (nTag == null)
+					return;
+
+				//lists each report published on that dashboard page
+				for (int i=0; i<nTag.getLength(); i++)
+					System.out.println("\t\t\t" + nTag.item(i).getNodeValue());
+
 			} catch (XPathExpressionException e) {
 				e.printStackTrace();
 			}
 		}
-		return nTag;
 	}
 
 	public Element serialize() {
@@ -81,6 +88,7 @@ public class DashboardPage {
 		sPageName = pageAttrib.getName();
 		getPageAttributes("/dashboard/dashboardPageRef[@path='"+sPageName+"']/@hidden");
 		System.out.println("\t\tPage: " + sPageName);
-		System.out.println(findReports());
+		if (fPage.getAbsolutePath().contains("support"))
+			findReports();
 	}
 }

@@ -12,6 +12,7 @@ import webcatAudit.WebCatalog;
 public class Report {
 
 	private String	sReportName = "";
+	private String	sCatalogPath;
 	private String	sOwner;
 	private File	fReport;
 	private Vector <Permission> vPerms;
@@ -113,18 +114,23 @@ public class Report {
 		}
 	}
 
+	public String getFullUnscrambledName() {
+		return (sCatalogPath + "/" + sReportName);
+	}
+
 	public String getName() {
 		return sReportName;
 	}
 
-	public Report(File s) {
+	public Report(String uPath, File s) {
 		if (s.canRead()) {
+			sCatalogPath = uPath;
 			fReport = s;
 			PrivilegeAttribFile reportAttrib = new PrivilegeAttribFile(fReport+".atr");
 
 			sReportName = reportAttrib.getName();
 
-			System.out.print("(" + s.getName() + ")\t" +getName());
+			System.out.println("(" + s.getName() + ")\t" +getName());
 			vPerms = new Vector <Permission> ();
 			getPrivileges();
 		}
