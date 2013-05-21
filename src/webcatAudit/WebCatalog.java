@@ -28,6 +28,37 @@ public class WebCatalog {
 	public static Element		eDashGroupList	= docWebcat.createElement("DashboardGroupList");
 	private Vector <Component>	privs;
 	private Vector <DashboardGroup>	dash;
+	public static final Vector <String>		p = new Vector <String> ();
+	public static final Vector <Integer>	n = new Vector <Integer> ();
+
+	private void setListOfPermissions() {
+		p.add ("Full Control");
+		p.add ("View BIPublisher reports");
+		p.add ("Schedule BIPublisher reports");
+		p.add ("Run BIPublisher reports");
+		p.add ("Set Ownership");
+		p.add ("Change Permissions");
+		p.add ("Modify");
+		p.add ("Delete");
+		p.add ("Write");
+		p.add ("Open");
+		p.add ("Traverse");
+		p.add ("Read");
+		p.add ("No Access");
+		n.add (65535);
+		n.add (8192);
+		n.add (4096);
+		n.add (2048);
+		n.add (32);
+		n.add (16);
+		n.add (15);
+		n.add (8);
+		n.add (4);
+		n.add (3);
+		n.add (2);
+		n.add (1);
+		n.add (0);
+	}
 
 	private void listAllReports (File fSharedFolder, String tab, String unscrambledPath) {
 		tab += "\t";
@@ -157,6 +188,7 @@ public class WebCatalog {
 	public WebCatalog(String sLocation) {
 		if (!sLocation.isEmpty())
 			fWebcat = new File (sLocation);
+		setListOfPermissions();
 		eWebcat.setAttribute("app", "obiee-security-audit");
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
 
