@@ -14,6 +14,7 @@ public class Report {
 	private File fReport;
 
 	private static String getPrivilegeList(int val) {
+		String sPermissions = "";
 		HashMap <String, Integer> h = new HashMap <String, Integer> ();
 		h.put ("Full Control",					65535);
 		h.put ("View BIPublisher reports",		8192);
@@ -28,7 +29,8 @@ public class Report {
 		h.put ("Traverse",						2);
 		h.put ("Read",							1);
 		h.put ("No Access",						0);
-		return "";
+
+		return sPermissions;
 	}
 
 	private void getPrivileges() {
@@ -94,8 +96,6 @@ public class Report {
 					iRead = data_in.read();
 
 				iGroupLength = data_in.read();
-				System.out.print("Group name length: " + iGroupLength + "\t");
-
 				//ignoring next three bytes
 				for (int i=0; i<3; i++)
 					data_in.read();
