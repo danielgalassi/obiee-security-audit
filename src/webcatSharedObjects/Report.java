@@ -47,17 +47,19 @@ public class Report {
 
 	private String getPrivilegeList(int val, String sPermissions) {
 		int i = 0;
-System.out.println("List..." + val);
-		while (val > n.get(i) && i<n.size())
+		//finding the highest permission for a cumulative 2-HEX value.
+		while (val < n.get(i) && i<n.size())
 			i++;
 
-		if (val > 0) {
+		//recursive call to concatenate the list of permissions
+		if (val > 0 || (val == 0 && sPermissions.equals(""))) {
 			val -= n.get(i);
 			sPermissions += p.get(i);
-System.out.println("\t" +sPermissions);
-			getPrivilegeList (val, sPermissions);
+			if (val > 0) {
+				sPermissions += "; ";
+				sPermissions = getPrivilegeList(val, sPermissions);
+			}
 		}
-System.out.println(sPermissions);
 		return sPermissions;
 	}
 
@@ -73,7 +75,7 @@ System.out.println(sPermissions);
 		String y;
 		String sOwner = "";
 
-		System.out.println("\nProcessing: " + f);
+		//System.out.println("\nProcessing: " + f);
 
 		try {
 			file_input = new FileInputStream(f);
@@ -115,7 +117,7 @@ System.out.println(sPermissions);
 			//they do not contain any data
 			for (int i = 0; i<3; i++)
 				nGroups = data_in.readByte();
-			System.out.println("# of Groups: " + nGroups);
+			//System.out.println("# of Groups: " + nGroups);
 
 			for (int n=0; n<nGroups; n++) {
 				//skipping bytes till the "size mark" (2) is found
