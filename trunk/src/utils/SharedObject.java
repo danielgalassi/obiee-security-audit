@@ -89,4 +89,21 @@ public class SharedObject {
 		}
 		return (nTag != null);
 	}
+
+	public static boolean isPage(File s) {
+		Node nTag = null;
+		if (isXML(s)) {
+			Document docReport = XMLUtils.File2Document(s);
+			XPath xPath = XPathFactory.newInstance().newXPath();
+
+			try {
+				nTag = (Node) xPath.evaluate("/dashboardPage",
+						docReport.getDocumentElement(),
+						XPathConstants.NODE);
+			} catch (XPathExpressionException e) {
+				e.printStackTrace();
+			}
+		}
+		return (nTag != null);
+	}
 }

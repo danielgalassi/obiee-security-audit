@@ -192,6 +192,6 @@ public class WebCatalog {
 		eWebcat.setAttribute("app", "obiee-security-audit");
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
 
-		listAllReports(getSharedDirectory(), "", "shared");
+//		listAllReports(getSharedDirectory(), "", "shared");
 	}
 }
