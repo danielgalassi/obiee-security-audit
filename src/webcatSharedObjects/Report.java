@@ -111,7 +111,6 @@ public class Report {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public String getName() {
