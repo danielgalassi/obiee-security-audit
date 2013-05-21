@@ -43,7 +43,6 @@ public class DashboardPage {
 			} catch (XPathExpressionException e) {
 				e.printStackTrace();
 			}
-
 		}
 		return nTag;
 	}
