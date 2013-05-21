@@ -10,10 +10,10 @@ import utils.PrivilegeAttribFile;
 
 public class Report {
 
-	private String sReportName = "";
-	private File fReport;
-	private Vector <String> p = new Vector <String> ();
-	Vector <Integer> n = new Vector <Integer> ();
+	private String	sReportName = "";
+	private File	fReport;
+	private Vector <String>		p = new Vector <String> ();
+	private Vector <Integer>	n = new Vector <Integer> ();
 
 	private void setList() {
 		p.add ("Full Control");
