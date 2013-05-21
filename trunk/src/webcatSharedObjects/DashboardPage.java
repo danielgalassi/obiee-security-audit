@@ -56,7 +56,7 @@ public class DashboardPage {
 		PrivilegeAttribFile pageAttrib = new PrivilegeAttribFile(file+".atr");
 		sPageName = pageAttrib.getName();
 		getPageAttributes("/dashboard/dashboardPageRef[@path='"+sPageName+"']/@hidden");
-		System.out.println("\t\t" + sPageName);
+		System.out.println("\t\tPage: " + sPageName);
 	}
 
 }
