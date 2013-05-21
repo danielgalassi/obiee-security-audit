@@ -4,7 +4,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Vector;
 
 import utils.PrivilegeAttribFile;
 
@@ -12,24 +12,52 @@ public class Report {
 
 	private String sReportName = "";
 	private File fReport;
+	private Vector <String> p = new Vector <String> ();
+	Vector <Integer> n = new Vector <Integer> ();
 
-	private static String getPrivilegeList(int val) {
-		String sPermissions = "";
-		HashMap <String, Integer> h = new HashMap <String, Integer> ();
-		h.put ("Full Control",					65535);
-		h.put ("View BIPublisher reports",		8192);
-		h.put ("Schedule BIPublisher reports",	4096);
-		h.put ("Run BIPublisher reports",		2048);
-		h.put ("Set Ownership",					32);
-		h.put ("Change Permissions",			16);
-		h.put ("Modify",						15);
-		h.put ("Delete",						8);
-		h.put ("Write",							4);
-		h.put ("Open",							3);
-		h.put ("Traverse",						2);
-		h.put ("Read",							1);
-		h.put ("No Access",						0);
+	private void setList() {
+		p.add ("Full Control");
+		p.add ("View BIPublisher reports");
+		p.add ("Schedule BIPublisher reports");
+		p.add ("Run BIPublisher reports");
+		p.add ("Set Ownership");
+		p.add ("Change Permissions");
+		p.add ("Modify");
+		p.add ("Delete");
+		p.add ("Write");
+		p.add ("Open");
+		p.add ("Traverse");
+		p.add ("Read");
+		p.add ("No Access");
+		n.add (65535);
+		n.add (8192);
+		n.add (4096);
+		n.add (2048);
+		n.add (32);
+		n.add (16);
+		n.add (15);
+		n.add (8);
+		n.add (4);
+		n.add (3);
+		n.add (2);
+		n.add (1);
+		n.add (0);
 
+	}
+
+	private String getPrivilegeList(int val, String sPermissions) {
+		int i = 0;
+System.out.println("List..." + val);
+		while (val > n.get(i) && i<n.size())
+			i++;
+
+		if (val > 0) {
+			val -= n.get(i);
+			sPermissions += p.get(i);
+System.out.println("\t" +sPermissions);
+			getPrivilegeList (val, sPermissions);
+		}
+System.out.println(sPermissions);
 		return sPermissions;
 	}
 
@@ -109,7 +137,7 @@ public class Report {
 					y = y + c;
 				}
 				int val = data_in.readUnsignedByte() + data_in.readUnsignedByte() * 256;
-				System.out.println(y + " --> " + val + "\t(" + getPrivilegeList(val) + ")");
+				System.out.println(y + " --> " + val + "\t(" + getPrivilegeList(val, "") + ")");
 			}
 
 		} catch (IOException e) {
@@ -130,6 +158,7 @@ public class Report {
 			sReportName = reportAttrib.getName();
 
 			System.out.print("(" + s.getName() + ")\t" +getName());
+			setList();
 			getPrivileges();
 		}
 	}
