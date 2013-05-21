@@ -13,7 +13,7 @@ public class Report {
 	private String sReportName = "";
 	private File fReport;
 
-	private static String getPrivilegeList() {
+	private static String getPrivilegeList(int val) {
 		HashMap <String, Integer> h = new HashMap <String, Integer> ();
 		h.put ("Full Control",					65535);
 		h.put ("View BIPublisher reports",		8192);
@@ -109,7 +109,7 @@ public class Report {
 					y = y + c;
 				}
 				int val = data_in.readUnsignedByte() + data_in.readUnsignedByte() * 256;
-				System.out.println(y + " --> " + val);
+				System.out.println(y + " --> " + val + "\t(" + getPrivilegeList(val) + ")");
 			}
 
 		} catch (IOException e) {
