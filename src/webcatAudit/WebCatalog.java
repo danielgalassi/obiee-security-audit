@@ -2,6 +2,7 @@ package webcatAudit;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.HashMap;
 import java.util.Vector;
 
 import org.w3c.dom.Document;
@@ -28,6 +29,7 @@ public class WebCatalog {
 	public static Element		eDashGroupList	= docWebcat.createElement("DashboardGroupList");
 	private Vector <Component>	privs;
 	private Vector <DashboardGroup>	dash;
+	private HashMap <String, Report> hmAllReports = new HashMap <String, Report> ();
 	public static final Vector <String>		p = new Vector <String> ();
 	public static final Vector <Integer>	n = new Vector <Integer> ();
 
@@ -79,7 +81,8 @@ public class WebCatalog {
 				if (s[i].isFile())
 					if (SharedObject.isReport(s[i])) {
 						System.out.print("Unscrambled Path: " + unscrambledPath +"\t");
-						new Report(s[i]);
+						Report r = new Report(unscrambledPath, s[i]);
+						hmAllReports.put(r.getFullUnscrambledName(), r);
 						System.out.println();
 					}
 
@@ -192,6 +195,6 @@ public class WebCatalog {
 		eWebcat.setAttribute("app", "obiee-security-audit");
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
 
-//		listAllReports(getSharedDirectory(), "", "shared");
+		listAllReports(getSharedDirectory(), "", "shared");
 	}
 }
