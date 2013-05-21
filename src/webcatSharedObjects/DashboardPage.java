@@ -1,9 +1,7 @@
 package webcatSharedObjects;
 
 import java.io.File;
-import java.util.Iterator;
 
-import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
