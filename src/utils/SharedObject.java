@@ -13,7 +13,6 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-import xmlutils.XMLUtils;
 
 public class SharedObject {
 
