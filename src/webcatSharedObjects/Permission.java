@@ -14,6 +14,6 @@ public class Permission {
 		sRole = rol;
 		iPermValue = val;
 		sPermList = lst;
-		System.out.println(sRole + ": " + iPermValue + "\t(" + sPermList + ")");
+		//System.out.println(sRole + ": " + iPermValue + "\t(" + sPermList + ")");
 	}
 }

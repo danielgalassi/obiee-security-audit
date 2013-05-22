@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ListIterator;
 import java.util.Vector;
 
+import org.w3c.dom.Element;
+
 import utils.PrivilegeAttribFile;
 import webcatAudit.WebCatalog;
 
@@ -17,6 +19,15 @@ public class Report {
 	private String	sOwner;
 	private File	fReport;
 	private Vector <Permission> vPerms;
+
+	public Element serialize() {
+		Element eReport = (WebCatalog.docWebcat).createElement("Report");
+		eReport.setAttribute("Name", sReportName);
+		eReport.setAttribute("FulLUnscrambledName", getFullUnscrambledName());
+		eReport.setAttribute("Owner", sOwner);
+		eReport.setAttribute("Path", fReport+"");
+		return eReport;
+	}
 
 	private String setPrivilegeList(int val, String sPermissions) {
 		int i = 0;
@@ -135,7 +146,7 @@ public class Report {
 			fReport = s;
 			PrivilegeAttribFile reportAttrib = new PrivilegeAttribFile(fReport+".atr");
 
-			sReportName = reportAttrib.getName();
+			sReportName = reportAttrib.getName(false);
 
 			System.out.println("(" + s.getName() + ")\t" +getName());
 			vPerms = new Vector <Permission> ();

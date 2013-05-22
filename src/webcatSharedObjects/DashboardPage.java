@@ -1,6 +1,8 @@
 package webcatSharedObjects;
 
 import java.io.File;
+import java.util.ListIterator;
+import java.util.Vector;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -22,9 +24,9 @@ public class DashboardPage {
 	private File fPage = null;
 	private boolean isHidden = false;
 	private String sPageName = "";
+	private Vector <String> vsReportPaths = new Vector <String> ();
 
 	private void findReports() {
-
 		if (!SharedObject.isPage(fPage))
 			return;
 
@@ -43,8 +45,10 @@ public class DashboardPage {
 					return;
 
 				//lists each report published on that dashboard page
-				for (int i=0; i<nTag.getLength(); i++)
+				for (int i=0; i<nTag.getLength(); i++) {
 					System.out.println("\t\t\t" + nTag.item(i).getNodeValue());
+					vsReportPaths.add(nTag.item(i).getNodeValue());
+				}
 
 			} catch (XPathExpressionException e) {
 				e.printStackTrace();
@@ -56,6 +60,22 @@ public class DashboardPage {
 		Element eDashboardPage = (WebCatalog.docWebcat).createElement("DashboardPage");
 		eDashboardPage.setAttribute("DashboardPageName", sPageName);
 		eDashboardPage.setAttribute("isHidden", isHidden+"");
+
+		Element eReportList = (WebCatalog.docWebcat).createElement("ReportList");
+		ListIterator <String> li = vsReportPaths.listIterator();
+		while (li.hasNext()) {
+			String s = li.next();
+			System.out.println("***************************************\t" + s);
+
+			Element eReport;// = (WebCatalog.docWebcat).createElement("Report");
+			//eReport.setAttribute("path", li.next());
+			(WebCatalog.hmAllReports).get(s);
+			eReport = (WebCatalog.hmAllReports).get(li.next()).serialize();
+
+			eReportList.appendChild(eReport);
+		}
+
+		eDashboardPage.appendChild(eReportList);
 		return eDashboardPage;
 	}
 
@@ -88,7 +108,6 @@ public class DashboardPage {
 		sPageName = pageAttrib.getName();
 		getPageAttributes("/dashboard/dashboardPageRef[@path='"+sPageName+"']/@hidden");
 		System.out.println("\t\tPage: " + sPageName);
-		if (fPage.getAbsolutePath().contains("support"))
-			findReports();
+		findReports();
 	}
 }
