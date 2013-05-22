@@ -15,8 +15,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import utils.PrivilegeAttribFile;
+import utils.XMLUtils;
 import webcatAudit.WebCatalog;
-import xmlutils.XMLUtils;
 
 public class Dashboard {
 

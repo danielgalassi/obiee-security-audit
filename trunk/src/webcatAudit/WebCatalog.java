@@ -10,10 +10,10 @@ import org.w3c.dom.Element;
 
 import utils.PrivilegeAttribFile;
 import utils.SharedObject;
+import utils.XMLUtils;
 import webcatSharedObjects.DashboardGroup;
 import webcatSharedObjects.Report;
 import webcatSystemObjects.Component;
-import xmlutils.XMLUtils;
 
 /**
  * 

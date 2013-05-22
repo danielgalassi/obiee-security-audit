@@ -1,4 +1,4 @@
-package xmlutils;
+package utils;
 
 import java.io.File;
 import java.io.InputStream;
