@@ -80,7 +80,7 @@ public class Dashboard {
 	public Dashboard (File fDashboard) {
 		fDashboardDir = fDashboard;
 		PrivilegeAttribFile dashboardAttrib = new PrivilegeAttribFile(fDashboardDir+".atr");
-		sDashboardName = dashboardAttrib.getName();
+		sDashboardName = dashboardAttrib.getName(true);
 		System.out.println("\tDashboard: " + sDashboardName);
 
 		traversePages();
