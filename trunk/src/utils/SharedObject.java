@@ -20,7 +20,8 @@ public class SharedObject {
 		byte	b_data = 0;
 		String	sName = "";
 
-		if (s.canRead() && s.length() > 0 && (new File(s+".atr")).canRead())
+		if (s.isFile() && s.canRead() && s.length() > 0 && 
+				(new File(s+".atr")).canRead())
 			try {
 				FileInputStream file_input = new FileInputStream (s);
 				DataInputStream data_in    = new DataInputStream (file_input);

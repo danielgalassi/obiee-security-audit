@@ -26,7 +26,7 @@ public class WebcatAudit {
 
 		if (sWebcatLocation != null)
 			wc = new WebCatalog(sWebcatLocation);
-System.out.println(wc.hmAllReports.containsKey("/shared/BI Operations/Reports/Report 001 - UsageTracking - # of Users per Hour"));
+
 		//if (wc != null && isPrivilegeAuditInvoked)
 		//	wc.processWebCatPrivileges();
 

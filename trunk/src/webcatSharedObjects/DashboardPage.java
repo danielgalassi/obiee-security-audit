@@ -1,6 +1,7 @@
 package webcatSharedObjects;
 
 import java.io.File;
+import java.net.URLDecoder;
 import java.util.ListIterator;
 import java.util.Vector;
 
@@ -9,6 +10,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -46,7 +48,7 @@ public class DashboardPage {
 
 				//lists each report published on that dashboard page
 				for (int i=0; i<nTag.getLength(); i++) {
-					System.out.println("\t\t\t" + nTag.item(i).getNodeValue());
+					System.out.println("\t\t\tReport123: " + nTag.item(i).getNodeValue() + "\t" + StringEscapeUtils.unescapeJava(nTag.item(i).getNodeValue().replace("–", "-")));
 					vsReportPaths.add(nTag.item(i).getNodeValue());
 				}
 
@@ -65,13 +67,8 @@ public class DashboardPage {
 		ListIterator <String> li = vsReportPaths.listIterator();
 		while (li.hasNext()) {
 			String s = li.next();
-			System.out.println("***************************************\t" + s);
-
-			Element eReport;// = (WebCatalog.docWebcat).createElement("Report");
-			//eReport.setAttribute("path", li.next());
-			(WebCatalog.hmAllReports).get(s);
-			eReport = (WebCatalog.hmAllReports).get(li.next()).serialize();
-
+System.out.println("12313123" + StringEscapeUtils.unescapeJava(s.replace("–", "-")));
+			Element eReport = (WebCatalog.hmAllReports).get(StringEscapeUtils.unescapeJava(s.replace("–", "-"))).serialize();
 			eReportList.appendChild(eReport);
 		}
 
@@ -105,7 +102,7 @@ public class DashboardPage {
 	public DashboardPage(File file) {
 		fPage = file;
 		PrivilegeAttribFile pageAttrib = new PrivilegeAttribFile(file+".atr");
-		sPageName = pageAttrib.getName();
+		sPageName = pageAttrib.getName(true);
 		getPageAttributes("/dashboard/dashboardPageRef[@path='"+sPageName+"']/@hidden");
 		System.out.println("\t\tPage: " + sPageName);
 		findReports();
