@@ -6,6 +6,10 @@ public class Permission {
 	private int		iPermValue;
 	private String	sPermList;
 
+	public void list() {
+		System.out.println(sRole + ": " + iPermValue + "\t(" + sPermList + ")");
+	}
+
 	public Permission(String rol, int val, String lst) {
 		sRole = rol;
 		iPermValue = val;

@@ -92,6 +92,14 @@ public class WebCatalog {
 		}
 	}
 
+	public Report getReport (String sUReport) {
+		Report r = null;
+		if (!hmAllReports.isEmpty())
+			if (hmAllReports.containsKey(sUReport))
+				r = hmAllReports.get(sUReport);
+		return r;
+	}
+
 	/***
 	 * 
 	 * @return
@@ -196,5 +204,6 @@ public class WebCatalog {
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
 
 		listAllReports(getSharedDirectory(), "", "shared");
+		getReport("shared/BRM Reconciliation/Services Reconciliation").listPrivileges();
 	}
 }
