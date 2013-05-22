@@ -80,8 +80,8 @@ public class WebCatalog {
 
 				if (s[i].isFile())
 					if (SharedObject.isReport(s[i])) {
-						System.out.print("Unscrambled Path: " + unscrambledPath +"\t");
 						Report r = new Report(unscrambledPath, s[i]);
+						System.out.println("Report: " + r.getFullUnscrambledName());
 						hmAllReports.put(r.getFullUnscrambledName(), r);
 						System.out.println();
 					}
