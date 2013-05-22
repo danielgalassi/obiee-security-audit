@@ -8,7 +8,7 @@ import java.io.IOException;
 @SuppressWarnings("serial")
 public class PrivilegeAttribFile extends File {
 
-	public String getName () {
+	public String getName (boolean applyFormatting) {
 		byte	b_data = 0;
 		int		l = 0;
 		String	sName = "";
@@ -34,7 +34,8 @@ public class PrivilegeAttribFile extends File {
 				sName = sName + c;
 			}
 
-			sName = sName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+			if (applyFormatting)
+				sName = sName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
 
 			data_in.close ();
 		} catch  (IOException e) {

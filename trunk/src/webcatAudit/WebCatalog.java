@@ -23,13 +23,13 @@ import webcatSystemObjects.Component;
 public class WebCatalog {
 
 	private File fWebcat = null;
-	public static Document		docWebcat		= XMLUtils.createDOMDocument();
-	private static Element		eWebcat			= docWebcat.createElement("WebCat");
-	public static Element		eCompList		= docWebcat.createElement("ComponentList");
-	public static Element		eDashGroupList	= docWebcat.createElement("DashboardGroupList");
+	public static Document	docWebcat		= XMLUtils.createDOMDocument();
+	private static Element	eWebcat			= docWebcat.createElement("WebCat");
+	public static Element	eCompList		= docWebcat.createElement("ComponentList");
+	public static Element	eDashGroupList	= docWebcat.createElement("DashboardGroupList");
 	private Vector <Component>	privs;
 	private Vector <DashboardGroup>	dash;
-	private HashMap <String, Report> hmAllReports = new HashMap <String, Report> ();
+	public static HashMap <String, Report> hmAllReports = new HashMap <String, Report> ();
 	public static final Vector <String>		p = new Vector <String> ();
 	public static final Vector <Integer>	n = new Vector <Integer> ();
 
@@ -81,23 +81,15 @@ public class WebCatalog {
 				if (s[i].isFile())
 					if (SharedObject.isReport(s[i])) {
 						Report r = new Report(unscrambledPath, s[i]);
-						System.out.println("Report: " + r.getFullUnscrambledName());
+						if (r.getName().contains(" per Hour"))
+							System.out.println("Report: " + r.getFullUnscrambledName() + "**********************************************");
 						hmAllReports.put(r.getFullUnscrambledName(), r);
-						System.out.println();
 					}
 
 				if (s[i].isDirectory())
-					listAllReports(s[i], tab, unscrambledPath + "/" + p.getName());
+					listAllReports(s[i], tab, unscrambledPath + "/" + p.getName(true));
 			}
 		}
-	}
-
-	public Report getReport (String sUReport) {
-		Report r = null;
-		if (!hmAllReports.isEmpty())
-			if (hmAllReports.containsKey(sUReport))
-				r = hmAllReports.get(sUReport);
-		return r;
 	}
 
 	/***
@@ -199,11 +191,10 @@ public class WebCatalog {
 	public WebCatalog(String sLocation) {
 		if (!sLocation.isEmpty())
 			fWebcat = new File (sLocation);
-		setListOfPermissions();
 		eWebcat.setAttribute("app", "obiee-security-audit");
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
 
-		listAllReports(getSharedDirectory(), "", "shared");
-		getReport("shared/BRM Reconciliation/Services Reconciliation").listPrivileges();
+		setListOfPermissions();
+		listAllReports(getSharedDirectory(), "", "/shared");
 	}
 }
