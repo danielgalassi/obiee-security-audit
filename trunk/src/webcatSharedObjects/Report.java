@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ListIterator;
 import java.util.Vector;
 
 import utils.PrivilegeAttribFile;
@@ -17,7 +18,7 @@ public class Report {
 	private File	fReport;
 	private Vector <Permission> vPerms;
 
-	private String getPrivilegeList(int val, String sPermissions) {
+	private String setPrivilegeList(int val, String sPermissions) {
 		int i = 0;
 		//finding the highest permission for a cumulative 2-HEX value
 		while (val < (WebCatalog.n).get(i) && i< (WebCatalog.n).size())
@@ -29,13 +30,13 @@ public class Report {
 			sPermissions += (WebCatalog.p).get(i);
 			if (val > 0) {
 				sPermissions += "; ";
-				sPermissions = getPrivilegeList(val, sPermissions);
+				sPermissions = setPrivilegeList(val, sPermissions);
 			}
 		}
 		return sPermissions;
 	}
 
-	private void getPrivileges() {
+	private void setPrivileges() {
 		File f = new File (fReport+".atr");
 		FileInputStream file_input = null;
 		DataInputStream data_in    = null;
@@ -106,7 +107,7 @@ public class Report {
 					sRole = sRole + c;
 				}
 				int val = data_in.readUnsignedByte() + data_in.readUnsignedByte() * 256;
-				vPerms.add(new Permission(sRole, val, getPrivilegeList(val, "")));
+				vPerms.add(new Permission(sRole, val, setPrivilegeList(val, "")));
 			}
 
 		} catch (IOException e) {
@@ -122,6 +123,12 @@ public class Report {
 		return sReportName;
 	}
 
+	public void listPrivileges() {
+		ListIterator <Permission> li = vPerms.listIterator();
+		while (li.hasNext())
+			(li.next()).list();
+	}
+
 	public Report(String uPath, File s) {
 		if (s.canRead()) {
 			sCatalogPath = uPath;
@@ -132,7 +139,7 @@ public class Report {
 
 			System.out.println("(" + s.getName() + ")\t" +getName());
 			vPerms = new Vector <Permission> ();
-			getPrivileges();
+			setPrivileges();
 		}
 	}
 }
