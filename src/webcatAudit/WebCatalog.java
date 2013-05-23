@@ -81,8 +81,6 @@ public class WebCatalog {
 				if (s[i].isFile())
 					if (SharedObject.isReport(s[i])) {
 						Report r = new Report(unscrambledPath, s[i]);
-						if (r.getName().contains("Actuals Title"))
-							System.out.println("Report: " + r.getFullUnscrambledName() + "**********************");
 						hmAllReports.put(r.getFullUnscrambledName().replace("–", "-"), r);
 					}
 
@@ -193,8 +191,10 @@ public class WebCatalog {
 			fWebcat = new File (sLocation);
 		eWebcat.setAttribute("app", "obiee-security-audit");
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
-
+		System.out.println("WebCatalog found at " + fWebcat);
+		System.out.println("Retrieving the full list of Reports");
 		setListOfPermissions();
 		listAllReports(getSharedDirectory(), "", "/shared");
+		System.out.println();
 	}
 }
