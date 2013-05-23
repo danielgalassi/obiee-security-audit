@@ -34,6 +34,8 @@ public class PrivilegeAttribFile extends File {
 				sName = sName + c;
 			}
 
+			if (sName.contains("Actuals"))
+				System.out.println("NAME : " + sName);
 			if (applyFormatting)
 				sName = sName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
 
