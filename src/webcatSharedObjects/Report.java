@@ -148,7 +148,7 @@ public class Report {
 
 			sReportName = reportAttrib.getName(false);
 
-			if (sReportName.contains("End to End "))
+			if (sReportName.contains("Actuals Title"))
 				System.out.println("(" + s.getName() + ")\t" + getName());
 			vPerms = new Vector <Permission> ();
 			setPrivileges();

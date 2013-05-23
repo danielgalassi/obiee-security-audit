@@ -81,7 +81,7 @@ public class WebCatalog {
 				if (s[i].isFile())
 					if (SharedObject.isReport(s[i])) {
 						Report r = new Report(unscrambledPath, s[i]);
-						if (r.getName().contains("End to End "))
+						if (r.getName().contains("Actuals Title"))
 							System.out.println("Report: " + r.getFullUnscrambledName() + "**********************");
 						hmAllReports.put(r.getFullUnscrambledName().replace("–", "-"), r);
 					}
