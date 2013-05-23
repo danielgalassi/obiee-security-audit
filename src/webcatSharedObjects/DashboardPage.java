@@ -47,7 +47,7 @@ public class DashboardPage {
 
 				//lists each report published on that dashboard page
 				for (int i=0; i<nTag.getLength(); i++) {
-					System.out.println("\t\t\tReport in this page: " + nTag.item(i).getNodeValue() + "\t" + StringEscapeUtils.unescapeJava(nTag.item(i).getNodeValue().replace("–", "---")));
+					System.out.println("\t\t\tReport in this page: " + nTag.item(i).getNodeValue());
 					vsReportPaths.add(nTag.item(i).getNodeValue());
 				}
 
@@ -64,12 +64,14 @@ public class DashboardPage {
 
 		Element eReportList = (WebCatalog.docWebcat).createElement("ReportList");
 		ListIterator <String> li = vsReportPaths.listIterator();
+
 		while (li.hasNext()) {
 			String s = li.next();
-if (s.contains("EXCO"))
-System.out.println("Serialising DashboardPage/Report: " + StringEscapeUtils.unescapeJava(s.replace("–", "---")));
-			Element eReport = (WebCatalog.hmAllReports).get(StringEscapeUtils.unescapeJava(s.replace("–", "---"))).serialize();
-			eReportList.appendChild(eReport);
+			Element eReport = null;
+			if ((WebCatalog.hmAllReports).containsKey(StringEscapeUtils.unescapeJava(s.replace("–", "---")))) {
+				eReport = (WebCatalog.hmAllReports).get(StringEscapeUtils.unescapeJava(s.replace("–", "---"))).serialize();
+				eReportList.appendChild(eReport);
+			}
 		}
 
 		eDashboardPage.appendChild(eReportList);

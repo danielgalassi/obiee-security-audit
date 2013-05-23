@@ -16,16 +16,25 @@ public class Report {
 
 	private String	sReportName = "";
 	private String	sCatalogPath;
-	private String	sOwner;
+	private String	sOwner = "";
 	private File	fReport;
 	private Vector <Permission> vPerms;
 
 	public Element serialize() {
 		Element eReport = (WebCatalog.docWebcat).createElement("Report");
 		eReport.setAttribute("Name", sReportName);
-		eReport.setAttribute("FulLUnscrambledName", getFullUnscrambledName());
+		eReport.setAttribute("FullUnscrambledName", getFullUnscrambledName());
 		eReport.setAttribute("Owner", sOwner);
 		eReport.setAttribute("Path", fReport+"");
+
+		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
+		ListIterator <Permission> li = vPerms.listIterator();
+
+		while (li.hasNext())
+			ePermissionList.appendChild(li.next().serialize());
+
+		eReport.appendChild(ePermissionList);
+
 		return eReport;
 	}
 
