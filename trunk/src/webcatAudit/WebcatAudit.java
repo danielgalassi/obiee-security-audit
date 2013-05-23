@@ -27,11 +27,15 @@ public class WebcatAudit {
 		if (sWebcatLocation != null)
 			wc = new WebCatalog(sWebcatLocation);
 
+		System.out.println("Privilege audit in progress...");
 		if (wc != null && isPrivilegeAuditInvoked)
 			wc.processWebCatPrivileges();
+		System.out.println("Privilege audit completed.");
 
+		System.out.println("Dashboard audit in progress...");
 		if (wc != null && isDashboardAuditInvoked)
 			wc.processDashboards();
+		System.out.println("Dashboard Audit completed.");
 
 		wc.save();
 	}
