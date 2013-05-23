@@ -26,9 +26,9 @@ public class WebcatAudit {
 
 		if (sWebcatLocation != null)
 			wc = new WebCatalog(sWebcatLocation);
-System.out.println("END OF WEBCATALOG INIT");
-		//if (wc != null && isPrivilegeAuditInvoked)
-		//	wc.processWebCatPrivileges();
+
+		if (wc != null && isPrivilegeAuditInvoked)
+			wc.processWebCatPrivileges();
 
 		if (wc != null && isDashboardAuditInvoked)
 			wc.processDashboards();
