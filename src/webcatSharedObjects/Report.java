@@ -10,6 +10,7 @@ import java.util.Vector;
 import org.w3c.dom.Element;
 
 import utils.PrivilegeAttribFile;
+import utils.SharedObject;
 import webcatAudit.WebCatalog;
 
 public class Report {
@@ -102,8 +103,7 @@ public class Report {
 				sOwner = sOwner + c;
 			}
 
-			//reading the # of groups, first two bytes are overwritten since
-			//they do not contain any data
+			//reading the # of groups, first two bytes are not used
 			for (int i = 0; i<3; i++)
 				nGroups = data_in.readByte();
 
@@ -156,9 +156,8 @@ public class Report {
 			PrivilegeAttribFile reportAttrib = new PrivilegeAttribFile(fReport+".atr");
 
 			sReportName = reportAttrib.getName(false);
-
-			vPerms = new Vector <Permission> ();
-			setPrivileges();
+			sOwner = (SharedObject.getOwner(fReport));
+			vPerms = (SharedObject.getPrivileges(fReport));
 		}
 	}
 }
