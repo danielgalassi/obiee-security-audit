@@ -72,7 +72,6 @@ public class Component {
 		return (eGroup);
 	}
 
-
 	/**
 	 * Constructor of each component.
 	 * @param f Attribute file storing the unscrambled name of the component.
