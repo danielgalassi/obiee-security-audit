@@ -3,6 +3,7 @@ package webcatSharedObjects;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Vector;
 
 import javax.xml.xpath.XPath;
@@ -15,6 +16,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import utils.PrivilegeAttribFile;
+import utils.SharedObject;
 import utils.XMLUtils;
 import webcatAudit.WebCatalog;
 
@@ -24,6 +26,7 @@ public class Dashboard {
 	private boolean isOOTB = false;
 	private String sDashboardName = "";
 	private Vector <DashboardPage> vPages;
+	private Vector <Permission> vPerms;
 
 	private void getPageAttributes(String tag) {
 		File fDashLayout = new File(fDashboardDir+"\\dashboard+layout");
@@ -73,6 +76,14 @@ public class Dashboard {
 		while (listPages.hasNext())
 			eDashboardPageList.appendChild(listPages.next().serialize());
 
+		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
+		ListIterator <Permission> li = vPerms.listIterator();
+
+		while (li.hasNext())
+			ePermissionList.appendChild(li.next().serialize());
+
+		eDashboard.appendChild(ePermissionList);
+
 		eDashboard.appendChild(eDashboardPageList);
 		return eDashboard;
 	}
@@ -85,5 +96,7 @@ public class Dashboard {
 
 		traversePages();
 		getPageAttributes("/dashboard/@appObjectID");
+		vPerms = new Vector <Permission> ();
+		vPerms = (SharedObject.getPrivileges(fDashboard));
 	}
 }
