@@ -26,6 +26,7 @@ public class DashboardPage {
 	private boolean isHidden = false;
 	private String sPageName = "";
 	private Vector <String> vsReportPaths = new Vector <String> ();
+	private Vector <Permission> vPerms;
 
 	private void findReports() {
 		if (!SharedObject.isPage(fPage))
@@ -74,6 +75,15 @@ public class DashboardPage {
 			}
 		}
 
+
+		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
+		ListIterator <Permission> li2 = vPerms.listIterator();
+
+		while (li2.hasNext())
+			ePermissionList.appendChild(li2.next().serialize());
+
+		eDashboardPage.appendChild(ePermissionList);
+
 		eDashboardPage.appendChild(eReportList);
 		return eDashboardPage;
 	}
@@ -108,5 +118,7 @@ public class DashboardPage {
 		getPageAttributes("/dashboard/dashboardPageRef[@path='"+sPageName+"']/@hidden");
 		System.out.println("\t\tPage: " + sPageName);
 		findReports();
+		vPerms = new Vector <Permission> ();
+		vPerms = (SharedObject.getPrivileges(fPage));
 	}
 }
