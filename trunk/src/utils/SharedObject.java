@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Vector;
 
 import javax.xml.xpath.XPath;
@@ -17,8 +18,9 @@ import org.w3c.dom.Node;
 import webcatAudit.WebCatalog;
 import webcatSharedObjects.Permission;
 
-
 public class SharedObject {
+
+	private static HashMap <Integer, String> hmVerbosePermissions = new HashMap <Integer, String> ();
 
 	private static String getPrivilegeList(int val, String sPermissions) {
 		int i = 0;
@@ -104,9 +106,13 @@ public class SharedObject {
 					sRole = sRole + c;
 				}
 				int val = data_in.readUnsignedByte() + data_in.readUnsignedByte() * 256;
-				vPerms.add(new Permission(sRole, val, getPrivilegeList(val, "")));
+
+				if (!hmVerbosePermissions.containsKey(val))
+					hmVerbosePermissions.put(val, getPrivilegeList(val, ""));
+
+				vPerms.add(new Permission(sRole, val, hmVerbosePermissions.get(val)));
 			}
-			
+
 			data_in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
