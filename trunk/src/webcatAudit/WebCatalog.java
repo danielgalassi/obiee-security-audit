@@ -33,7 +33,7 @@ public class WebCatalog {
 	private Element			eUserList		= docWebcat.createElement("UserList");
 	private Vector <Component>	privs;
 	private Vector <DashboardGroup>	dash;
-	private Vector <ApplicationRole> appRoles = new Vector <ApplicationRole> ();
+	public static Vector <String> appRoles = new Vector <String> ();
 	public static HashMap <String, String> hmAllUsers = new HashMap <String, String> ();
 	public static HashMap <String, Report> hmAllReports = new HashMap <String, Report> ();
 	public static final Vector <String>		p = new Vector <String> ();
@@ -125,7 +125,7 @@ public class WebCatalog {
 			File f[] = r[i].listFiles(rolesOnly);
 			for (int j=0; j<f.length; j++) {
 				ApplicationRole ar = new ApplicationRole(f[j]);
-				appRoles.add(ar);
+				appRoles.add(ar.getName());
 				eAppRoleList.appendChild(ar.serialize());
 			}
 		}
@@ -284,7 +284,6 @@ public class WebCatalog {
 		eWebcat.setAttribute("app", "obiee-security-audit");
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
 		System.out.println("WebCatalog found at " + fWebcat);
-		System.out.println("Retrieving the full list of Reports");
 		setListOfPermissions();
 		System.out.println("Creating an aplication user catalogue");
 		listAllUsers(getUsersDirectory());
