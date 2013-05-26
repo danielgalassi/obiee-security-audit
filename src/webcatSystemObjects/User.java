@@ -31,6 +31,6 @@ public class User {
 		PrivilegeAttribFile sNameAttrib = new PrivilegeAttribFile(fUser.toString()+".atr");
 		sUserName = sNameAttrib.getName(false,3);
 		PrivilegeAttribFile sIDAttrib = new PrivilegeAttribFile(fUser.toString());
-		sUserID = sIDAttrib.getName(false,3);
+		sUserID = sIDAttrib.getName(false,4);
 	}
 }
