@@ -80,7 +80,7 @@ public class Component {
 		if (f.canRead()) {
 			ComponentAttrib = new PrivilegeAttribFile(f.toString());
 
-			sPrivGroupName = ComponentAttrib.getName(true);
+			sPrivGroupName = ComponentAttrib.getName(true,4);
 			System.out.println("Component:" + getName());
 			fComponentDir = new File(ComponentAttrib.getAttribDir());
 			if (!fComponentDir.canRead())

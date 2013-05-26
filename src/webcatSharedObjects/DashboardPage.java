@@ -114,7 +114,7 @@ public class DashboardPage {
 	public DashboardPage(File file) {
 		fPage = file;
 		PrivilegeAttribFile pageAttrib = new PrivilegeAttribFile(file+".atr");
-		sPageName = pageAttrib.getName(true);
+		sPageName = pageAttrib.getName(true,4);
 		getPageAttributes("/dashboard/dashboardPageRef[@path='"+sPageName+"']/@hidden");
 		System.out.println("\t\tPage: " + sPageName);
 		findReports();

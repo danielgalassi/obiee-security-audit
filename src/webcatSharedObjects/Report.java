@@ -56,7 +56,7 @@ public class Report {
 		}
 		return sPermissions;
 	}
-
+/*
 	private void setPrivileges() {
 		File f = new File (fReport+".atr");
 		FileInputStream file_input = null;
@@ -134,6 +134,7 @@ public class Report {
 			e.printStackTrace();
 		}
 	}
+*/
 
 	public String getFullUnscrambledName() {
 		return (sCatalogPath + "/" + sReportName);
@@ -155,7 +156,7 @@ public class Report {
 			fReport = s;
 			PrivilegeAttribFile reportAttrib = new PrivilegeAttribFile(fReport+".atr");
 
-			sReportName = reportAttrib.getName(false);
+			sReportName = reportAttrib.getName(false,4);
 			sOwner = (SharedObject.getOwner(fReport));
 			vPerms = (SharedObject.getPrivileges(fReport));
 		}

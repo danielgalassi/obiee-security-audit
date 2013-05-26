@@ -8,7 +8,7 @@ import java.io.IOException;
 @SuppressWarnings("serial")
 public class PrivilegeAttribFile extends File {
 
-	public String getName (boolean applyFormatting) {
+	public String getName (boolean applyFormatting, int offset) {
 		byte	b_data = 0;
 		int		l = 0;
 		String	sName = "";
@@ -18,9 +18,9 @@ public class PrivilegeAttribFile extends File {
 			DataInputStream data_in    = new DataInputStream (file_input);
 
 			//looking for the length of the actual name
-			for (int i = 0; i<8; i++) {
+			for (int i = 0; i<(offset+4); i++) {
 				b_data = data_in.readByte();
-				if (i==4)
+				if (i==offset)
 					l = b_data;
 			}
 
@@ -34,8 +34,6 @@ public class PrivilegeAttribFile extends File {
 				sName = sName + c;
 			}
 
-			if (sName.contains("Actuals"))
-				System.out.println("NAME : " + sName);
 			if (applyFormatting)
 				sName = sName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
 
