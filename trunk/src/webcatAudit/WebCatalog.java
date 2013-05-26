@@ -286,11 +286,11 @@ public class WebCatalog {
 		System.out.println("WebCatalog found at " + fWebcat);
 		System.out.println("Retrieving the full list of Reports");
 		setListOfPermissions();
-		System.out.println("Creating a reports catalog");
-		listAllReports(getSharedDirectory(), "", "/shared");
-		System.out.println("Creating an application roles catalogue");
-		listAllApplicationRoles(getAppRolesDirectory());
 		System.out.println("Creating an aplication user catalogue");
 		listAllUsers(getUsersDirectory());
+		System.out.println("Creating an application roles catalogue");
+		listAllApplicationRoles(getAppRolesDirectory());
+		System.out.println("Creating a reports catalog");
+		listAllReports(getSharedDirectory(), "", "/shared");
 	}
 }
