@@ -28,7 +28,7 @@ public class User {
 	}
 
 	public User(File fUser) {
-		PrivilegeAttribFile sNameAttrib = new PrivilegeAttribFile(fUser.toString());
+		PrivilegeAttribFile sNameAttrib = new PrivilegeAttribFile(fUser.toString()+".atr");
 		sUserName = sNameAttrib.getName(false,3);
 		PrivilegeAttribFile sIDAttrib = new PrivilegeAttribFile(fUser.toString());
 		sUserID = sIDAttrib.getName(false,3);

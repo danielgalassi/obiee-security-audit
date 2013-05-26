@@ -15,6 +15,7 @@ import webcatSharedObjects.DashboardGroup;
 import webcatSharedObjects.Report;
 import webcatSystemObjects.ApplicationRole;
 import webcatSystemObjects.Component;
+import webcatSystemObjects.User;
 
 /**
  * 
@@ -29,9 +30,11 @@ public class WebCatalog {
 	public static Element	eCompList		= docWebcat.createElement("ComponentList");
 	public static Element	eDashGroupList	= docWebcat.createElement("DashboardGroupList");
 	private Element 		eAppRoleList	= docWebcat.createElement("ApplicationRoleList");
+	private Element			eUserList		= docWebcat.createElement("UserList");
 	private Vector <Component>	privs;
 	private Vector <DashboardGroup>	dash;
 	private Vector <ApplicationRole> appRoles = new Vector <ApplicationRole> ();
+	private Vector <User> users = new Vector <User> ();
 	public static HashMap <String, Report> hmAllReports = new HashMap <String, Report> ();
 	public static final Vector <String>		p = new Vector <String> ();
 	public static final Vector <Integer>	n = new Vector <Integer> ();
@@ -65,6 +68,38 @@ public class WebCatalog {
 		n.add (0);
 	}
 
+	private void listAllUsers(File fUsersFolder) {
+		FilenameFilter userFoldersOnly = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				File f = new File (dir, name);
+				if (f.canRead() && f.isDirectory())
+					return true;
+				return false;
+			}
+		};
+
+		FilenameFilter usersOnly = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				File f = new File (dir, name);
+				if (f.canRead() && f.isFile() && !name.endsWith(".atr"))
+					return true;
+				return false;
+			}
+		};
+		File u[] = fUsersFolder.listFiles(userFoldersOnly);
+		for (int i=0; i<u.length; i++) {
+			File f[] = u[i].listFiles(usersOnly);
+			for (int j=0; j<f.length; j++) {
+				User usr = new User(f[j]);
+				users.add(usr);
+				eUserList.appendChild(usr.serialize());
+			}
+		}
+		eWebcat.appendChild(eUserList);
+	}
+
 	private void listAllApplicationRoles (File fAppRolesFolder) {
 		FilenameFilter roleFoldersOnly = new FilenameFilter() {
 			@Override
@@ -95,7 +130,6 @@ public class WebCatalog {
 			}
 		}
 		eWebcat.appendChild(eAppRoleList);
-
 	}
 
 	private void listAllReports (File fSharedFolder, String tab, String unscrambledPath) {
@@ -132,6 +166,17 @@ public class WebCatalog {
 	 */
 	public boolean isValid() {
 		return (fWebcat.canRead() && fWebcat.isDirectory());
+	}
+
+	/***
+	 * 
+	 * @return
+	 */
+	private File getUsersDirectory() {
+		File f = new File(fWebcat + "\\root\\system\\security\\users");
+		if (!f.canRead() || !f.isDirectory())
+			f = null;
+		return (f);
 	}
 
 	/***
@@ -245,6 +290,7 @@ public class WebCatalog {
 		listAllReports(getSharedDirectory(), "", "/shared");
 		System.out.println("Creating an application roles catalogue");
 		listAllApplicationRoles(getAppRolesDirectory());
-		System.out.println();
+		System.out.println("Creating an aplication user catalogue");
+		listAllUsers(getUsersDirectory());
 	}
 }
