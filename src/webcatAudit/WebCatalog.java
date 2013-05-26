@@ -34,7 +34,7 @@ public class WebCatalog {
 	private Vector <Component>	privs;
 	private Vector <DashboardGroup>	dash;
 	private Vector <ApplicationRole> appRoles = new Vector <ApplicationRole> ();
-	private Vector <User> users = new Vector <User> ();
+	public static HashMap <String, String> hmAllUsers = new HashMap <String, String> ();
 	public static HashMap <String, Report> hmAllReports = new HashMap <String, Report> ();
 	public static final Vector <String>		p = new Vector <String> ();
 	public static final Vector <Integer>	n = new Vector <Integer> ();
@@ -93,7 +93,7 @@ public class WebCatalog {
 			File f[] = u[i].listFiles(usersOnly);
 			for (int j=0; j<f.length; j++) {
 				User usr = new User(f[j]);
-				users.add(usr);
+				hmAllUsers.put(usr.getID(), usr.getName());
 				eUserList.appendChild(usr.serialize());
 			}
 		}
