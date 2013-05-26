@@ -9,7 +9,7 @@ import webcatAudit.WebCatalog;
 
 public class ApplicationRole {
 
-	private String sAppRoleName = "";
+	private String sAppRoleName;
 
 	public Element serialize() {
 		Element eRole = (WebCatalog.docWebcat).createElement("ApplicationRole");
