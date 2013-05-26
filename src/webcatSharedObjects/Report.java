@@ -15,6 +15,9 @@ public class Report {
 	private String	sReportName = "";
 	private String	sCatalogPath;
 	private String	sOwner = "";
+	private String	sOwnerType = "Application Role";
+	private boolean ownerIsRole;
+	private boolean ownerIsUser;
 	private File	fReport;
 	private Vector <Permission> vPerms;
 
@@ -23,6 +26,7 @@ public class Report {
 		eReport.setAttribute("Name", sReportName);
 		eReport.setAttribute("FullUnscrambledName", getFullUnscrambledName());
 		eReport.setAttribute("Owner", sOwner);
+		eReport.setAttribute("OwnerType", sOwnerType);
 		eReport.setAttribute("Path", fReport+"");
 
 		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
@@ -57,11 +61,20 @@ public class Report {
 			PrivilegeAttribFile reportAttrib = new PrivilegeAttribFile(fReport+".atr");
 
 			sReportName = reportAttrib.getName(false,4);
+
 			sOwner = (SharedObject.getOwner(fReport));
-			if (WebCatalog.hmAllUsers.containsKey(sOwner))
+			ownerIsUser = WebCatalog.hmAllUsers.containsKey(sOwner);
+			ownerIsRole = WebCatalog.appRoles.contains(sOwner);
+
+			if (ownerIsUser) {
+				sOwnerType = "User";
 				sOwner = WebCatalog.hmAllUsers.get(sOwner);
-			else
-				sOwner = "User Not Found";
+			}
+			if (!ownerIsUser && !ownerIsRole) {
+				sOwnerType = "Not Found";
+				sOwner = "Not Found (" + sOwner + ")";
+			}
+
 			vPerms = (SharedObject.getPrivileges(fReport));
 		}
 	}
