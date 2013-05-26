@@ -13,6 +13,7 @@ import utils.SharedObject;
 import utils.XMLUtils;
 import webcatSharedObjects.DashboardGroup;
 import webcatSharedObjects.Report;
+import webcatSystemObjects.ApplicationRole;
 import webcatSystemObjects.Component;
 
 /**
@@ -27,8 +28,10 @@ public class WebCatalog {
 	private static Element	eWebcat			= docWebcat.createElement("WebCat");
 	public static Element	eCompList		= docWebcat.createElement("ComponentList");
 	public static Element	eDashGroupList	= docWebcat.createElement("DashboardGroupList");
+	private Element 		eAppRoleList	= docWebcat.createElement("ApplicationRoleList");
 	private Vector <Component>	privs;
 	private Vector <DashboardGroup>	dash;
+	private Vector <ApplicationRole> appRoles = new Vector <ApplicationRole> ();
 	public static HashMap <String, Report> hmAllReports = new HashMap <String, Report> ();
 	public static final Vector <String>		p = new Vector <String> ();
 	public static final Vector <Integer>	n = new Vector <Integer> ();
@@ -62,6 +65,39 @@ public class WebCatalog {
 		n.add (0);
 	}
 
+	private void listAllApplicationRoles (File fAppRolesFolder) {
+		FilenameFilter roleFoldersOnly = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				File f = new File (dir, name);
+				if (f.canRead() && f.isDirectory())
+					return true;
+				return false;
+			}
+		};
+
+		FilenameFilter rolesOnly = new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				File f = new File (dir, name);
+				if (f.canRead() && f.isFile() && !name.endsWith(".atr"))
+					return true;
+				return false;
+			}
+		};
+		File r[] = fAppRolesFolder.listFiles(roleFoldersOnly);
+		for (int i=0; i<r.length; i++) {
+			File f[] = r[i].listFiles(rolesOnly);
+			for (int j=0; j<f.length; j++) {
+				ApplicationRole ar = new ApplicationRole(f[j]);
+				appRoles.add(ar);
+				eAppRoleList.appendChild(ar.serialize());
+			}
+		}
+		eWebcat.appendChild(eAppRoleList);
+
+	}
+
 	private void listAllReports (File fSharedFolder, String tab, String unscrambledPath) {
 		tab += "\t";
 		FilenameFilter filter = new FilenameFilter() {
@@ -85,7 +121,7 @@ public class WebCatalog {
 					}
 
 				if (s[i].isDirectory())
-					listAllReports(s[i], tab, unscrambledPath + "/" + p.getName(true));
+					listAllReports(s[i], tab, unscrambledPath + "/" + p.getName(true,4));
 			}
 		}
 	}
@@ -95,7 +131,7 @@ public class WebCatalog {
 	 * @return
 	 */
 	public boolean isValid() {
-		return fWebcat.canRead();
+		return (fWebcat.canRead() && fWebcat.isDirectory());
 	}
 
 	/***
@@ -104,7 +140,18 @@ public class WebCatalog {
 	 */
 	public File getPrivilegesDirectory() {
 		File f = new File(fWebcat + "\\root\\system\\privs");
-		if (!f.canRead())
+		if (!f.canRead() || !f.isDirectory())
+			f = null;
+		return (f);
+	}
+
+	/***
+	 * 
+	 * @return
+	 */
+	public File getAppRolesDirectory() {
+		File f = new File(fWebcat + "\\root\\system\\security\\approles");
+		if (!f.canRead() || !f.isDirectory())
 			f = null;
 		return (f);
 	}
@@ -115,7 +162,7 @@ public class WebCatalog {
 	 */
 	public File getSharedDirectory() {
 		File f = new File(fWebcat + "\\root\\shared");
-		if (!f.canRead())
+		if (!f.canRead() || !f.isDirectory())
 			f = null;
 		return (f);
 	}
@@ -194,7 +241,10 @@ public class WebCatalog {
 		System.out.println("WebCatalog found at " + fWebcat);
 		System.out.println("Retrieving the full list of Reports");
 		setListOfPermissions();
+		System.out.println("Creating a reports catalog");
 		listAllReports(getSharedDirectory(), "", "/shared");
+		System.out.println("Creating an application roles catalogue");
+		listAllApplicationRoles(getAppRolesDirectory());
 		System.out.println();
 	}
 }

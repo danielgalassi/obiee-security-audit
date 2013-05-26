@@ -91,7 +91,7 @@ public class Dashboard {
 	public Dashboard (File fDashboard) {
 		fDashboardDir = fDashboard;
 		PrivilegeAttribFile dashboardAttrib = new PrivilegeAttribFile(fDashboardDir+".atr");
-		sDashboardName = dashboardAttrib.getName(true);
+		sDashboardName = dashboardAttrib.getName(true,4);
 		System.out.println("\tDashboard: " + sDashboardName);
 
 		traversePages();

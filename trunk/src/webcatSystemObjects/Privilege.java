@@ -169,7 +169,7 @@ public class Privilege {
 		if (f.canRead()) {
 			privilegeAttrib = new PrivilegeAttribFile(f.toString());
 
-			sPrivName = privilegeAttrib.getName(true);
+			sPrivName = privilegeAttrib.getName(true,4);
 			System.out.println("\tPrivilege: " + getName());
 
 			privilegeDir = new File(privilegeAttrib.getAttribDir());
