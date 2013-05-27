@@ -26,7 +26,6 @@ public class Component {
 	 */
 	private void setPrivs () {
 		vPrivs = new Vector <Privilege>();
-		File[] fPrivList;
 
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
@@ -43,11 +42,11 @@ public class Component {
 			}
 		};
 
-		fPrivList = fComponentDir.listFiles(filter);
 		Element e = serialize();
-		for (int i=0; i<fPrivList.length; i++) {
-			vPrivs.add(new Privilege(fPrivList[i], getName()));
-			e.appendChild(vPrivs.get(i).serialize());
+		for (File fPrivilege : fComponentDir.listFiles(filter)) {
+			Privilege p = new Privilege(fPrivilege, getName());
+			vPrivs.add(p);
+			e.appendChild(p.serialize());
 			(WebCatalog.eCompList).appendChild(e);
 		}
 
@@ -68,7 +67,6 @@ public class Component {
 	public Element serialize () {
 		Element eGroup = (WebCatalog.docWebcat).createElement("Component");
 		eGroup.setAttribute("ComponentName", sPrivGroupName);
-
 		return (eGroup);
 	}
 
