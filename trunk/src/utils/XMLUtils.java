@@ -79,7 +79,6 @@ public class XMLUtils {
 		File XMLFile = new File(filename);
 		Result result = new StreamResult(XMLFile);
 		try {
-
 			Transformer xformer = TransformerFactory.newInstance().newTransformer();
 			xformer.transform(source, result);
 		} catch (TransformerConfigurationException e) {
@@ -96,8 +95,8 @@ public class XMLUtils {
 	 * @param strRESFile
 	 */
 	public static void xsl4Files(String strXMLFile,
-								String strXSLFile,
-								String strRESFile){
+			String strXSLFile,
+			String strRESFile){
 		File fXMLFile = new File(strXMLFile);
 		File fXSLFile = new File(strXSLFile);
 		File fResult = new File(strRESFile);
@@ -106,10 +105,16 @@ public class XMLUtils {
 		Source xsltSource = new javax.xml.transform.stream.StreamSource(fXSLFile);
 		Result result = new javax.xml.transform.stream.StreamResult(fResult);
 		TransformerFactory transFact = javax.xml.transform.TransformerFactory.newInstance();
-		try {trans = transFact.newTransformer(xsltSource);
-		} catch (TransformerConfigurationException tcE) {System.out.println("3"); publishException(tcE);}
-		try {trans.transform(xmlSource, result);
-		} catch (TransformerException tE) {System.out.println("4"); publishException(tE);}
+		try {
+			trans = transFact.newTransformer(xsltSource);
+		} catch (TransformerConfigurationException tcE) {
+			System.out.println("3"); publishException(tcE);
+		}
+		try {
+			trans.transform(xmlSource, result);
+		} catch (TransformerException tE) {
+			System.out.println("4"); publishException(tE);
+		}
 	}
 
 	/**
@@ -119,8 +124,8 @@ public class XMLUtils {
 	 * @param strRESFile
 	 */
 	public static void xsl4Files(String strXMLFile,
-								InputStream inputsXSLFile,
-								String strRESFile){
+			InputStream inputsXSLFile,
+			String strRESFile){
 		File fXMLFile = new File(strXMLFile);
 		File fResult = new File(strRESFile);
 		Source xmlSource = null;
