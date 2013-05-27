@@ -151,8 +151,10 @@ public class WebCatalog {
 						hmAllReports.put(r.getFullUnscrambledName().replace("–", "-"), r);
 					}
 
-				if (s.isDirectory())
+				if (s.isDirectory()) {
 					listAllReports(s, tab, unscrambledPath + "/" + p.getName(true,4));
+					System.out.println("Processing " + s);
+				}
 			}
 	}
 
