@@ -19,7 +19,6 @@ public class DashboardGroup {
 
 	private void traverseDashboards() {
 		File portal = new File (fDashboardGroupDir+"\\_portal");
-		File[] dashboardList = null;
 		vDashboards = new Vector <Dashboard> ();
 
 		FilenameFilter filter = new FilenameFilter() {
@@ -35,9 +34,8 @@ public class DashboardGroup {
 			}
 		};
 
-		dashboardList = portal.listFiles(filter);
-		for (int i=0; i<dashboardList.length; i++)
-			vDashboards.add(new Dashboard(dashboardList[i]));
+		for (File dashboard : portal.listFiles(filter))
+			vDashboards.add(new Dashboard(dashboard));
 	}
 
 	/***

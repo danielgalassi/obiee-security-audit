@@ -47,7 +47,6 @@ public class Dashboard {
 	}
 
 	private void traversePages() {
-		File[] pageList = null;
 		vPages = new Vector <DashboardPage> ();
 
 		FilenameFilter filter = new FilenameFilter() {
@@ -60,10 +59,9 @@ public class Dashboard {
 			}
 		};
 
-		pageList = fDashboardDir.listFiles(filter);
-		for (int i=0; i<pageList.length; i++) {
-			vPages.add(new DashboardPage(pageList[i]));
-		}
+		for (File page : fDashboardDir.listFiles(filter))
+			vPages.add(new DashboardPage(page));
+
 	}
 
 	public Element serialize() {
