@@ -2,8 +2,6 @@ package webcatSharedObjects;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Iterator;
-import java.util.ListIterator;
 import java.util.Vector;
 
 import javax.xml.xpath.XPath;
@@ -65,20 +63,18 @@ public class Dashboard {
 	}
 
 	public Element serialize() {
-		Iterator <DashboardPage> listPages = vPages.listIterator();
 		Element eDashboardPageList = (WebCatalog.docWebcat).createElement("DashboardPageList");
 		Element eDashboard = (WebCatalog.docWebcat).createElement("Dashboard");
 		eDashboard.setAttribute("DashboardName", sDashboardName);
 		eDashboard.setAttribute("isOOTB", isOOTB+"");
 
-		while (listPages.hasNext())
-			eDashboardPageList.appendChild(listPages.next().serialize());
+		for (DashboardPage page : vPages)
+			eDashboardPageList.appendChild(page.serialize());
 
 		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
-		ListIterator <Permission> li = vPerms.listIterator();
 
-		while (li.hasNext())
-			ePermissionList.appendChild(li.next().serialize());
+		for (Permission p : vPerms)
+			ePermissionList.appendChild(p.serialize());
 
 		eDashboard.appendChild(ePermissionList);
 

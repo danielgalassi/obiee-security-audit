@@ -1,7 +1,6 @@
 package webcatSharedObjects;
 
 import java.io.File;
-import java.util.ListIterator;
 import java.util.Vector;
 
 import javax.xml.xpath.XPath;
@@ -64,10 +63,8 @@ public class DashboardPage {
 		eDashboardPage.setAttribute("isHidden", isHidden+"");
 
 		Element eReportList = (WebCatalog.docWebcat).createElement("ReportList");
-		ListIterator <String> li = vsReportPaths.listIterator();
 
-		while (li.hasNext()) {
-			String s = li.next();
+		for (String s : vsReportPaths) {
 			Element eReport = null;
 			if ((WebCatalog.hmAllReports).containsKey(StringEscapeUtils.unescapeJava(s.replace("–", "---")))) {
 				eReport = (WebCatalog.hmAllReports).get(StringEscapeUtils.unescapeJava(s.replace("–", "---"))).serialize();
@@ -75,12 +72,10 @@ public class DashboardPage {
 			}
 		}
 
-
 		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
-		ListIterator <Permission> li2 = vPerms.listIterator();
 
-		while (li2.hasNext())
-			ePermissionList.appendChild(li2.next().serialize());
+		for (Permission p : vPerms)
+			ePermissionList.appendChild(p.serialize());
 
 		eDashboardPage.appendChild(ePermissionList);
 

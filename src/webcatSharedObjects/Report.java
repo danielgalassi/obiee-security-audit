@@ -30,10 +30,9 @@ public class Report {
 		eReport.setAttribute("Path", fReport+"");
 
 		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
-		ListIterator <Permission> li = vPerms.listIterator();
 
-		while (li.hasNext())
-			ePermissionList.appendChild(li.next().serialize());
+		for (Permission p : vPerms)
+			ePermissionList.appendChild(p.serialize());
 
 		eReport.appendChild(ePermissionList);
 
