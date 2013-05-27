@@ -4,7 +4,6 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.Vector;
 
 import org.w3c.dom.Element;
@@ -23,8 +22,8 @@ public class Privilege {
 	private PrivilegeAttribFile privilegeAttrib;
 	private File privilegeDir;
 	private String sPrivName = "";
-	private Vector <String> vsGranted;
-	private Vector <String> vsDenied;
+	private Vector <String> vsGranted = new Vector <String> ();
+	private Vector <String> vsDenied = new Vector <String> ();
 	private static final String[] sOOTBRoles = {"BIConsumer",
 												"BIAuthor",
 												"BIAdministrator"};
@@ -47,9 +46,6 @@ public class Privilege {
 	private void readPrivileges () {
 		FileInputStream file_input = null;
 		DataInputStream data_in    = null;
-
-		vsGranted = new Vector <String> ();
-		vsDenied  = new Vector <String> ();
 
 		byte	b_data = 0;
 		int iRead;
@@ -128,30 +124,25 @@ public class Privilege {
 	public Element serialize () {
 		Element eRole;
 		Node nRole;
-		String p;
 
 		Element ePriv = (WebCatalog.docWebcat).createElement("Privilege");
 		Element eRoleList = (WebCatalog.docWebcat).createElement("RoleList");
 
-		Iterator <String> privilegeList = vsGranted.listIterator();
-
-		while (privilegeList.hasNext()) {
-			p = privilegeList.next();
-			nRole = (WebCatalog.docWebcat).createTextNode(p);
+		for (String s : vsGranted) {
+			nRole = (WebCatalog.docWebcat).createTextNode(s);
 			eRole = (WebCatalog.docWebcat).createElement("Role");
 			eRole.appendChild(nRole);
 			eRole.setAttribute("access", "Granted");
-			eRole.setAttribute("isOOTBRole", isOOTBRole(p)+"");
+			eRole.setAttribute("isOOTBRole", isOOTBRole(s)+"");
 			eRoleList.appendChild(eRole);
 		}
-		privilegeList = vsDenied.listIterator();
-		while (privilegeList.hasNext()) {
-			p = privilegeList.next();
-			nRole = (WebCatalog.docWebcat).createTextNode(p);
+		
+		for (String s : vsDenied) {
+			nRole = (WebCatalog.docWebcat).createTextNode(s);
 			eRole = (WebCatalog.docWebcat).createElement("Role");
 			eRole.appendChild(nRole);
-			eRole.setAttribute("access", "Denied");
-			eRole.setAttribute("isOOTBRole", isOOTBRole(p)+"");
+			eRole.setAttribute("access", "Granted");
+			eRole.setAttribute("isOOTBRole", isOOTBRole(s)+"");
 			eRoleList.appendChild(eRole);
 		}
 

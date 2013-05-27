@@ -14,15 +14,16 @@ public class WebcatAudit {
 		String sWebcatLocation = null;
 
 		//picking up parameters
-		for (int a=0; a<args.length; a++) {
+		for (String cmdLineArg : args)
+        {
 			//Web Catalog Location
-			if (args[a].startsWith("-w="))
-				sWebcatLocation = args[a].replaceAll("-w=", "");
-			if (args[a].startsWith("-privs"))
+			if (cmdLineArg.startsWith("-w="))
+				sWebcatLocation = cmdLineArg.replaceAll("-w=", "");
+			if (cmdLineArg.startsWith("-privs"))
 				isPrivilegeAuditInvoked = true;
-			if (args[a].startsWith("-dashboards"))
+			if (cmdLineArg.startsWith("-dashboards"))
 				isDashboardAuditInvoked = true;
-		}
+        }
 
 		if (sWebcatLocation != null)
 			wc = new WebCatalog(sWebcatLocation);

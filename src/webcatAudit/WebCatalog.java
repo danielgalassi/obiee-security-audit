@@ -88,15 +88,14 @@ public class WebCatalog {
 				return false;
 			}
 		};
-		File u[] = fUsersFolder.listFiles(userFoldersOnly);
-		for (int i=0; i<u.length; i++) {
-			File f[] = u[i].listFiles(usersOnly);
-			for (int j=0; j<f.length; j++) {
-				User usr = new User(f[j]);
+
+		for (File u : fUsersFolder.listFiles(userFoldersOnly))
+			for (File f : u.listFiles(usersOnly)) {
+				User usr = new User(f);
 				hmAllUsers.put(usr.getID(), usr.getName());
 				eUserList.appendChild(usr.serialize());
 			}
-		}
+
 		eWebcat.appendChild(eUserList);
 	}
 
@@ -120,15 +119,14 @@ public class WebCatalog {
 				return false;
 			}
 		};
-		File r[] = fAppRolesFolder.listFiles(roleFoldersOnly);
-		for (int i=0; i<r.length; i++) {
-			File f[] = r[i].listFiles(rolesOnly);
-			for (int j=0; j<f.length; j++) {
-				ApplicationRole ar = new ApplicationRole(f[j]);
+
+		for (File r : fAppRolesFolder.listFiles(roleFoldersOnly))
+			for (File f : r.listFiles(rolesOnly)) {
+				ApplicationRole ar = new ApplicationRole(f);
 				appRoles.add(ar.getName());
 				eAppRoleList.appendChild(ar.serialize());
 			}
-		}
+
 		eWebcat.appendChild(eAppRoleList);
 	}
 
@@ -143,21 +141,19 @@ public class WebCatalog {
 			}
 		};
 
-		File s[] = fSharedFolder.listFiles(filter);
-		for (int i=0; i<s.length; i++) {
-			if ((new File(s[i]+".atr").canRead())) {
-				PrivilegeAttribFile p = new PrivilegeAttribFile(s[i]+".atr");
+		for (File s : fSharedFolder.listFiles(filter))
+			if ((new File(s+".atr").canRead())) {
+				PrivilegeAttribFile p = new PrivilegeAttribFile(s+".atr");
 
-				if (s[i].isFile())
-					if (SharedObject.isReport(s[i])) {
-						Report r = new Report(unscrambledPath, s[i]);
+				if (s.isFile())
+					if (SharedObject.isReport(s)) {
+						Report r = new Report(unscrambledPath, s);
 						hmAllReports.put(r.getFullUnscrambledName().replace("–", "-"), r);
 					}
 
-				if (s[i].isDirectory())
-					listAllReports(s[i], tab, unscrambledPath + "/" + p.getName(true,4));
+				if (s.isDirectory())
+					listAllReports(s, tab, unscrambledPath + "/" + p.getName(true,4));
 			}
-		}
 	}
 
 	/***
@@ -216,7 +212,6 @@ public class WebCatalog {
 	 * 
 	 */
 	public void processDashboards() {
-		File[] folderList = null;
 		dash = new Vector <DashboardGroup> ();
 
 		FilenameFilter filter = new FilenameFilter() {
@@ -232,10 +227,10 @@ public class WebCatalog {
 			}
 		};
 
-		folderList = getSharedDirectory().listFiles(filter);
-		for (int i=0; i<folderList.length; i++) {
-			dash.add(new DashboardGroup(folderList[i]));
-			eDashGroupList.appendChild(dash.get(i).serialize());
+		for (File folder : getSharedDirectory().listFiles(filter)) {
+			DashboardGroup dg = new DashboardGroup(folder);
+			dash.add(dg);
+			eDashGroupList.appendChild(dg.serialize());
 		}
 
 		eWebcat.appendChild(eDashGroupList);
@@ -245,7 +240,6 @@ public class WebCatalog {
 	 * 
 	 */
 	public void processWebCatPrivileges() {
-		File[] fList = null;
 		privs = new Vector <Component> ();
 
 		FilenameFilter filter = new FilenameFilter() {
@@ -262,9 +256,8 @@ public class WebCatalog {
 			}
 		};
 
-		fList = getPrivilegesDirectory().listFiles(filter);
-		for (int i=0; i<fList.length; i++)
-			privs.add(new Component(fList[i]));
+		for (File f : getPrivilegesDirectory().listFiles(filter))
+			privs.add(new Component(f));
 
 		eWebcat.appendChild(eCompList);
 	}
