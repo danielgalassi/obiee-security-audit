@@ -3,6 +3,13 @@
 	<xsl:output method="xml" media-type="text/plain"/>
 	<xsl:template match="/">
 		<WebCatalog>
+		<RoleTypeMasterList>
+		<RoleType Name="Administrators"/>
+		<RoleType Name="Service Desk"/>
+		<RoleType Name="EIM"/>
+		<RoleType Name="SuperUsers"/>
+		<RoleType Name="Business Users"/>
+		</RoleTypeMasterList>
 			<xsl:for-each select="/WebCat">
 				<xsl:for-each select="./ApplicationRoleList">
 					<ApplicationRoleList>
