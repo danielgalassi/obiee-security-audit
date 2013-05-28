@@ -6,7 +6,7 @@
 			<head>
 				<style type="text/css">
 		h1 {font-family: Helvetica, sans-serif; font-weight: bold; font-size: 24pt; color: #676767;}
-		h2 {font-family: Helvetica, sans-serif; font-weight: bold; font-size: 20pt; color: #767676;}
+		h2 {font-family: Helvetica, sans-serif; font-weight: bold; font-size: 20pt; color: #777777;}
 		h3 {font-family: Helvetica, sans-serif; font-size: 14pt; color: #777777;}
 		h4 {font-family: Helvetica, sans-serif; font-size: 14pt; color: #888888;}
 		li {font-family: Helvetica, sans-serif; font-size: 10pt; color: #474747;}
@@ -17,17 +17,17 @@
 		table {
 			border-spacing: 0 0;
 			margin: 1px;
-			border-right: 1px solid #DDDDDD;
+			border-right: 1px solid #DEDEDE;
 			font-family: Helvetica, sans-serif; font-size: 8.5pt;}
 		thead th {
 			font-family: Helvetica, sans-serif; font-size: 8pt;
 			background: #EFEFEF;
-			border-left: 1px solid #DDDDDD;
-			border-top: 1px solid #DDDDDD;}
+			border-left: 1px solid #DEDEDE;
+			border-top: 1px solid #DEDEDE;}
 		tbody td {
         		font-family: Helvetica, sans-serif; font-size: 8.5pt;
-			border-bottom: 1px solid #DDDDDD;
-			border-left: 1px solid #DDDDDD;}
+			border-bottom: 1px solid #DEDEDE;
+			border-left: 1px solid #DEDEDE;}
 				</style>
 
 				<title>Oracle Business Intelligence Security Matrix - Features</title>
@@ -76,18 +76,22 @@
 								<!-- Privilege Section -->
 								<xsl:for-each select="./Privilege">
 									<tr>
-									<!-- Privilege Names -->
+										<!-- Privilege Names -->
 										<td style="background: #F6F6F6; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555; padding-left:20px;">
 											<xsl:value-of select="@PrivilegeName"/>
 										</td>
 
 										<!-- greyed out cells -->
-										<xsl:for-each select="../../..//RoleType">
-											<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555; padding-left:20px;">
-												<xsl:value-of select="@PrivilegeName"/>
+										<!--xsl:for-each select="../../..//RoleType">
+											<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555; text-align:center;">
+												<xsl:value-of select="@Name"/>
 											</td>
+										</xsl:for-each-->
+										<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555; text-align:center;">
+										<xsl:for-each select="./RoleList/Role">
+										<xsl:value-of select="."/>
 										</xsl:for-each>
-
+										</td>
 									</tr>
 								</xsl:for-each>
 							</xsl:for-each>
