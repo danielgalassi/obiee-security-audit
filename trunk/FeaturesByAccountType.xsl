@@ -81,16 +81,34 @@
 											<xsl:value-of select="@PrivilegeName"/>
 										</td>
 
-										<!-- greyed out cells -->
-										<!--xsl:for-each select="../../..//RoleType">
-											<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555; text-align:center;">
-												<xsl:value-of select="@Name"/>
-											</td>
-										</xsl:for-each-->
-										<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555; text-align:center;">
-										<xsl:for-each select="./RoleList/Role">
-										<xsl:value-of select="."/>
-										</xsl:for-each>
+										<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">
+											<xsl:if test="count(.//Role[@access='Granted' and @RoleType='Administrators']) > 0">
+											YES
+											</xsl:if>
+										</td>
+
+										<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">
+											<xsl:if test="count(.//Role[@access='Granted' and @RoleType='Service Desk']) > 0">
+											YES
+											</xsl:if>
+										</td>
+
+										<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">
+											<xsl:if test="count(.//Role[@access='Granted' and @RoleType='EIM']) > 0">
+											YES
+											</xsl:if>
+										</td>
+
+										<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">
+											<xsl:if test="count(.//Role[@access='Granted' and @RoleType='SuperUsers']) > 0">
+											YES
+											</xsl:if>
+										</td>
+
+										<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">
+											<xsl:if test="count(.//Role[@access='Granted' and @RoleType='Business Users']) > 0">
+											YES
+											</xsl:if>
 										</td>
 									</tr>
 								</xsl:for-each>
