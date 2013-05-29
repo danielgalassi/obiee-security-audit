@@ -56,10 +56,11 @@
 											<!-- calculate the role type here: ADM, SUP, EIM, SU, BIZ -->
 															<xsl:variable name="myRole" select="."></xsl:variable>
 															<xsl:choose>
-																<xsl:when test="count(../../../../..//ComponentList/Component[@ComponentName = 'Admin System Privs']/Privilege/RoleList/Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk')) and not(contains($myRole, 'NBN EIM')) and not(contains($myRole, 'Session_Log_Read'))]) > 0">Administrators</xsl:when>
-																<xsl:when test="count(../../../../..//ComponentList/Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']/RoleList/Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk')) and not(contains($myRole, 'NBN EIM')) and not(contains($myRole, 'Session_Log_Read'))]) > 0">SuperUsers</xsl:when>
+																<xsl:when test="count(../../../../..//ComponentList/Component[@ComponentName = 'Admin System Privs']/Privilege/RoleList/Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk')) and not(contains($myRole, 'NBN EIM')) and not(contains($myRole, 'Session_Log_Read')) and not(contains($myRole, 'BISystem'))]) > 0">Administrators</xsl:when>
+																<xsl:when test="count(../../../../..//ComponentList/Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']/RoleList/Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk')) and not(contains($myRole, 'NBN EIM')) and not(contains($myRole, 'Session_Log_Read')) and not(contains($myRole, 'BISystem'))]) > 0">SuperUsers</xsl:when>
 																<xsl:when test="contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read')">EIM</xsl:when>
 																<xsl:when test="contains($myRole, 'Service Desk')">Service Desk</xsl:when>
+																<xsl:when test="contains($myRole, 'BISystem')">System User</xsl:when>
 																<xsl:otherwise>Business Users</xsl:otherwise>
 															</xsl:choose>
 														</xsl:attribute>
