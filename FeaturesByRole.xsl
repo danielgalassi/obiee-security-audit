@@ -55,14 +55,13 @@
 								<tr>
 									<td style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
 										<xsl:value-of select="@ComponentName"/>
-										<!-- greyed out cells -->
-										<xsl:for-each select="../../..//ApplicationRole">
-											<td style="text-align:center; background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
-												<xsl:value-of select="."/>
-											</td>
-										</xsl:for-each>
-									
 									</td>
+									<!-- greyed out cells -->
+									<xsl:for-each select="../../..//ApplicationRole/@ApplicationRoleName">
+										<td style="text-align:center; background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
+											<xsl:value-of select="."/>
+										</td>
+									</xsl:for-each>
 								</tr>
 								<!-- Privilege Section -->
 								<xsl:for-each select="./Privilege">
@@ -73,7 +72,7 @@
 										</td>
 										<xsl:variable name="compName" select="../@ComponentName"/>
 										<xsl:variable name="privName" select="@PrivilegeName"/>
-										<xsl:for-each select="../../..//ApplicationRole">
+										<xsl:for-each select="../../..//ApplicationRole/@ApplicationRoleName">
 											<xsl:variable name="appRole" select="."/>
 											<xsl:choose>
 												<xsl:when test="count(../../..//Component[@ComponentName=$compName]/Privilege[@PrivilegeName=$privName]/RoleList/Role[@access='Granted' and .= $appRole]) > 0">
