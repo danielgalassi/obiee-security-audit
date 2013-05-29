@@ -3,13 +3,13 @@
 	<xsl:output method="xml" media-type="text/plain"/>
 	<xsl:template match="/">
 		<WebCatalog>
-		<RoleTypeMasterList>
-		<RoleType Name="Administrators"/>
-		<RoleType Name="Service Desk"/>
-		<RoleType Name="EIM"/>
-		<RoleType Name="SuperUsers"/>
-		<RoleType Name="Business Users"/>
-		</RoleTypeMasterList>
+			<RoleTypeMasterList>
+				<RoleType Name="Administrators"/>
+				<RoleType Name="Service Desk"/>
+				<RoleType Name="EIM"/>
+				<RoleType Name="SuperUsers"/>
+				<RoleType Name="Business Users"/>
+			</RoleTypeMasterList>
 			<xsl:for-each select="/WebCat">
 				<xsl:for-each select="./ApplicationRoleList">
 					<ApplicationRoleList>
@@ -56,17 +56,12 @@
 											<!-- calculate the role type here: ADM, SUP, EIM, SU, BIZ -->
 															<xsl:variable name="myRole" select="."></xsl:variable>
 															<xsl:choose>
-															<xsl:when test="count(../../../../..//ComponentList/Component[@ComponentName = 'Admin System Privs']/Privilege/RoleList/Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk')) and not(contains($myRole, 'NBN EIM')) and not(contains($myRole, 'Session_Log_Read'))]) > 0">Administrators</xsl:when>
-															<xsl:when test="count(../../../../..//ComponentList/Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']/RoleList/Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk')) and not(contains($myRole, 'NBN EIM')) and not(contains($myRole, 'Session_Log_Read'))]) > 0">SuperUsers</xsl:when>
-															<xsl:when test="contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read')">EIM</xsl:when>
-															<xsl:when test="contains($myRole, 'Service Desk')">Service Desk</xsl:when>
-															<xsl:otherwise>Business Users</xsl:otherwise>
+																<xsl:when test="count(../../../../..//ComponentList/Component[@ComponentName = 'Admin System Privs']/Privilege/RoleList/Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk')) and not(contains($myRole, 'NBN EIM')) and not(contains($myRole, 'Session_Log_Read'))]) > 0">Administrators</xsl:when>
+																<xsl:when test="count(../../../../..//ComponentList/Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']/RoleList/Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk')) and not(contains($myRole, 'NBN EIM')) and not(contains($myRole, 'Session_Log_Read'))]) > 0">SuperUsers</xsl:when>
+																<xsl:when test="contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read')">EIM</xsl:when>
+																<xsl:when test="contains($myRole, 'Service Desk')">Service Desk</xsl:when>
+																<xsl:otherwise>Business Users</xsl:otherwise>
 															</xsl:choose>
-															<!-- count(../..//ComponentList/Component[@ComponentName = 'Admin System Privs']/Privilege/RoleList/Role[@access='Granted'][.=$AppRole]) > 0 -->
-															<!--xsl:value-of select="count(../../../../..//ApplicationRole[@isAdmin='true'][.=$myRole])"/>
-															<xsl:value-of select="count(../../../../..//ApplicationRole[@isServiceDesk='true'][.=$myRole])"/>
-															<xsl:value-of select="count(../../../../..//ApplicationRole[@isEIM='true'][.=$myRole])"/>
-															<xsl:value-of select="count(../../../../..//ApplicationRole[@isSuperUser='true'][.=$myRole])"/-->
 														</xsl:attribute>
 														<xsl:value-of select="."/>
 													</Role>
@@ -79,14 +74,6 @@
 						</xsl:for-each>
 					</ComponentList>
 				</xsl:for-each>
-
-				<!--xsl:for-each select="./ComponentList">
-					<ComponentList>
-						<xsl:for-each select=".">
-							<xsl:copy-of select="*"/>
-						</xsl:for-each>
-					</ComponentList>
-				</xsl:for-each-->
 			</xsl:for-each>
 		</WebCatalog>
 	</xsl:template>
