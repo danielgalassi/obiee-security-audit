@@ -46,19 +46,6 @@
 					<!-- Matrix Section -->
 					<table>
 						<tbody>
-							<!--thead>
-								<tr>
-									<td width="300px" style="text-align:center; font-family: Helvetica, sans-serif; font-size: 8pt; border-top: 1px solid #EFEFEF; border-left: 1px solid #EFEFEF; border-bottom: 1px solid #E3E3E3; background-color: rgb(250,250,250);">Privilege &amp; Groups / Account Types (right)</td-->
-									<!-- Account Type list -->
-									<!--xsl:for-each select="..//RoleType">
-										<th width="150px" style="background: #EFEFEF; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
-											<xsl:value-of select="@Name"/>
-										</th>
-									</xsl:for-each>
-								</tr>
-							</thead-->
-							<!-- Component list and ticks -->
-							<!-- Component Names -->
 							<xsl:for-each select="./ComponentList/Component">
 								<tr>
 									<td style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
