@@ -46,6 +46,13 @@
 					<!-- Matrix Section -->
 					<table>
 						<tbody>
+							<thead>
+								<tr>
+									<td style="text-align:center; font-family: Helvetica, sans-serif; font-size: 8.5pt; border-top: 1px solid #EFEFEF; border-left: 1px solid #EFEFEF; border-bottom: 1px solid #E3E3E3; background-color: rgb(250,250,250);">Functionality / Role Types</td>
+									<th colspan="5" style="background: #DFDFDF; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #333333; border-right: 0px solid; border-left: 0px solid;">Role Types</th>
+								</tr>
+							</thead>
+							<!-- Component / Privilege Content -->
 							<xsl:for-each select="./ComponentList/Component[not (starts-with(@ComponentName, 'SA.')) and not (starts-with(@ComponentName, 'View.'))]">
 								<tr>
 									<td style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
@@ -116,7 +123,6 @@
 											</xsl:when>
 										</xsl:choose>
 										
-										
 										<xsl:choose>
 											<xsl:when test="count(.//Role[@access='Granted' and @RoleType='Business Users']) > 0">
 												<td style="background: #CCFF99; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">YES</td>
@@ -130,9 +136,7 @@
 							</xsl:for-each>
 							<tr>
 								<td style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">Self-Service Subject Areas</td>
-								<xsl:for-each select="..//RoleType">
-									<td style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #444444; text-align:center; border-right: 0px solid; border-left: 0px solid;"/>
-								</xsl:for-each>
+								<td colspan="5" style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #444444; text-align:center; border-right: 0px solid; border-left: 0px solid;"/>
 							</tr>
 							<xsl:for-each select="./ComponentList/Component[starts-with(@ComponentName, 'SA.')]">
 								<tr>
@@ -190,12 +194,9 @@
 							</xsl:for-each>
 							<tr>
 								<td style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">Answers Views</td>
-								<xsl:for-each select="..//RoleType">
-									<td style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #444444; text-align:center; border-right: 0px solid; border-left: 0px solid;"/>
-								</xsl:for-each>
+								<td colspan="5" style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #444444; text-align:center; border-right: 0px solid; border-left: 0px solid;"/>
 							</tr>
 							<xsl:for-each select="./ComponentList/Component[starts-with(@ComponentName, 'View.')]">
-							<!--   -->
 								<tr>
 									<td style="background: #F6F6F6; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555; padding-left:20px;">
 										Edit or Customise 
