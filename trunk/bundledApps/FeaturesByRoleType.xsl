@@ -46,7 +46,7 @@
 					<!-- Matrix Section -->
 					<table>
 						<tbody>
-							<xsl:for-each select="./ComponentList/Component">
+							<xsl:for-each select="./ComponentList/Component[not (starts-with(@ComponentName, 'SA.'))]">
 								<tr>
 									<td style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
 										<xsl:value-of select="@ComponentName"/>
@@ -115,6 +115,66 @@
 										</xsl:choose>
 									</tr>
 								</xsl:for-each>
+							</xsl:for-each>
+							<tr>
+								<td style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">Self-Service OBIEE</td>
+								<xsl:for-each select="..//RoleType">
+									<td style="background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #444444; text-align:center; border-right: 0px solid; border-left: 0px solid;"/>
+								</xsl:for-each>
+							</tr>
+							<xsl:for-each select="./ComponentList/Component[starts-with(@ComponentName, 'SA.')]">
+								<tr>
+									<td style="background: #F6F6F6; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555; padding-left:20px;">
+										Subject Area <xsl:value-of select="substring(@ComponentName,4,string-length(@ComponentName)-3)"/>
+									</td>
+								<!-- Privilege Section -->
+									<xsl:for-each select="./Privilege">
+										<xsl:choose>
+											<xsl:when test="count(.//Role[@access='Granted' and @RoleType='Administrators']) > 0">
+												<td style="background: #CCFF99; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">Administrators</td>
+											</xsl:when>
+											<xsl:when test="count(.//Role[@access='Granted' and @RoleType='Administrators']) = 0">
+												<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #444444; text-align:center;">-</td>
+											</xsl:when>
+										</xsl:choose>
+										
+										<xsl:choose>
+											<xsl:when test="count(.//Role[@access='Granted' and @RoleType='Service Desk']) > 0">
+												<td style="background: #CCFF99; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">Service Desk</td>
+											</xsl:when>
+											<xsl:when test="count(.//Role[@access='Granted' and @RoleType='Service Desk']) = 0">
+												<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #444444; text-align:center;">-</td>
+											</xsl:when>
+										</xsl:choose>
+										
+										<xsl:choose>
+											<xsl:when test="count(.//Role[@access='Granted' and @RoleType='EIM']) > 0">
+												<td style="background: #CCFF99; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">EIM</td>
+											</xsl:when>
+											<xsl:when test="count(.//Role[@access='Granted' and @RoleType='EIM']) = 0">
+												<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #444444; text-align:center;">-</td>
+											</xsl:when>
+										</xsl:choose>
+										
+										<xsl:choose>
+											<xsl:when test="count(.//Role[@access='Granted' and @RoleType='SuperUsers']) > 0">
+												<td style="background: #CCFF99; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">SuperUsers</td>
+											</xsl:when>
+											<xsl:when test="count(.//Role[@access='Granted' and @RoleType='SuperUsers']) = 0">
+												<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #444444; text-align:center;">-</td>
+											</xsl:when>
+										</xsl:choose>
+										
+										<xsl:choose>
+											<xsl:when test="count(.//Role[@access='Granted' and @RoleType='Business Users']) > 0">
+												<td style="background: #CCFF99; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">Business Users</td>
+											</xsl:when>
+											<xsl:when test="count(.//Role[@access='Granted' and @RoleType='Business Users']) = 0">
+												<td style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #444444; text-align:center;">-</td>
+											</xsl:when>
+										</xsl:choose>
+									</xsl:for-each>
+								</tr>
 							</xsl:for-each>
 						</tbody>
 					</table>
