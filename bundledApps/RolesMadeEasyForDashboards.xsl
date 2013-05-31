@@ -83,30 +83,30 @@
 													</PermissionList>
 													<ReportList>
 														<xsl:for-each select="./ReportList/Report">
-														<Report>
-															<xsl:copy-of select="FullUnscrambledName"/>
-															<xsl:copy-of select="Name"/>
-															<xsl:copy-of select="Owner"/>
-													<PermissionList>
-														<xsl:for-each select="./PermissionList/Permission">
-															<xsl:variable name="myRole" select="@Role"/>
-															<Permission>
-																<xsl:copy-of select="@Description"/>
-																<xsl:copy-of select="@Role"/>
-																<xsl:attribute name="RoleType">
-																	<xsl:choose>
-																		<xsl:when test="count(../../../../../../../../../../..//Component[@ComponentName = 'Admin System Privs']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">Administrators</xsl:when>
-																		<xsl:when test="count(../../../../../../../../../../..//Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">SuperUsers</xsl:when>
-																		<xsl:when test="contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read')">EIM</xsl:when>
-																		<xsl:when test="contains($myRole, 'Service Desk')">Service Desk</xsl:when>
-																		<xsl:when test="contains($myRole, 'BISystem') or  contains($myRole, 'AuthenticatedUser')">System User</xsl:when>
-																		<xsl:otherwise>Business Users</xsl:otherwise>
-																	</xsl:choose>
-																</xsl:attribute>
-															</Permission>
-														</xsl:for-each>
-													</PermissionList>
-														</Report>
+															<Report>
+																<xsl:copy-of select="@FullUnscrambledName"/>
+																<xsl:copy-of select="@Name"/>
+																<xsl:copy-of select="@Owner"/>
+																<PermissionList>
+																	<xsl:for-each select="./PermissionList/Permission">
+																		<xsl:variable name="myRole" select="@Role"/>
+																		<Permission>
+																			<xsl:copy-of select="@Description"/>
+																			<xsl:copy-of select="@Role"/>
+																			<xsl:attribute name="RoleType">
+																				<xsl:choose>
+																					<xsl:when test="count(../../../../../../../../../../..//Component[@ComponentName = 'Admin System Privs']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">Administrators</xsl:when>
+																					<xsl:when test="count(../../../../../../../../../../..//Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">SuperUsers</xsl:when>
+																					<xsl:when test="contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read')">EIM</xsl:when>
+																					<xsl:when test="contains($myRole, 'Service Desk')">Service Desk</xsl:when>
+																					<xsl:when test="contains($myRole, 'BISystem') or  contains($myRole, 'AuthenticatedUser')">System User</xsl:when>
+																					<xsl:otherwise>Business Users</xsl:otherwise>
+																				</xsl:choose>
+																			</xsl:attribute>
+																		</Permission>
+																	</xsl:for-each>
+																</PermissionList>
+															</Report>
 														</xsl:for-each>
 													</ReportList>
 												</DashboardPage>
