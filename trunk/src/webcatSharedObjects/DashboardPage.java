@@ -47,7 +47,7 @@ public class DashboardPage {
 
 				//lists each report published on that dashboard page
 				for (int i=0; i<nTag.getLength(); i++) {
-					System.out.println("\t\t\tReport in this page: " + nTag.item(i).getNodeValue());
+					//System.out.println("\t\t\tReport in this page: " + nTag.item(i).getNodeValue());
 					vsReportPaths.add(nTag.item(i).getNodeValue());
 				}
 
@@ -111,7 +111,7 @@ public class DashboardPage {
 		PrivilegeAttribFile pageAttrib = new PrivilegeAttribFile(file+".atr");
 		sPageName = pageAttrib.getName(true,4);
 		getPageAttributes("/dashboard/dashboardPageRef[@path='"+sPageName+"']/@hidden");
-		System.out.println("\t\tPage: " + sPageName);
+		//System.out.println("\t\tPage: " + sPageName);
 		findReports();
 		vPerms = new Vector <Permission> ();
 		vPerms = (SharedObject.getPrivileges(fPage));
