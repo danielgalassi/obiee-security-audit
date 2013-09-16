@@ -16,7 +16,6 @@ public class WebcatAudit {
 	private InputStream istrInternalResource(String rsc) {
 		InputStream isRsc = null;
 		try {
-			//isRsc = getClass().getClassLoader().getResourceAsStream(rsc);
 			isRsc = getClass().getResourceAsStream(rsc);
 		} catch (Exception e) {
 			System.out.println("Exception loading: " + rsc);
