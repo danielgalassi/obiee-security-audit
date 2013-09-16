@@ -282,9 +282,9 @@ public class WebCatalog {
 		setListOfPermissions();
 		System.out.println("Creating an aplication user catalogue");
 		listAllUsers(getUsersDirectory());
-		System.out.println("Creating an application roles catalogue");
+		System.out.println("Creating an application role catalogue");
 		listAllApplicationRoles(getAppRolesDirectory());
-		System.out.println("Creating a reports catalogue");
+		System.out.println("Creating a report catalogue");
 		listAllReports(getSharedDirectory(), "", "/shared");
 	}
 }
