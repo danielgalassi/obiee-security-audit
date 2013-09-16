@@ -64,7 +64,7 @@ public class DashboardGroup {
 			groupAttrib = new PrivilegeAttribFile(fDashboardGroupDir+".atr");
 
 			sDashboardGroupName = groupAttrib.getName(true,4);
-			System.out.println("Group: " + sDashboardGroupName);
+			//System.out.println("Group: " + sDashboardGroupName);
 			traverseDashboards();
 		}
 	}
