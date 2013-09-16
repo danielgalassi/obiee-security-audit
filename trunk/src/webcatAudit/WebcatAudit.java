@@ -2,8 +2,6 @@ package webcatAudit;
 
 import java.io.InputStream;
 
-import utils.XMLUtils;
-
 
 public class WebcatAudit {
 
@@ -11,6 +9,7 @@ public class WebcatAudit {
 	private static boolean isDashboardAuditInvoked = false;
 	private static InputStream insXSL1;
 	private static InputStream insXSL2;
+	private static InputStream insXSL3;
 
 	private InputStream istrInternalResource(String rsc) {
 		InputStream isRsc = null;
@@ -64,6 +63,7 @@ public class WebcatAudit {
 			WebcatAudit w = new WebcatAudit();
 			insXSL1 = w.istrInternalResource("bundledApps/RolesMadeEasy.xsl");
 			insXSL2 = w.istrInternalResource("bundledApps/FeaturesByRoleType.xsl");
+			insXSL3 = w.istrInternalResource("bundledApps/FeaturesByRoleType.xsl");
 		}
 
 		if (wc != null && isDashboardAuditInvoked) {
