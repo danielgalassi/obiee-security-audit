@@ -1,5 +1,6 @@
 package webcatAudit;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import utils.XMLUtils;
@@ -57,10 +58,6 @@ public class WebcatAudit {
 			wc.processDashboards();
 		System.out.println("Dashboard Audit completed.");
 
-		System.out.println(wc);
-		System.out.println(isPrivilegeAuditInvoked);
-		System.out.println(isDashboardAuditInvoked);
-
 		wc.save();
 
 		if (wc != null && isPrivilegeAuditInvoked) {
@@ -68,9 +65,14 @@ public class WebcatAudit {
 			insXSL1 = w.istrInternalResource("bundledApps/RolesMadeEasy.xsl");
 			insXSL2 = w.istrInternalResource("bundledApps/FeaturesByRoleType.xsl");
 			insXSL3 = w.istrInternalResource("bundledApps/FeaturesByRole.xsl");
-			XMLUtils.xsl4Files(".\\Webcat.xml", insXSL1, ".\\RolesMadeEasy.xml");
-			XMLUtils.xsl4Files(".\\RolesMadeEasy.xml", insXSL2, ".\\FeaturesByRoleType.html");
-			XMLUtils.xsl4Files(".\\RolesMadeEasy.xml", insXSL3, ".\\FeaturesByRole.html");
+			try {
+				System.out.println(insXSL1.available());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			XMLUtils.xsl4Files("Webcat.xml", insXSL1, "RolesMadeEasy.xml");
+			XMLUtils.xsl4Files("RolesMadeEasy.xml", insXSL2, "FeaturesByRoleType.html");
+			XMLUtils.xsl4Files("RolesMadeEasy.xml", insXSL3, "FeaturesByRole.html");
 		}
 
 		if (wc != null && isDashboardAuditInvoked) {
