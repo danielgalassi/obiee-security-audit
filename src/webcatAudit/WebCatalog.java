@@ -153,7 +153,7 @@ public class WebCatalog {
 
 				if (s.isDirectory()) {
 					listAllReports(s, tab, unscrambledPath + "/" + p.getName(true,4));
-					System.out.println("Processing " + s);
+					//System.out.println("Processing " + s);
 				}
 			}
 	}
@@ -284,7 +284,7 @@ public class WebCatalog {
 		listAllUsers(getUsersDirectory());
 		System.out.println("Creating an application roles catalogue");
 		listAllApplicationRoles(getAppRolesDirectory());
-		System.out.println("Creating a reports catalog");
+		System.out.println("Creating a reports catalogue");
 		listAllReports(getSharedDirectory(), "", "/shared");
 	}
 }
