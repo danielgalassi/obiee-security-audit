@@ -2,6 +2,8 @@ package webcatAudit;
 
 import java.io.InputStream;
 
+import utils.XMLUtils;
+
 
 public class WebcatAudit {
 
@@ -32,7 +34,7 @@ public class WebcatAudit {
 
 		//picking up parameters
 		for (String cmdLineArg : args)
-        {
+		{
 			//Web Catalog Location
 			if (cmdLineArg.startsWith("-w="))
 				sWebcatLocation = cmdLineArg.replaceAll("-w=", "");
@@ -40,7 +42,7 @@ public class WebcatAudit {
 				isPrivilegeAuditInvoked = true;
 			if (cmdLineArg.startsWith("-dashboards"))
 				isDashboardAuditInvoked = true;
-        }
+		}
 
 		if (sWebcatLocation != null)
 			wc = new WebCatalog(sWebcatLocation);
@@ -59,19 +61,24 @@ public class WebcatAudit {
 		System.out.println(isPrivilegeAuditInvoked);
 		System.out.println(isDashboardAuditInvoked);
 
+		wc.save();
+
 		if (wc != null && isPrivilegeAuditInvoked) {
 			WebcatAudit w = new WebcatAudit();
 			insXSL1 = w.istrInternalResource("bundledApps/RolesMadeEasy.xsl");
 			insXSL2 = w.istrInternalResource("bundledApps/FeaturesByRoleType.xsl");
-			insXSL3 = w.istrInternalResource("bundledApps/FeaturesByRoleType.xsl");
+			insXSL3 = w.istrInternalResource("bundledApps/FeaturesByRole.xsl");
+			XMLUtils.xsl4Files(".\\Webcat.xml", insXSL1, ".\\RolesMadeEasy.xml");
+			XMLUtils.xsl4Files(".\\RolesMadeEasy.xml", insXSL2, ".\\FeaturesByRoleType.html");
+			XMLUtils.xsl4Files(".\\RolesMadeEasy.xml", insXSL3, ".\\FeaturesByRole.html");
 		}
 
 		if (wc != null && isDashboardAuditInvoked) {
 			WebcatAudit w = new WebcatAudit();
 			insXSL1 = w.istrInternalResource("bundledApps/RolesMadeEasyForDashboards.xsl");
 			insXSL2 = w.istrInternalResource("bundledApps/DashboardsByRoleType.xsl");
+			XMLUtils.xsl4Files(".\\Webcat.xml", insXSL1, ".\\RolesMadeEasyForDashboards.xml");
+			XMLUtils.xsl4Files(".\\RolesMadeEasyForDashboards.xml", insXSL2, ".\\DashboardsByRoleType.html");
 		}
-
-		wc.save();
 	}
 }
