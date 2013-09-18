@@ -53,10 +53,11 @@
 								<tr>
 									<td style="background: #D8D8D8; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
 										Dashboard Group: <xsl:value-of select="@DashboardGroupName"/>
+									</td>
 										<td colspan="5" style="text-align:center; background: #D8D8D8; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
 												Role Types
 											</td>
-									</td>
+									<!--/td-->
 								</tr>
 								<!-- Dashboard Section -->
 								<xsl:for-each select="./Dashboard">
