@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-	<xsl:output method="html"/>
+	<!--xsl:output method="html"/-->
+	<xsl:output method="xml" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" indent="yes"/>
 	<xsl:template match="/">
-		<html>
+		<!--html-->
+		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<style type="text/css">
 		h1 {font-family: Helvetica, sans-serif; font-weight: bold; font-size: 24pt; color: #676767;}
@@ -69,15 +71,15 @@
 												<xsl:value-of select="@ComponentName"/>
 											</xsl:otherwise>
 										</xsl:choose>
-
-										<!-- greyed out cells -->
-										<xsl:for-each select="../../..//RoleType">
-											<td width="150px" style="text-align:center; background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
-												<xsl:value-of select="@Name"/>
-											</td>
-										</xsl:for-each>
 									
 									</td>
+
+									<!-- greyed out cells -->
+									<xsl:for-each select="../../..//RoleType">
+										<td width="150px" style="text-align:center; background: #ECECEC; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
+											<xsl:value-of select="@Name"/>
+										</td>
+									</xsl:for-each>
 								</tr>
 								<!-- Privilege Section -->
 								<xsl:for-each select="./Privilege">
