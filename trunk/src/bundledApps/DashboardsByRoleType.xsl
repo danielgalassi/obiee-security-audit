@@ -36,11 +36,7 @@
 			</head>
 			<body>
 				<!-- Security Matrix heading -->
-				<h1>OBIEE Security Setup
-		<span style="font-size: 24px; color: #676767; -moz-transform: scaleX(-1); -o-transform: scaleX(-1); -webkit-transform: scaleX(-1); transform: scaleX(-1); display: inline-block;">
-			&#169;
-		</span>
-				</h1>
+				<h1>OBIEE Security Setup</h1>
 				<br/>
 				<xsl:for-each select="/WebCatalog">
 					<h2>Dashboards &amp; Reports Matrix</h2>
@@ -230,9 +226,10 @@
 				
 				</xsl:for-each>
 				<div style="padding-top: 20px;">
-					<p style="color: rgb(128, 128, 128); float: left;">Mozilla Firefox&#8482; or Google Chrome&#169; are strongly recommended for best results.</p>
+					<p style="color: rgb(128, 128, 128); float: left;">Mozilla Firefox or Google Chrome are strongly recommended for best results.</p>
 					<p style="color: rgb(128, 128, 128); float: right;">Generated using <a href="http://code.google.com/p/obiee-security-audit/" style="font-family: Helvetica, sans-serif; font-size: 8pt;color: rgb(128, 128, 128);" target="_blank">OBIEE Security Audit</a> application.</p>
 				</div>
+				<p style="color: rgb(128, 128, 128); float: center;">This HTML page is W3C compliant.</p>
 			</body>
 		</html>
 	</xsl:template>
