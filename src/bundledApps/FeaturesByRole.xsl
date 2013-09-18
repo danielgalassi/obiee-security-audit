@@ -96,7 +96,7 @@
 					<p style="color: rgb(128, 128, 128); float: left;">Mozilla Firefox or Google Chrome are strongly recommended for best results.</p>
 					<p style="color: rgb(128, 128, 128); float: right;">Generated using <a href="http://code.google.com/p/obiee-security-audit/" style="font-family: Helvetica, sans-serif; font-size: 8pt;color: rgb(128, 128, 128);" target="_blank">OBIEE Security Audit</a> application.</p>
 				</div>
-				<p style="color: rgb(128, 128, 128); float: center;">This HTML page is W3C compliant.</p>
+				<p style="color: rgb(0, 0, 255); float: center;">This HTML page is W3C compliant.</p>
 			</body>
 		</html>
 	</xsl:template>
