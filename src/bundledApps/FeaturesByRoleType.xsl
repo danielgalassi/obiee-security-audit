@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-	<!--xsl:output method="html"/-->
 	<xsl:output method="xml" doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN" indent="yes"/>
 	<xsl:template match="/">
-		<!--html-->
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<style type="text/css">
@@ -21,7 +19,12 @@
 			margin: 1px;
 			border-right: 1px solid #DEDEDE;
 			font-family: Helvetica, sans-serif; font-size: 8.5pt;}
-		thead th {
+		thead {
+			font-family: Helvetica, sans-serif; font-size: 8pt;
+			background: #EFEFEF;
+			border-left: 1px solid #DEDEDE;
+			border-top: 1px solid #DEDEDE;}
+		th {
 			font-family: Helvetica, sans-serif; font-size: 8pt;
 			background: #EFEFEF;
 			border-left: 1px solid #DEDEDE;
