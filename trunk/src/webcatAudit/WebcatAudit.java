@@ -63,8 +63,9 @@ public class WebcatAudit {
 
 		//Traverses the webcat if privilege or dashboard audits are requested 
 		WebcatAudit w = null;
-		if (wc != null && (isPrivilegeAuditInvoked || isDashboardAuditInvoked))
+		if (wc != null && (isPrivilegeAuditInvoked || isDashboardAuditInvoked)) {
 			w = new WebcatAudit();
+		}
 
 		//Applying stylesheets to generate user friendly output in HTML 
 		if (wc != null && isPrivilegeAuditInvoked) {
