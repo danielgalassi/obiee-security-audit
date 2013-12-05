@@ -64,9 +64,7 @@ public class WebcatAudit {
 		//Traverses the webcat if privilege or dashboard audits are requested 
 		WebcatAudit w = null;
 		if (wc != null && (isPrivilegeAuditInvoked || isDashboardAuditInvoked)) {
-			System.out.println("Webcat Audit in progress...");
 			w = new WebcatAudit();
-			System.out.println("Webcat Audit completed.");
 		}
 
 		//Applying stylesheets to generate user friendly output in HTML 
