@@ -64,27 +64,31 @@ public class WebcatAudit {
 		//Traverses the webcat if privilege or dashboard audits are requested 
 		WebcatAudit w = null;
 		if (wc != null && (isPrivilegeAuditInvoked || isDashboardAuditInvoked)) {
+			System.out.println("Webcat Audit in progress...");
 			w = new WebcatAudit();
+			System.out.println("Webcat Audit completed.");
 		}
 
 		//Applying stylesheets to generate user friendly output in HTML 
 		if (wc != null && isPrivilegeAuditInvoked) {
-			//WebcatAudit w = new WebcatAudit();
+			System.out.println("Creating Privilege Audit documentation...");
 			insXSL1 = w.istrInternalResource("/bundledApps/RolesMadeEasy.xsl");
 			insXSL2 = w.istrInternalResource("/bundledApps/FeaturesByRoleType.xsl");
 			insXSL3 = w.istrInternalResource("/bundledApps/FeaturesByRole.xsl");
 			XMLUtils.xsl4Files("Webcat.xml", insXSL1, "RolesMadeEasy.xml");
 			XMLUtils.xsl4Files("RolesMadeEasy.xml", insXSL2, "FeaturesByRoleType.html");
 			XMLUtils.xsl4Files("RolesMadeEasy.xml", insXSL3, "FeaturesByRole.html");
+			System.out.println("Privilege Audit documentation completed.");
 		}
 
 		//Applying stylesheets to generate user friendly output in HTML 
 		if (wc != null && isDashboardAuditInvoked) {
-			//WebcatAudit w = new WebcatAudit();
+			System.out.println("Creating Dashboard Audit documentation...");
 			insXSL1 = w.istrInternalResource("/bundledApps/RolesMadeEasyForDashboards.xsl");
 			insXSL2 = w.istrInternalResource("/bundledApps/DashboardsByRoleType.xsl");
 			XMLUtils.xsl4Files("Webcat.xml", insXSL1, "RolesMadeEasyForDashboards.xml");
 			XMLUtils.xsl4Files("RolesMadeEasyForDashboards.xml", insXSL2, "DashboardsByRoleType.html");
+			System.out.println("Dashboard Audit documentation completed.");
 		}
 	}
 }
