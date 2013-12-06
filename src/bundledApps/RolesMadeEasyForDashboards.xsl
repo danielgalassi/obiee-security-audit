@@ -6,6 +6,8 @@
 			<RoleTypeMasterList>
 				<RoleType Name="Administrators"/>
 				<RoleType Name="Service Desk"/>
+				<!-- new, BAU added -->
+				<RoleType Name="BAU"/>
 				<RoleType Name="EIM"/>
 				<RoleType Name="SuperUsers"/>
 				<RoleType Name="Business Users"/>
@@ -18,8 +20,10 @@
 							<xsl:copy-of select="@ApplicationRoleName"/>
 							<xsl:attribute name="RoleType">
 								<xsl:choose>
-									<xsl:when test="count(../..//ComponentList/Component[@ComponentName = 'Admin System Privs']/Privilege//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">Administrators</xsl:when>
-									<xsl:when test="count(../..//ComponentList/Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">SuperUsers</xsl:when>
+									<xsl:when test="count(../..//ComponentList/Component[@ComponentName = 'Admin System Privs']/Privilege//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'NBN BAU') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">Administrators</xsl:when>
+									<xsl:when test="count(../..//ComponentList/Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'NBN BAU') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">SuperUsers</xsl:when>
+									<!-- new, BAU added -->
+									<xsl:when test="contains($myRole, 'NBN BAU')">BAU</xsl:when>
 									<xsl:when test="contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read')">EIM</xsl:when>
 									<xsl:when test="contains($myRole, 'Service Desk')">Service Desk</xsl:when>
 									<xsl:when test="contains($myRole, 'BISystem') or  contains($myRole, 'AuthenticatedUser')">System User</xsl:when>
@@ -45,8 +49,10 @@
 													<xsl:copy-of select="@Role"/>
 													<xsl:attribute name="RoleType">
 														<xsl:choose>
-															<xsl:when test="count(../../../../../..//Component[@ComponentName = 'Admin System Privs']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">Administrators</xsl:when>
-															<xsl:when test="count(../../../../../..//Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">SuperUsers</xsl:when>
+															<xsl:when test="count(../../../../../..//Component[@ComponentName = 'Admin System Privs']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'NBN BAU') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">Administrators</xsl:when>
+															<xsl:when test="count(../../../../../..//Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'NBN BAU') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">SuperUsers</xsl:when>
+															<!-- new, BAU added -->
+															<xsl:when test="contains($myRole, 'NBN BAU')">BAU</xsl:when>
 															<xsl:when test="contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read')">EIM</xsl:when>
 															<xsl:when test="contains($myRole, 'Service Desk')">Service Desk</xsl:when>
 															<xsl:when test="contains($myRole, 'BISystem') or  contains($myRole, 'AuthenticatedUser')">System User</xsl:when>
@@ -70,8 +76,10 @@
 																<xsl:copy-of select="@Role"/>
 																<xsl:attribute name="RoleType">
 																	<xsl:choose>
-																		<xsl:when test="count(../../../../../../../../..//Component[@ComponentName = 'Admin System Privs']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">Administrators</xsl:when>
-																		<xsl:when test="count(../../../../../../../../..//Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">SuperUsers</xsl:when>
+																		<xsl:when test="count(../../../../../../../../..//Component[@ComponentName = 'Admin System Privs']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'NBN BAU') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">Administrators</xsl:when>
+																		<xsl:when test="count(../../../../../../../../..//Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'NBN BAU') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">SuperUsers</xsl:when>
+																		<!-- new, BAU added -->
+																		<xsl:when test="contains($myRole, 'NBN BAU')">BAU</xsl:when>
 																		<xsl:when test="contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read')">EIM</xsl:when>
 																		<xsl:when test="contains($myRole, 'Service Desk')">Service Desk</xsl:when>
 																		<xsl:when test="contains($myRole, 'BISystem') or  contains($myRole, 'AuthenticatedUser')">System User</xsl:when>
@@ -95,8 +103,10 @@
 																			<xsl:copy-of select="@Role"/>
 																			<xsl:attribute name="RoleType">
 																				<xsl:choose>
-																					<xsl:when test="count(../../../../../../../../../../..//Component[@ComponentName = 'Admin System Privs']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">Administrators</xsl:when>
-																					<xsl:when test="count(../../../../../../../../../../..//Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">SuperUsers</xsl:when>
+																					<xsl:when test="count(../../../../../../../../../../..//Component[@ComponentName = 'Admin System Privs']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'NBN BAU') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">Administrators</xsl:when>
+																					<xsl:when test="count(../../../../../../../../../../..//Component[@ComponentName = 'generalprivs']/Privilege[@PrivilegeName='Global Answers']//Role[@access='Granted'][.=$myRole and not(contains($myRole, 'Service Desk') or contains($myRole, 'NBN EIM') or contains($myRole, 'NBN BAU') or contains($myRole, 'Session_Log_Read') or contains($myRole, 'BISystem') or contains($myRole, 'AuthenticatedUser'))]) > 0">SuperUsers</xsl:when>
+																					<!-- new, BAU added -->
+																					<xsl:when test="contains($myRole, 'NBN BAU')">BAU</xsl:when>
 																					<xsl:when test="contains($myRole, 'NBN EIM') or contains($myRole, 'Session_Log_Read')">EIM</xsl:when>
 																					<xsl:when test="contains($myRole, 'Service Desk')">Service Desk</xsl:when>
 																					<xsl:when test="contains($myRole, 'BISystem') or  contains($myRole, 'AuthenticatedUser')">System User</xsl:when>
