@@ -50,7 +50,7 @@
 									<td style="background: #D8D8D8; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
 										Dashboard Group: <xsl:value-of select="@DashboardGroupName"/>
 									</td>
-										<td colspan="5" style="text-align:center; background: #D8D8D8; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
+										<td colspan="6" style="text-align:center; background: #D8D8D8; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #555555;">
 												Role Types
 											</td>
 									<!--/td-->
@@ -78,6 +78,16 @@
 											</xsl:when>
 											<xsl:when test="count(.//Permission[@RoleType='Service Desk']) = 0">
 												<td width="150px" style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #CCCCCC; text-align:center;">Service Desk</td>
+											</xsl:when>
+										</xsl:choose>
+
+										<!-- new, BAU added -->
+										<xsl:choose>
+											<xsl:when test="count(.//Permission[@RoleType='BAU']) > 0">
+												<td width="150px" style="background: #CCFF99; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">BAU</td>
+											</xsl:when>
+											<xsl:when test="count(.//Permission[@RoleType='BAU']) = 0">
+												<td width="150px" style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #CCCCCC; text-align:center;">BAU</td>
 											</xsl:when>
 										</xsl:choose>
 										
@@ -132,6 +142,16 @@
 													<td width="150px" style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #CCCCCC; text-align:center;">Service Desk</td>
 												</xsl:when>
 											</xsl:choose>
+
+											<!-- new, BAU added -->											
+											<xsl:choose>
+												<xsl:when test="count(.//Permission[@RoleType='BAU']) > 0">
+													<td width="150px" style="background: #CCFF99; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">BAU</td>
+												</xsl:when>
+												<xsl:when test="count(.//Permission[@RoleType='BAU']) = 0">
+													<td width="150px" style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #CCCCCC; text-align:center;">BAU</td>
+												</xsl:when>
+											</xsl:choose>
 											
 											<xsl:choose>
 												<xsl:when test="count(.//Permission[@RoleType='EIM']) > 0">
@@ -182,6 +202,16 @@
 													</xsl:when>
 													<xsl:when test="count(.//Permission[@RoleType='Service Desk']) = 0">
 														<td width="150px" style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #CCCCCC; text-align:center;">Service Desk</td>
+													</xsl:when>
+												</xsl:choose>
+
+												<!-- new, BAU added -->												
+												<xsl:choose>
+													<xsl:when test="count(.//Permission[@RoleType='BAU']) > 0">
+														<td width="150px" style="background: #CCFF99; font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: green; text-align:center;">BAU</td>
+													</xsl:when>
+													<xsl:when test="count(.//Permission[@RoleType='BAU']) = 0">
+														<td width="150px" style="font-family: Helvetica, sans-serif; font-size: 8pt; font-weight: bold; color: #CCCCCC; text-align:center;">BAU</td>
 													</xsl:when>
 												</xsl:choose>
 												
