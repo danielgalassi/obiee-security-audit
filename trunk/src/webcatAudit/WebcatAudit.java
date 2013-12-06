@@ -44,8 +44,11 @@ public class WebcatAudit {
 				isDashboardAuditInvoked = true;
 		}
 
-		if (sWebcatLocation != null)
+		if (sWebcatLocation != null) {
+			System.out.println("Initialising Webcat Parsing in progress...");
 			wc = new WebCatalog(sWebcatLocation);
+			System.out.println("Initialisation finished.");
+		}
 
 		if (wc != null && isPrivilegeAuditInvoked) {
 			System.out.println("Privilege audit in progress...");
@@ -67,7 +70,7 @@ public class WebcatAudit {
 			w = new WebcatAudit();
 		}
 
-		//Applying stylesheets to generate user friendly output in HTML 
+		//Applying stylesheets to generate user friendly output in HTML
 		if (wc != null && isPrivilegeAuditInvoked) {
 			System.out.println("Creating Privilege Audit documentation...");
 			insXSL1 = w.istrInternalResource("/bundledApps/RolesMadeEasy.xsl");
@@ -79,7 +82,7 @@ public class WebcatAudit {
 			System.out.println("Privilege Audit documentation completed.");
 		}
 
-		//Applying stylesheets to generate user friendly output in HTML 
+		//Applying stylesheets to generate user friendly output in HTML
 		if (wc != null && isDashboardAuditInvoked) {
 			System.out.println("Creating Dashboard Audit documentation...");
 			insXSL1 = w.istrInternalResource("/bundledApps/RolesMadeEasyForDashboards.xsl");
