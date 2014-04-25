@@ -7,25 +7,25 @@ import org.w3c.dom.Element;
 
 public class Permission {
 
-	private String	sRole;
+	private String	role;
 	private int		iPermValue;
-	private String	sPermList;
+	private String	roleDescription;
 
 	public Element serialize() {
 		Element ePermission = (WebCatalog.docWebcat).createElement("Permission");
-		ePermission.setAttribute("Role", sRole);
+		ePermission.setAttribute("Role", role);
 		ePermission.setAttribute("Value", iPermValue+"");
-		ePermission.setAttribute("Description", sPermList);
+		ePermission.setAttribute("Description", roleDescription);
 		return ePermission;
 	}
 
 	public void list() {
-		System.out.println(sRole + ": " + iPermValue + "\t(" + sPermList + ")");
+		System.out.println(role + ": " + iPermValue + "\t(" + roleDescription + ")");
 	}
 
 	public Permission(String rol, int val, String lst) {
-		sRole = rol;
+		role = rol;
 		iPermValue = val;
-		sPermList = lst;
+		roleDescription = lst;
 	}
 }

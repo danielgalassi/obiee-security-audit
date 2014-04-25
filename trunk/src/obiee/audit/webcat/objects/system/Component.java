@@ -17,16 +17,16 @@ import org.w3c.dom.Element;
  */
 public class Component {
 
-	private PrivilegeAttribFile ComponentAttrib = null;
-	private File fComponentDir = null;
-	private String sPrivGroupName = "";
-	private Vector <Privilege> vPrivs;
+	private PrivilegeAttribFile componentAttribute = null;
+	private File componentDir = null;
+	private String privilegeGroupName = "";
+	private Vector <Privilege> privileges;
 
 	/**
 	 * Analyses the list of privileges for each component.
 	 */
 	private void setPrivs () {
-		vPrivs = new Vector <Privilege>();
+		privileges = new Vector <Privilege>();
 
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
@@ -44,10 +44,10 @@ public class Component {
 		};
 
 		Element e = serialize();
-		for (File fPrivilege : fComponentDir.listFiles(filter)) {
-			Privilege p = new Privilege(fPrivilege, getName());
-			vPrivs.add(p);
-			e.appendChild(p.serialize());
+		for (File privilegeFile : componentDir.listFiles(filter)) {
+			Privilege privilege = new Privilege(privilegeFile, getName());
+			privileges.add(privilege);
+			e.appendChild(privilege.serialize());
 			(WebCatalog.eCompList).appendChild(e);
 		}
 
@@ -58,7 +58,7 @@ public class Component {
 	 * @return the component name.
 	 */
 	public String getName () {
-		return sPrivGroupName;
+		return privilegeGroupName;
 	}
 
 	/***
@@ -67,25 +67,27 @@ public class Component {
 	 */
 	public Element serialize () {
 		Element eGroup = (WebCatalog.docWebcat).createElement("Component");
-		eGroup.setAttribute("ComponentName", sPrivGroupName);
+		eGroup.setAttribute("ComponentName", privilegeGroupName);
 		return (eGroup);
 	}
 
 	/**
 	 * Constructor of each component.
-	 * @param f Attribute file storing the unscrambled name of the component.
+	 * @param componentFile Attribute file storing the unscrambled name of the component.
 	 */
-	public Component (File f) {
-		if (f.canRead()) {
-			ComponentAttrib = new PrivilegeAttribFile(f.toString());
+	public Component (File componentFile) {
+		if (componentFile.canRead()) {
+			componentAttribute = new PrivilegeAttribFile(componentFile.toString());
 
-			sPrivGroupName = ComponentAttrib.getName(true,4);
+			privilegeGroupName = componentAttribute.getName(true, 4);
 			//System.out.println("Component:" + getName());
-			fComponentDir = new File(ComponentAttrib.getAttribDir());
-			if (!fComponentDir.canRead())
-				fComponentDir = null;
-			else
+			componentDir = new File(componentAttribute.getAttribDir());
+			if (!componentDir.canRead()) {
+				componentDir = null;
+			}
+			else {
 				setPrivs();
+			}
 		}
 	}
 }

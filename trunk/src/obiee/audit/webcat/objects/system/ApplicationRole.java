@@ -10,20 +10,20 @@ import org.w3c.dom.Element;
 
 public class ApplicationRole {
 
-	private String sAppRoleName;
+	private String name;
 
 	public Element serialize() {
 		Element eRole = (WebCatalog.docWebcat).createElement("ApplicationRole");
-		eRole.setAttribute("ApplicationRoleName", sAppRoleName);
+		eRole.setAttribute("ApplicationRoleName", name);
 		return eRole;
 	}
 
 	public String getName() {
-		return sAppRoleName;
+		return name;
 	}
 
-	public ApplicationRole(File fAppRole) {
-		PrivilegeAttribFile roleAttrib = new PrivilegeAttribFile(fAppRole.toString());
-		sAppRoleName = roleAttrib.getName(false,3);
+	public ApplicationRole(File appRole) {
+		PrivilegeAttribFile roleAttribute = new PrivilegeAttribFile(appRole.toString());
+		name = roleAttribute.getName(false,3);
 	}
 }

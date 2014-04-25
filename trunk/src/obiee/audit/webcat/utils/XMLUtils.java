@@ -45,45 +45,38 @@ public class XMLUtils {
 
 	/**
 	 * Reify a DOM document from a file
-	 * @param filename
+	 * @param xml
 	 * @return DOM document
 	 */
-	public static Document File2Document(File filename) {
-		DocumentBuilderFactory dBFXML = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBXML = null;
-		Document docXML = null;
+	public static Document loadDocument(File xml) {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = null;
+		Document doc = null;
 
 		try {
-			docBXML = dBFXML.newDocumentBuilder();
+			builder = factory.newDocumentBuilder();
+			doc = builder.parse(xml);
 		} catch(Exception e) {
 			publishException(e);
 		}
 
-		try {
-			docXML = docBXML.parse(filename);
-		} catch(Exception e) {
-			publishException(e);
-		}
-
-		return docXML;
+		return doc;
 	}
 
 	/**
 	 * Store a DOM document as a file
 	 * @param doc
-	 * @param filename
+	 * @param file
 	 */
-	public static void Document2File(Document doc, String filename) {
+	public static void saveDocument(Document doc, String file) {
 		Source source = new DOMSource(doc);
 
-		File XMLFile = new File(filename);
-		Result result = new StreamResult(XMLFile);
+		File xml = new File(file);
+		Result result = new StreamResult(xml);
 		try {
 			Transformer xformer = TransformerFactory.newInstance().newTransformer();
 			xformer.transform(source, result);
-		} catch (TransformerConfigurationException e) {
-			System.out.println(e);
-		} catch (TransformerException e) {
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 	}
@@ -94,9 +87,7 @@ public class XMLUtils {
 	 * @param strXSLFile
 	 * @param strRESFile
 	 */
-	public static void xsl4Files(String strXMLFile,
-			String strXSLFile,
-			String strRESFile){
+	public static void xsl4Files(String strXMLFile, String strXSLFile, String strRESFile){
 		File fXMLFile = new File(strXMLFile);
 		File fXSLFile = new File(strXSLFile);
 		File fResult = new File(strRESFile);
@@ -123,9 +114,7 @@ public class XMLUtils {
 	 * @param inputsXSLFile
 	 * @param strRESFile
 	 */
-	public static void xsl4Files(String strXMLFile,
-			InputStream inputsXSLFile,
-			String strRESFile){
+	public static void xsl4Files(String strXMLFile, InputStream inputsXSLFile, String strRESFile){
 		File fXMLFile = new File(strXMLFile);
 		File fResult = new File(strRESFile);
 		Source xmlSource = null;

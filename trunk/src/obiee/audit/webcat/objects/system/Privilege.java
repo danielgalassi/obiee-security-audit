@@ -20,25 +20,23 @@ import org.w3c.dom.Node;
  */
 public class Privilege {
 
-	private PrivilegeAttribFile privilegeAttrib;
+	private PrivilegeAttribFile privilegeAttribute;
 	private File privilegeDir;
-	private String sPrivName = "";
-	private Vector <String> vsGranted = new Vector <String> ();
-	private Vector <String> vsDenied = new Vector <String> ();
-	private static final String[] sOOTBRoles = {"BIConsumer",
-												"BIAuthor",
-												"BIAdministrator"};
+	private String privilegeName = "";
+	private Vector <String> granted = new Vector <String> ();
+	private Vector <String> denied = new Vector <String> ();
+	private static final String[] ootbRoles = {"BIConsumer", "BIAuthor", "BIAdministrator"};
 	
 	/**
 	 * Provides a list of roles that have been granted access to the privilege.
 	 * @return List of roles as stored in 
 	 */
 	public Vector <String> getRolesGrantedAccess () {
-		return vsGranted;
+		return granted;
 	}
 
 	public Vector <String> getRolesDeniedAccess () {
-		return vsDenied;
+		return denied;
 	}
 
 	/***
@@ -88,9 +86,9 @@ public class Privilege {
 					sTempGroupName = sTempGroupName + c;
 				}
 				if (data_in.read() == 0)
-					vsDenied.add (sTempGroupName);
+					denied.add (sTempGroupName);
 				else
-					vsGranted.add (sTempGroupName);
+					granted.add (sTempGroupName);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -102,19 +100,23 @@ public class Privilege {
 	 * @return
 	 */
 	public String getName () {
-		return sPrivName;
+		return privilegeName;
 	}
 
 	/**
 	 * Evaluates whether a role is out-of-the-box or not.
-	 * @param sRoleName
+	 * @param roleName
 	 * @return true when evaluating an OBIE 11g OOTB role.
 	 */
-	private boolean isOOTBRole (String sRoleName) {
+	private boolean isOOTBRole (String roleName) {
 		boolean isOOTB = false;
-		for (int i=0; i<sOOTBRoles.length; i++)
-			if (sOOTBRoles[i].equals(sRoleName))
+
+		for (String role : ootbRoles) {
+			if (role.equals(roleName)) {
 				isOOTB = true;
+			}
+		}
+
 		return isOOTB;
 	}
 	
@@ -129,7 +131,7 @@ public class Privilege {
 		Element ePriv = (WebCatalog.docWebcat).createElement("Privilege");
 		Element eRoleList = (WebCatalog.docWebcat).createElement("RoleList");
 
-		for (String s : vsGranted) {
+		for (String s : granted) {
 			nRole = (WebCatalog.docWebcat).createTextNode(s);
 			eRole = (WebCatalog.docWebcat).createElement("Role");
 			eRole.appendChild(nRole);
@@ -138,7 +140,7 @@ public class Privilege {
 			eRoleList.appendChild(eRole);
 		}
 		
-		for (String s : vsDenied) {
+		for (String s : denied) {
 			nRole = (WebCatalog.docWebcat).createTextNode(s);
 			eRole = (WebCatalog.docWebcat).createElement("Role");
 			eRole.appendChild(nRole);
@@ -147,7 +149,7 @@ public class Privilege {
 			eRoleList.appendChild(eRole);
 		}
 
-		ePriv.setAttribute("PrivilegeName", sPrivName);
+		ePriv.setAttribute("PrivilegeName", privilegeName);
 		ePriv.appendChild(eRoleList);
 
 		return ePriv;
@@ -155,20 +157,21 @@ public class Privilege {
 
 	/***
 	 * 
-	 * @param f
+	 * @param privilegeFile
 	 */
-	public Privilege (File f, String sGroup) {
-		if (f.canRead()) {
-			privilegeAttrib = new PrivilegeAttribFile(f.toString());
+	public Privilege (File privilegeFile, String group) {
+		if (privilegeFile.canRead()) {
+			privilegeAttribute = new PrivilegeAttribFile(privilegeFile.toString());
 
-			sPrivName = privilegeAttrib.getName(true,4);
-			//System.out.println("\tPrivilege: " + getName());
+			privilegeName = privilegeAttribute.getName(true, 4);
 
-			privilegeDir = new File(privilegeAttrib.getAttribDir());
-			if (!privilegeDir.canRead())
+			privilegeDir = new File(privilegeAttribute.getAttribDir());
+			if (!privilegeDir.canRead()) {
 				privilegeDir = null;
-			else
+			}
+			else {
 				readPrivileges();
+			}
 		}
 	}
 }
