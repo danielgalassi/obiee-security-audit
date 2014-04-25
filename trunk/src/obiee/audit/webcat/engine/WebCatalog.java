@@ -14,6 +14,8 @@ import obiee.audit.webcat.utils.PrivilegeAttribFile;
 import obiee.audit.webcat.utils.SharedObject;
 import obiee.audit.webcat.utils.XMLUtils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -25,7 +27,7 @@ import org.w3c.dom.Element;
  */
 public class WebCatalog {
 
-	//private static final Logger logger = LogManager.getLogger(WebCatalog.class.getName());
+	private static final Logger logger = LogManager.getLogger(WebCatalog.class.getName());
 
 	private File webcat = null;
 	public static Document	docWebcat		= XMLUtils.createDOMDocument();
@@ -266,13 +268,13 @@ public class WebCatalog {
 		}
 		eWebcat.setAttribute("app", "obiee-security-audit");
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
-//		logger.info("WebCatalog found at {}", webcat);
+		logger.info("WebCatalog found at {}", webcat);
 		setListOfPermissions();
-//		logger.info("Creating an aplication user catalogue");
+		logger.info("Creating an aplication user catalogue");
 		listAllUsers(getUsersDirectory());
-//		logger.info("Creating an application role catalogue");
+		logger.info("Creating an application role catalogue");
 		listAllApplicationRoles(getAppRolesDirectory());
-//		logger.info("Creating a report catalogue");
+		logger.info("Creating a report catalogue");
 		listAllReports(getSharedDirectory(), "", "/shared");
 	}
 }
