@@ -4,25 +4,23 @@ import java.io.InputStream;
 
 import obiee.audit.webcat.utils.XMLUtils;
 
-
-
 public class WebcatAudit {
 
 	private static boolean isPrivilegeAuditInvoked = false;
 	private static boolean isDashboardAuditInvoked = false;
-	private static InputStream insXSL1;
-	private static InputStream insXSL2;
-	private static InputStream insXSL3;
+	private static InputStream stylesheet1;
+	private static InputStream stylesheet2;
+	private static InputStream stylesheet3;
 
-	private InputStream istrInternalResource(String rsc) {
-		InputStream isRsc = null;
+	private InputStream loadInternalResource(String rsc) {
+		InputStream resource = null;
 		try {
-			isRsc = getClass().getResourceAsStream(rsc);
+			resource = getClass().getResourceAsStream(rsc);
 		} catch (Exception e) {
 			System.out.println("Exception loading: " + rsc);
 			e.printStackTrace();
 		}
-		return isRsc;
+		return resource;
 	}
 
 	/**
@@ -30,66 +28,66 @@ public class WebcatAudit {
 	 */
 	public static void main(String[] args) {
 
-		WebCatalog wc = null;
-		String sWebcatLocation = null;
+		WebCatalog webcat = null;
+		String webcatLocation = null;
 
 		//picking up parameters
-		for (String cmdLineArg : args)
+		for (String argument : args)
 		{
 			//Web Catalog Location
-			if (cmdLineArg.startsWith("-w="))
-				sWebcatLocation = cmdLineArg.replaceAll("-w=", "");
-			if (cmdLineArg.startsWith("-privs"))
+			if (argument.startsWith("-w="))
+				webcatLocation = argument.replaceAll("-w=", "");
+			if (argument.startsWith("-privs"))
 				isPrivilegeAuditInvoked = true;
-			if (cmdLineArg.startsWith("-dashboards"))
+			if (argument.startsWith("-dashboards"))
 				isDashboardAuditInvoked = true;
 		}
 
-		if (sWebcatLocation != null) {
+		if (webcatLocation != null) {
 			System.out.println("Initialising Webcat Parsing in progress...");
-			wc = new WebCatalog(sWebcatLocation);
+			webcat = new WebCatalog(webcatLocation);
 			System.out.println("Initialisation finished.");
 		}
 
-		if (wc != null && isPrivilegeAuditInvoked) {
+		if (webcat != null && isPrivilegeAuditInvoked) {
 			System.out.println("Privilege audit in progress...");
-			wc.processWebCatPrivileges();
+			webcat.processWebCatPrivileges();
 			System.out.println("Privilege audit completed.");
 		}
 
-		if (wc != null && isDashboardAuditInvoked) {
+		if (webcat != null && isDashboardAuditInvoked) {
 			System.out.println("Dashboard audit in progress...");
-			wc.processDashboards();
+			webcat.processDashboards();
 			System.out.println("Dashboard Audit completed.");
 		}
 
-		wc.save();
+		webcat.save();
 
 		//Traverses the webcat if privilege or dashboard audits are requested 
-		WebcatAudit w = null;
-		if (wc != null && (isPrivilegeAuditInvoked || isDashboardAuditInvoked)) {
-			w = new WebcatAudit();
+		WebcatAudit audit = null;
+		if (webcat != null && (isPrivilegeAuditInvoked || isDashboardAuditInvoked)) {
+			audit = new WebcatAudit();
 		}
 
 		//Applying stylesheets to generate user friendly output in HTML
-		if (wc != null && isPrivilegeAuditInvoked) {
+		if (webcat != null && isPrivilegeAuditInvoked) {
 			System.out.println("Creating Privilege Audit documentation...");
-			insXSL1 = w.istrInternalResource("/obiee/audit/bundledApps/RolesMadeEasy.xsl");
-			insXSL2 = w.istrInternalResource("/obiee/audit/bundledApps/FeaturesByRoleType.xsl");
-			insXSL3 = w.istrInternalResource("/obiee/audit/bundledApps/FeaturesByRole.xsl");
-			XMLUtils.xsl4Files("Webcat.xml", insXSL1, "RolesMadeEasy.xml");
-			XMLUtils.xsl4Files("RolesMadeEasy.xml", insXSL2, "FeaturesByRoleType.html");
-			XMLUtils.xsl4Files("RolesMadeEasy.xml", insXSL3, "FeaturesByRole.html");
+			stylesheet1 = audit.loadInternalResource("/obiee/audit/bundledApps/RolesMadeEasy.xsl");
+			stylesheet2 = audit.loadInternalResource("/obiee/audit/bundledApps/FeaturesByRoleType.xsl");
+			stylesheet3 = audit.loadInternalResource("/obiee/audit/bundledApps/FeaturesByRole.xsl");
+			XMLUtils.xsl4Files("Webcat.xml", stylesheet1, "RolesMadeEasy.xml");
+			XMLUtils.xsl4Files("RolesMadeEasy.xml", stylesheet2, "FeaturesByRoleType.html");
+			XMLUtils.xsl4Files("RolesMadeEasy.xml", stylesheet3, "FeaturesByRole.html");
 			System.out.println("Privilege Audit documentation completed.");
 		}
 
 		//Applying stylesheets to generate user friendly output in HTML
-		if (wc != null && isDashboardAuditInvoked) {
+		if (webcat != null && isDashboardAuditInvoked) {
 			System.out.println("Creating Dashboard Audit documentation...");
-			insXSL1 = w.istrInternalResource("/bundledApps/RolesMadeEasyForDashboards.xsl");
-			insXSL2 = w.istrInternalResource("/bundledApps/DashboardsByRoleType.xsl");
-			XMLUtils.xsl4Files("Webcat.xml", insXSL1, "RolesMadeEasyForDashboards.xml");
-			XMLUtils.xsl4Files("RolesMadeEasyForDashboards.xml", insXSL2, "DashboardsByRoleType.html");
+			stylesheet1 = audit.loadInternalResource("/obiee/audit/bundledApps/RolesMadeEasyForDashboards.xsl");
+			stylesheet2 = audit.loadInternalResource("/obiee/audit/bundledApps/DashboardsByRoleType.xsl");
+			XMLUtils.xsl4Files("Webcat.xml", stylesheet1, "RolesMadeEasyForDashboards.xml");
+			XMLUtils.xsl4Files("RolesMadeEasyForDashboards.xml", stylesheet2, "DashboardsByRoleType.html");
 			System.out.println("Dashboard Audit documentation completed.");
 		}
 	}

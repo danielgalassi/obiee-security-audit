@@ -63,12 +63,12 @@ public class Report {
 			sReportName = reportAttrib.getName(false,4);
 
 			sOwner = (SharedObject.getOwner(fReport));
-			ownerIsUser = WebCatalog.hmAllUsers.containsKey(sOwner);
+			ownerIsUser = WebCatalog.allUsers.containsKey(sOwner);
 			ownerIsRole = WebCatalog.appRoles.contains(sOwner);
 
 			if (ownerIsUser) {
 				sOwnerType = "User";
-				sOwner = WebCatalog.hmAllUsers.get(sOwner);
+				sOwner = WebCatalog.allUsers.get(sOwner);
 			}
 			if (!ownerIsUser && !ownerIsRole) {
 				sOwnerType = "Not Found";

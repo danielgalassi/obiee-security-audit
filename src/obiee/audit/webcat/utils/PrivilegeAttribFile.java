@@ -11,7 +11,7 @@ public class PrivilegeAttribFile extends File {
 	public String getName (boolean applyFormatting, int offset) {
 		byte	b_data = 0;
 		int		l = 0;
-		String	sName = "";
+		String	name = "";
 
 		try {
 			FileInputStream file_input = new FileInputStream (this);
@@ -20,8 +20,9 @@ public class PrivilegeAttribFile extends File {
 			//looking for the length of the actual name
 			for (int i = 0; i<(offset+4); i++) {
 				b_data = data_in.readByte();
-				if (i==offset)
+				if (i==offset) {
 					l = b_data;
+				}
 			}
 
 			//retrieving the name reading bytes,
@@ -31,26 +32,27 @@ public class PrivilegeAttribFile extends File {
 				char c = (char)b_data;
 				if (b_data < 0)
 					c = '-';
-				sName = sName + c;
+				name = name + c;
 			}
 
 			if (applyFormatting)
-				sName = sName.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+				name = name.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
 
 			data_in.close ();
 		} catch  (IOException e) {
 			e.printStackTrace();
 		}
 
-		return sName;
+		return name;
 	}
 
 	public String getAttribDir() {
 		File f = null;
 		try {
 			f = new File(this.getCanonicalFile().toString().replace(".atr", ""));
-			if (!f.canRead())
+			if (!f.canRead()) {
 				return null;
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -30,7 +30,7 @@ public class Dashboard {
 	private void getPageAttributes(String tag) {
 		File fDashLayout = new File(fDashboardDir+"\\dashboard+layout");
 		if (fDashLayout.canRead()) {
-			Document dashLayoutDOM = XMLUtils.File2Document(fDashLayout);
+			Document dashLayoutDOM = XMLUtils.loadDocument(fDashLayout);
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {

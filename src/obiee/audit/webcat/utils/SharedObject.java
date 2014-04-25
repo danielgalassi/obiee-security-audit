@@ -3,8 +3,10 @@ package obiee.audit.webcat.utils;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.Vector;
 
 import javax.xml.xpath.XPath;
@@ -26,13 +28,14 @@ public class SharedObject {
 	private static String getPrivilegeList(int val, String sPermissions) {
 		int i = 0;
 		//finding the highest permission for a cumulative 2-HEX value
-		while (val < (WebCatalog.n).get(i) && i< (WebCatalog.n).size())
+		while (val < (WebCatalog.weighingValues).get(i) && i< (WebCatalog.weighingValues).size()) {
 			i++;
+		}
 
 		//recursive call to concatenate the list of permissions
 		if (val > 0 || (val == 0 && sPermissions.equals(""))) {
-			val -= (WebCatalog.n).get(i);
-			sPermissions += (WebCatalog.p).get(i);
+			val -= (WebCatalog.weighingValues).get(i);
+			sPermissions += (WebCatalog.permissions).get(i);
 			if (val > 0) {
 				sPermissions += "; ";
 				sPermissions = getPrivilegeList(val, sPermissions);
@@ -42,19 +45,19 @@ public class SharedObject {
 	}
 
 	public static Vector <Permission> getPrivileges(File sharedObject) {
-		Vector <Permission> vPerms = new Vector <Permission>();
-		File f = new File (sharedObject+".atr");
+		Vector <Permission> permissions = new Vector <Permission>();
+		File attribute = new File (sharedObject+".atr");
 		FileInputStream file_input = null;
 		DataInputStream data_in    = null;
-		byte	b_data = 0;
+		byte b_data = 0;
 		int l = 0;
 		int iRead;
 		int iGroupLength;
 		int nGroups = 0;
-		String sRole;
+		String role;
 
 		try {
-			file_input = new FileInputStream(f);
+			file_input = new FileInputStream(attribute);
 			data_in = new DataInputStream (file_input);
 
 			//looking for the length of the actual name
@@ -95,30 +98,32 @@ public class SharedObject {
 
 				iGroupLength = data_in.read();
 				//ignoring next three bytes
-				for (int i=0; i<3; i++)
+				for (int i=0; i<3; i++) {
 					data_in.read();
+				}
 
-				sRole = "";
+				role = "";
 				for (int j = 0; j<iGroupLength; j++) {
 					b_data = data_in.readByte();
 					char c = (char)b_data;
 					if (b_data < 0)
 						c = '-';
-					sRole = sRole + c;
+					role = role + c;
 				}
 				int val = data_in.readUnsignedByte() + data_in.readUnsignedByte() * 256;
 
-				if (!hmVerbosePermissions.containsKey(val))
+				if (!hmVerbosePermissions.containsKey(val)) {
 					hmVerbosePermissions.put(val, getPrivilegeList(val, ""));
+				}
 
-				vPerms.add(new Permission(sRole, val, hmVerbosePermissions.get(val)));
+				permissions.add(new Permission(role, val, hmVerbosePermissions.get(val)));
 			}
 
 			data_in.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return vPerms;
+		return permissions;
 	}
 
 
@@ -173,35 +178,27 @@ public class SharedObject {
 	}
 
 	public static boolean isXML (File s) {
-		byte	b_data = 0;
-		String	sName = "";
+		boolean isXML = false;
 
-		if (s.isFile() && s.canRead() && s.length() > 0 && 
-				(new File(s+".atr")).canRead())
+		if (s.isFile() && s.canRead() && s.length() > 0 && (new File(s+".atr")).canRead()) {
+			Scanner content = null;
 			try {
-				FileInputStream file_input = new FileInputStream (s);
-				DataInputStream data_in    = new DataInputStream (file_input);
-
-				//retrieving the name reading bytes,
-				//converting them to a string
-				for (int i = 0; i<5; i++) {
-					b_data = data_in.readByte();
-					char c = (char)b_data;
-					sName = sName + c;
-				}
-
-				data_in.close ();
-			} catch  (IOException e) {
+				content = new Scanner(s);
+			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
+			if (content.hasNextLine()) {
+				isXML = content.nextLine().contains("<?xml ");
+			}
+		}
 
-		return (sName.startsWith("<?xml"));
+		return isXML;
 	}
 
 	public static boolean isDashboard(File s) {
 		Node nTag = null;
 		if (isXML(s)) {
-			Document docReport = XMLUtils.File2Document(s);
+			Document docReport = XMLUtils.loadDocument(s);
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
@@ -219,13 +216,11 @@ public class SharedObject {
 	public static boolean isReport(File s) {
 		Node nTag = null;
 		if (isXML(s)) {
-			Document docReport = XMLUtils.File2Document(s);
+			Document docReport = XMLUtils.loadDocument(s);
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
-				nTag = (Node) xPath.evaluate("/report/@dataModel",
-						docReport.getDocumentElement(),
-						XPathConstants.NODE);
+				nTag = (Node) xPath.evaluate("/report/@dataModel", docReport.getDocumentElement(), XPathConstants.NODE);
 			} catch (XPathExpressionException e) {
 				e.printStackTrace();
 			}
@@ -249,13 +244,11 @@ public class SharedObject {
 	public static boolean isPage(File s) {
 		Node nTag = null;
 		if (isXML(s)) {
-			Document docReport = XMLUtils.File2Document(s);
+			Document report = XMLUtils.loadDocument(s);
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
-				nTag = (Node) xPath.evaluate("/dashboardPage",
-						docReport.getDocumentElement(),
-						XPathConstants.NODE);
+				nTag = (Node) xPath.evaluate("/dashboardPage", report.getDocumentElement(), XPathConstants.NODE);
 			} catch (XPathExpressionException e) {
 				e.printStackTrace();
 			}

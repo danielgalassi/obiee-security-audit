@@ -35,7 +35,7 @@ public class DashboardPage {
 		NodeList nTag = null;
 
 		if (fPage.canRead()) {
-			Document layoutDOM = XMLUtils.File2Document(fPage);
+			Document layoutDOM = XMLUtils.loadDocument(fPage);
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
@@ -67,8 +67,8 @@ public class DashboardPage {
 
 		for (String s : vsReportPaths) {
 			Element eReport = null;
-			if ((WebCatalog.hmAllReports).containsKey(StringEscapeUtils.unescapeJava(s.replace("–", "---")))) {
-				eReport = (WebCatalog.hmAllReports).get(StringEscapeUtils.unescapeJava(s.replace("–", "---"))).serialize();
+			if ((WebCatalog.allReports).containsKey(StringEscapeUtils.unescapeJava(s.replace("–", "---")))) {
+				eReport = (WebCatalog.allReports).get(StringEscapeUtils.unescapeJava(s.replace("–", "---"))).serialize();
 				eReportList.appendChild(eReport);
 			}
 		}
@@ -92,7 +92,7 @@ public class DashboardPage {
 		File fDashLayout = new File(fPage.getParent()+"\\dashboard+layout");
 
 		if (fDashLayout.canRead()) {
-			Document layoutDOM = XMLUtils.File2Document(fDashLayout);
+			Document layoutDOM = XMLUtils.loadDocument(fDashLayout);
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {

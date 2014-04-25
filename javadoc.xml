@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="private" author="true" classpath="." destdir="doc" doctitle="OBIEE Security Audit Tool" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="org.apache.commons.lang3,org.apache.commons.lang3.builder,org.apache.commons.lang3.tuple,obiee.audit.webcat.objects.system,org.apache.commons.lang3.text,obiee.audit.webcat.engine,org.apache.commons.lang3.event,obiee.audit.webcat.objects.shared,org.apache.commons.lang3.mutable,org.apache.commons.lang3.time,org.apache.commons.lang3.text.translate,org.apache.commons.lang3.exception,org.apache.commons.lang3.concurrent,org.apache.commons.lang3.reflect,org.apache.commons.lang3.math,obiee.audit.webcat.utils" source="1.7" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

@@ -13,13 +13,13 @@ import org.w3c.dom.Element;
 public class DashboardGroup {
 
 	private PrivilegeAttribFile groupAttrib = null;
-	private String sDashboardGroupName = "";
-	private File fDashboardGroupDir = null;
-	private Vector <Dashboard> vDashboards;
+	private String dashboardGroupName = "";
+	private File dashboardGroupDir = null;
+	private Vector <Dashboard> dashboards;
 
 	private void traverseDashboards() {
-		File portal = new File (fDashboardGroupDir+"\\_portal");
-		vDashboards = new Vector <Dashboard> ();
+		File portal = new File (dashboardGroupDir + "\\_portal");
+		dashboards = new Vector <Dashboard> ();
 
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
@@ -27,15 +27,16 @@ public class DashboardGroup {
 				File dashboard = null;
 				if (!name.endsWith(".atr")) {
 					dashboard = new File(dir+"\\"+name+"\\dashboard+layout");
-					if(dashboard.canRead() && dashboard.isFile())
+					if(dashboard.canRead() && dashboard.isFile()) {
 						return true;
+					}
 				}
 				return false;
 			}
 		};
 
 		for (File dashboard : portal.listFiles(filter))
-			vDashboards.add(new Dashboard(dashboard));
+			dashboards.add(new Dashboard(dashboard));
 	}
 
 	/***
@@ -43,15 +44,15 @@ public class DashboardGroup {
 	 * @return the group name.
 	 */
 	public String getName() {
-		return sDashboardGroupName;
+		return dashboardGroupName;
 	}
 
 	public Element serialize() {
 		Element eGroup = (WebCatalog.docWebcat).createElement("DashboardGroup");
 		Element eDashList = (WebCatalog.docWebcat).createElement("DashboardList");
-		eGroup.setAttribute("DashboardGroupName", sDashboardGroupName);
+		eGroup.setAttribute("DashboardGroupName", dashboardGroupName);
 
-		for (Dashboard dashboard : vDashboards)
+		for (Dashboard dashboard : dashboards)
 			eDashList.appendChild(dashboard.serialize());
 
 		eGroup.appendChild(eDashList);
@@ -59,13 +60,12 @@ public class DashboardGroup {
 		return (eGroup);
 	}
 
-	public DashboardGroup (File f) {
-		if (f.canRead()) {
-			fDashboardGroupDir = f;
-			groupAttrib = new PrivilegeAttribFile(fDashboardGroupDir+".atr");
+	public DashboardGroup (File dashboardGroupFolder) {
+		if (dashboardGroupFolder.canRead()) {
+			dashboardGroupDir = dashboardGroupFolder;
+			groupAttrib = new PrivilegeAttribFile(dashboardGroupDir+".atr");
 
-			sDashboardGroupName = groupAttrib.getName(true,4);
-			//System.out.println("Group: " + sDashboardGroupName);
+			dashboardGroupName = groupAttrib.getName(true, 4);
 			traverseDashboards();
 		}
 	}
