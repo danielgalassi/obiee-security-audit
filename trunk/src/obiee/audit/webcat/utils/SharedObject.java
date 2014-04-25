@@ -17,15 +17,19 @@ import javax.xml.xpath.XPathFactory;
 import obiee.audit.webcat.engine.WebCatalog;
 import obiee.audit.webcat.objects.shared.Permission;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 
 public class SharedObject {
 
-	private static HashMap <Integer, String> hmVerbosePermissions = new HashMap <Integer, String> ();
+	private static final Logger logger = LogManager.getLogger(SharedObject.class.getName());
 
-	private static String getPrivilegeList(int val, String sPermissions) {
+	private static HashMap <Integer, String> verbosePermissions = new HashMap <Integer, String> ();
+
+	private static String getPrivilegeList(int val, String permission) {
 		int i = 0;
 		//finding the highest permission for a cumulative 2-HEX value
 		while (val < (WebCatalog.weighingValues).get(i) && i< (WebCatalog.weighingValues).size()) {
@@ -33,15 +37,15 @@ public class SharedObject {
 		}
 
 		//recursive call to concatenate the list of permissions
-		if (val > 0 || (val == 0 && sPermissions.equals(""))) {
+		if (val > 0 || (val == 0 && permission.equals(""))) {
 			val -= (WebCatalog.weighingValues).get(i);
-			sPermissions += (WebCatalog.permissions).get(i);
+			permission += (WebCatalog.permissions).get(i);
 			if (val > 0) {
-				sPermissions += "; ";
-				sPermissions = getPrivilegeList(val, sPermissions);
+				permission += "; ";
+				permission = getPrivilegeList(val, permission);
 			}
 		}
-		return sPermissions;
+		return permission;
 	}
 
 	public static Vector <Permission> getPrivileges(File sharedObject) {
@@ -112,16 +116,16 @@ public class SharedObject {
 				}
 				int val = data_in.readUnsignedByte() + data_in.readUnsignedByte() * 256;
 
-				if (!hmVerbosePermissions.containsKey(val)) {
-					hmVerbosePermissions.put(val, getPrivilegeList(val, ""));
+				if (!verbosePermissions.containsKey(val)) {
+					verbosePermissions.put(val, getPrivilegeList(val, ""));
 				}
 
-				permissions.add(new Permission(role, val, hmVerbosePermissions.get(val)));
+				permissions.add(new Permission(role, val, verbosePermissions.get(val)));
 			}
 
 			data_in.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("{} thrown while processing a shared object", e.getClass().getCanonicalName());
 		}
 		return permissions;
 	}
@@ -172,7 +176,7 @@ public class SharedObject {
 
 			data_in.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("{} thrown while retrieving the owner of a shared object", e.getClass().getCanonicalName());
 		}
 		return sOwner;
 	}
@@ -185,7 +189,7 @@ public class SharedObject {
 			try {
 				content = new Scanner(s);
 			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+				logger.error("{} thrown while attempting to validate the contents of a shared object", e.getClass().getCanonicalName());
 			}
 			if (content.hasNextLine()) {
 				isXML = content.nextLine().contains("<?xml ");
@@ -202,11 +206,9 @@ public class SharedObject {
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
-				nTag = (Node) xPath.evaluate("/dashboard",
-						docReport.getDocumentElement(),
-						XPathConstants.NODE);
+				nTag = (Node) xPath.evaluate("/dashboard", docReport.getDocumentElement(), XPathConstants.NODE);
 			} catch (XPathExpressionException e) {
-				e.printStackTrace();
+				logger.error("{} thrown while pre-processing a dashboard", e.getClass().getCanonicalName());
 			}
 
 		}
@@ -222,7 +224,7 @@ public class SharedObject {
 			try {
 				nTag = (Node) xPath.evaluate("/report/@dataModel", docReport.getDocumentElement(), XPathConstants.NODE);
 			} catch (XPathExpressionException e) {
-				e.printStackTrace();
+				logger.error("{} thrown while pre-processing a report", e.getClass().getCanonicalName());
 			}
 
 			//If a dataModel tag cannot be found, it is a good indicator that
@@ -233,7 +235,7 @@ public class SharedObject {
 							docReport.getDocumentElement(),
 							XPathConstants.NODE);
 				} catch (XPathExpressionException e) {
-					e.printStackTrace();
+					logger.error("{} thrown while pre-processing a report", e.getClass().getCanonicalName());
 				}
 			else nTag = null;
 
@@ -250,7 +252,7 @@ public class SharedObject {
 			try {
 				nTag = (Node) xPath.evaluate("/dashboardPage", report.getDocumentElement(), XPathConstants.NODE);
 			} catch (XPathExpressionException e) {
-				e.printStackTrace();
+				logger.error("{} thrown while pre-processing a dashboard page", e.getClass().getCanonicalName());
 			}
 		}
 		return (nTag != null);

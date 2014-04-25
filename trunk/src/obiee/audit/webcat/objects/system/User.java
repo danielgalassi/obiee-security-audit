@@ -30,8 +30,8 @@ public class User {
 
 	public User(File userFile) {
 		PrivilegeAttribFile nameAttribute = new PrivilegeAttribFile(userFile.toString()+".atr");
-		name = nameAttribute.getName(false,4);
+		name = nameAttribute.getName(false, 4);
 		PrivilegeAttribFile idAttribute = new PrivilegeAttribFile(userFile.toString());
-		id = idAttribute.getName(false,3);
+		id = idAttribute.getName(false, 3);
 	}
 }

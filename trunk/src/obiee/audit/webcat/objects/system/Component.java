@@ -31,13 +31,13 @@ public class Component {
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				if(name.lastIndexOf('.')>0)
-				{
+				if(name.lastIndexOf('.')>0) {
 					int lastIndex = name.lastIndexOf('.');
 					String str = name.substring(lastIndex);
 					//selecting only attribute files
-					if(str.equals(".atr") && name.indexOf("dvt") == -1)
+					if(str.equals(".atr") && name.indexOf("dvt") == -1) {
 						return true;
+					}
 				}
 				return false;
 			}
