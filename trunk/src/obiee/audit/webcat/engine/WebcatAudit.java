@@ -74,9 +74,9 @@ public class WebcatAudit {
 		//Applying stylesheets to generate user friendly output in HTML
 		if (wc != null && isPrivilegeAuditInvoked) {
 			System.out.println("Creating Privilege Audit documentation...");
-			insXSL1 = w.istrInternalResource("/bundledApps/RolesMadeEasy.xsl");
-			insXSL2 = w.istrInternalResource("/bundledApps/FeaturesByRoleType.xsl");
-			insXSL3 = w.istrInternalResource("/bundledApps/FeaturesByRole.xsl");
+			insXSL1 = w.istrInternalResource("obiee/audit/bundledApps/RolesMadeEasy.xsl");
+			insXSL2 = w.istrInternalResource("obiee/audit/bundledApps/FeaturesByRoleType.xsl");
+			insXSL3 = w.istrInternalResource("obiee/audit/bundledApps/FeaturesByRole.xsl");
 			XMLUtils.xsl4Files("Webcat.xml", insXSL1, "RolesMadeEasy.xml");
 			XMLUtils.xsl4Files("RolesMadeEasy.xml", insXSL2, "FeaturesByRoleType.html");
 			XMLUtils.xsl4Files("RolesMadeEasy.xml", insXSL3, "FeaturesByRole.html");
