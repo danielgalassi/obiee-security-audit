@@ -1,7 +1,6 @@
 package obiee.audit.webcat.objects.shared;
 
 import java.io.File;
-import java.util.ListIterator;
 import java.util.Vector;
 
 import obiee.audit.webcat.engine.WebCatalog;
@@ -13,27 +12,30 @@ import org.w3c.dom.Element;
 
 public class Report {
 
-	private String	sReportName = "";
-	private String	sCatalogPath;
-	private String	sOwner = "";
-	private String	sOwnerType = "Application Role";
+//	private static final Logger logger = LogManager.getLogger(Report.class.getName());
+
+	private String	name = "";
+	private String	catalogPath;
+	private String	owner = "";
+	private String	ownerType = "Application Role";
 	private boolean ownerIsRole;
 	private boolean ownerIsUser;
-	private File	fReport;
-	private Vector <Permission> vPerms;
+	private File	reportFile;
+	private Vector <Permission> permissions;
 
 	public Element serialize() {
 		Element eReport = (WebCatalog.docWebcat).createElement("Report");
-		eReport.setAttribute("Name", sReportName);
+		eReport.setAttribute("Name", name);
 		eReport.setAttribute("FullUnscrambledName", getFullUnscrambledName());
-		eReport.setAttribute("Owner", sOwner);
-		eReport.setAttribute("OwnerType", sOwnerType);
-		eReport.setAttribute("Path", fReport+"");
+		eReport.setAttribute("Owner", owner);
+		eReport.setAttribute("OwnerType", ownerType);
+		eReport.setAttribute("Path", reportFile+"");
 
 		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
 
-		for (Permission p : vPerms)
-			ePermissionList.appendChild(p.serialize());
+		for (Permission permission : permissions) {
+			ePermissionList.appendChild(permission.serialize());
+		}
 
 		eReport.appendChild(ePermissionList);
 
@@ -41,41 +43,49 @@ public class Report {
 	}
 
 	public String getFullUnscrambledName() {
-		return (sCatalogPath + "/" + sReportName);
+		return (catalogPath + "/" + name);
 	}
 
 	public String getName() {
-		return sReportName;
+		return name;
 	}
 
 	public void listPrivileges() {
-		ListIterator <Permission> li = vPerms.listIterator();
-		while (li.hasNext())
-			(li.next()).list();
+//		ListIterator <Permission> li = permissions.listIterator();
+//		while (li.hasNext()) {
+//			(li.next()).list();
+//		}
+		
+		for (Permission permission : permissions) {
+			permission.list();
+		}
 	}
 
-	public Report(String uPath, File s) {
+	private void setOwner() {
+		owner = (SharedObject.getOwner(reportFile));
+		ownerIsUser = WebCatalog.allUsers.containsKey(owner);
+		ownerIsRole = WebCatalog.appRoles.contains(owner);
+
+		if (ownerIsUser) {
+			ownerType = "User";
+			owner = WebCatalog.allUsers.get(owner);
+		}
+		if (!ownerIsUser && !ownerIsRole) {
+			ownerType = "Not Found";
+			owner = "Not Found (" + owner + ")";
+		}
+	}
+
+	public Report(String path, File s) {
 		if (s.canRead()) {
-			sCatalogPath = uPath;
-			fReport = s;
-			PrivilegeAttribFile reportAttrib = new PrivilegeAttribFile(fReport+".atr");
+			catalogPath = path;
+			reportFile = s;
+			PrivilegeAttribFile reportAttrib = new PrivilegeAttribFile(reportFile+".atr");
 
-			sReportName = reportAttrib.getName(false,4);
+			name = reportAttrib.getName(false, 4);
+			setOwner();
 
-			sOwner = (SharedObject.getOwner(fReport));
-			ownerIsUser = WebCatalog.allUsers.containsKey(sOwner);
-			ownerIsRole = WebCatalog.appRoles.contains(sOwner);
-
-			if (ownerIsUser) {
-				sOwnerType = "User";
-				sOwner = WebCatalog.allUsers.get(sOwner);
-			}
-			if (!ownerIsUser && !ownerIsRole) {
-				sOwnerType = "Not Found";
-				sOwner = "Not Found (" + sOwner + ")";
-			}
-
-			vPerms = (SharedObject.getPrivileges(fReport));
+			permissions = (SharedObject.getPrivileges(reportFile));
 		}
 	}
 }

@@ -7,17 +7,22 @@ import java.util.Vector;
 import obiee.audit.webcat.engine.WebCatalog;
 import obiee.audit.webcat.utils.PrivilegeAttribFile;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Element;
 
 
 public class DashboardGroup {
 
+	private static final Logger logger = LogManager.getLogger(DashboardGroup.class.getName());
+
 	private PrivilegeAttribFile groupAttrib = null;
-	private String dashboardGroupName = "";
+	private String name = "";
 	private File dashboardGroupDir = null;
 	private Vector <Dashboard> dashboards;
 
 	private void traverseDashboards() {
+		logger.info("Traversing dashboards...");
 		File portal = new File (dashboardGroupDir + "\\_portal");
 		dashboards = new Vector <Dashboard> ();
 
@@ -35,8 +40,9 @@ public class DashboardGroup {
 			}
 		};
 
-		for (File dashboard : portal.listFiles(filter))
+		for (File dashboard : portal.listFiles(filter)) {
 			dashboards.add(new Dashboard(dashboard));
+		}
 	}
 
 	/***
@@ -44,13 +50,13 @@ public class DashboardGroup {
 	 * @return the group name.
 	 */
 	public String getName() {
-		return dashboardGroupName;
+		return name;
 	}
 
 	public Element serialize() {
 		Element eGroup = (WebCatalog.docWebcat).createElement("DashboardGroup");
 		Element eDashList = (WebCatalog.docWebcat).createElement("DashboardList");
-		eGroup.setAttribute("DashboardGroupName", dashboardGroupName);
+		eGroup.setAttribute("DashboardGroupName", name);
 
 		for (Dashboard dashboard : dashboards)
 			eDashList.appendChild(dashboard.serialize());
@@ -65,7 +71,7 @@ public class DashboardGroup {
 			dashboardGroupDir = dashboardGroupFolder;
 			groupAttrib = new PrivilegeAttribFile(dashboardGroupDir+".atr");
 
-			dashboardGroupName = groupAttrib.getName(true, 4);
+			name = groupAttrib.getName(true, 4);
 			traverseDashboards();
 		}
 	}
