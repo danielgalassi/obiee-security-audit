@@ -9,6 +9,8 @@ import java.util.Vector;
 import obiee.audit.webcat.engine.WebCatalog;
 import obiee.audit.webcat.utils.PrivilegeAttribFile;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -19,6 +21,8 @@ import org.w3c.dom.Node;
  *
  */
 public class Privilege {
+
+	private static final Logger logger = LogManager.getLogger(Privilege.class.getName());
 
 	private PrivilegeAttribFile privilegeAttribute;
 	private File privilegeDir;
@@ -46,11 +50,11 @@ public class Privilege {
 		FileInputStream file_input = null;
 		DataInputStream data_in    = null;
 
-		byte	b_data = 0;
+		byte b_data = 0;
 		int iRead;
 		int iGroupLength;
 		int nGroups;
-		String sTempGroupName;
+		String temporaryGroupName;
 
 		try {
 			file_input = new FileInputStream(privilegeDir.toString());
@@ -68,30 +72,34 @@ public class Privilege {
 
 				//skipping bytes till the "size mark" (2) is found
 				iRead = data_in.read();
-				while (iRead != 2)
+				while (iRead != 2) {
 					iRead = data_in.read();
+				}
 
 				iGroupLength = data_in.read();
 
 				//ignoring next three bytes
-				for (int i=0; i<3; i++)
+				for (int i=0; i<3; i++) {
 					data_in.read();
+				}
 
-				sTempGroupName = "";
+				temporaryGroupName = "";
 				for (int j = 0; j<iGroupLength; j++) {
 					b_data = data_in.readByte();
 					char c = (char)b_data;
 					if (b_data < 0)
 						c = '-';
-					sTempGroupName = sTempGroupName + c;
+					temporaryGroupName = temporaryGroupName + c;
 				}
-				if (data_in.read() == 0)
-					denied.add (sTempGroupName);
-				else
-					granted.add (sTempGroupName);
+				if (data_in.read() == 0) {
+					denied.add (temporaryGroupName);
+				}
+				else {
+					granted.add (temporaryGroupName);
+				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("{} thrown while reading privileges", e.getClass().getCanonicalName());
 		}
 	}
 

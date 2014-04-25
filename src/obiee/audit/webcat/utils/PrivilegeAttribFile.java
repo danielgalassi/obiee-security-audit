@@ -5,8 +5,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @SuppressWarnings("serial")
 public class PrivilegeAttribFile extends File {
+
+	private static final Logger logger = LogManager.getLogger(PrivilegeAttribFile.class.getName());
 
 	public String getName (boolean applyFormatting, int offset) {
 		byte	b_data = 0;
@@ -35,12 +40,13 @@ public class PrivilegeAttribFile extends File {
 				name = name + c;
 			}
 
-			if (applyFormatting)
+			if (applyFormatting) {
 				name = name.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
+			}
 
 			data_in.close ();
 		} catch  (IOException e) {
-			e.printStackTrace();
+			logger.error("{} thrown while retrieving a privilege name", e.getClass().getCanonicalName());
 		}
 
 		return name;
@@ -54,7 +60,7 @@ public class PrivilegeAttribFile extends File {
 				return null;
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("{} thrown while processing a privilege file", e.getClass().getCanonicalName());
 		}
 
 		return f.toString();

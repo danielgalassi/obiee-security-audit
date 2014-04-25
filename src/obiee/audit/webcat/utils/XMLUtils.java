@@ -13,6 +13,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 
 /**
@@ -22,7 +24,7 @@ import org.w3c.dom.Document;
  */
 public class XMLUtils {
 
-//	private static final Logger logger = LogManager.getLogger(XMLUtils.class.getName());
+	private static final Logger logger = LogManager.getLogger(XMLUtils.class.getName());
 
 	/**
 	 * Create an empty DOM document
@@ -35,7 +37,7 @@ public class XMLUtils {
 			builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			doc = builder.newDocument();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("{} thrown while attempting to create a DOM object", e.getClass().getCanonicalName());
 		}
 		return doc;
 	}
@@ -54,8 +56,7 @@ public class XMLUtils {
 			builder = factory.newDocumentBuilder();
 			doc = builder.parse(xml);
 		} catch(Exception e) {
-//			logger.error("{} thrown while loading an XML file into a DOM document", e.getClass().getCanonicalName());
-			e.printStackTrace();
+			logger.error("{} thrown while loading an XML file into a DOM document", e.getClass().getCanonicalName());
 		}
 
 		return doc;
@@ -75,8 +76,7 @@ public class XMLUtils {
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			transformer.transform(source, result);
 		} catch (Exception e) {
-//			logger.error("{} thrown while saving document", e.getClass().getCanonicalName());
-			e.printStackTrace();
+			logger.error("{} thrown while saving document", e.getClass().getCanonicalName());
 		}
 	}
 
@@ -91,8 +91,7 @@ public class XMLUtils {
 			InputStream xsl = new FileInputStream(stylesheet);
 			applyStylesheet(xml, xsl, output);
 		} catch (Exception e) {
-			//logger.error("{} exception thrown while applying stylesheet", e.getClass().getCanonicalName());
-			e.printStackTrace();
+			logger.error("{} exception thrown while applying stylesheet", e.getClass().getCanonicalName());
 		}
 	}
 
@@ -119,8 +118,7 @@ public class XMLUtils {
 			Transformer transformer = factory.newTransformer(xsltSource);
 			transformer.transform(xmlSource, result);
 		} catch (Exception e) {
-			//logger.error("{} thrown while applying stylesheet", e.getClass().getCanonicalName());
-			e.printStackTrace();
+			logger.error("{} thrown while applying stylesheet", e.getClass().getCanonicalName());
 		}
 	}
 }
