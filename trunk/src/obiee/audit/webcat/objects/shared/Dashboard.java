@@ -14,6 +14,8 @@ import obiee.audit.webcat.utils.PrivilegeAttribFile;
 import obiee.audit.webcat.utils.SharedObject;
 import obiee.audit.webcat.utils.XMLUtils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -21,14 +23,16 @@ import org.w3c.dom.Node;
 
 public class Dashboard {
 
-	private File fDashboardDir = null;
+	private static final Logger logger = LogManager.getLogger(Dashboard.class.getName());
+
+	private File dashboardDir = null;
 	private boolean isOOTB = false;
-	private String sDashboardName = "";
-	private Vector <DashboardPage> vPages;
-	private Vector <Permission> vPerms;
+	private String name = "";
+	private Vector <DashboardPage> pages;
+	private Vector <Permission> permissions;
 
 	private void getPageAttributes(String tag) {
-		File fDashLayout = new File(fDashboardDir+"\\dashboard+layout");
+		File fDashLayout = new File(dashboardDir+"\\dashboard+layout");
 		if (fDashLayout.canRead()) {
 			Document dashLayoutDOM = XMLUtils.loadDocument(fDashLayout);
 			XPath xPath = XPathFactory.newInstance().newXPath();
@@ -40,13 +44,13 @@ public class Dashboard {
 				if (nTag != null)
 					isOOTB = true;
 			} catch (XPathExpressionException e) {
-				e.printStackTrace();
+				logger.error("{} thrown while attempting to get Dashboard Page attributes", e.getClass().getCanonicalName());
 			}
 		}
 	}
 
 	private void traversePages() {
-		vPages = new Vector <DashboardPage> ();
+		pages = new Vector <DashboardPage> ();
 
 		FilenameFilter filter = new FilenameFilter() {
 			@Override
@@ -58,23 +62,24 @@ public class Dashboard {
 			}
 		};
 
-		for (File page : fDashboardDir.listFiles(filter))
-			vPages.add(new DashboardPage(page));
+		for (File page : dashboardDir.listFiles(filter)) {
+			pages.add(new DashboardPage(page));
+		}
 
 	}
 
 	public Element serialize() {
 		Element eDashboardPageList = (WebCatalog.docWebcat).createElement("DashboardPageList");
 		Element eDashboard = (WebCatalog.docWebcat).createElement("Dashboard");
-		eDashboard.setAttribute("DashboardName", sDashboardName);
+		eDashboard.setAttribute("DashboardName", name);
 		eDashboard.setAttribute("isOOTB", isOOTB+"");
 
-		for (DashboardPage page : vPages)
+		for (DashboardPage page : pages)
 			eDashboardPageList.appendChild(page.serialize());
 
 		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
 
-		for (Permission p : vPerms)
+		for (Permission p : permissions)
 			ePermissionList.appendChild(p.serialize());
 
 		eDashboard.appendChild(ePermissionList);
@@ -84,14 +89,14 @@ public class Dashboard {
 	}
 
 	public Dashboard (File fDashboard) {
-		fDashboardDir = fDashboard;
-		PrivilegeAttribFile dashboardAttrib = new PrivilegeAttribFile(fDashboardDir+".atr");
-		sDashboardName = dashboardAttrib.getName(true,4);
+		dashboardDir = fDashboard;
+		PrivilegeAttribFile dashboardAttrib = new PrivilegeAttribFile(dashboardDir+".atr");
+		name = dashboardAttrib.getName(true, 4);
 		//System.out.println("\tDashboard: " + sDashboardName);
 
 		traversePages();
 		getPageAttributes("/dashboard/@appObjectID");
-		vPerms = new Vector <Permission> ();
-		vPerms = (SharedObject.getPrivileges(fDashboard));
+		permissions = new Vector <Permission> ();
+		permissions = (SharedObject.getPrivileges(fDashboard));
 	}
 }
