@@ -25,6 +25,8 @@ import org.w3c.dom.Element;
  */
 public class WebCatalog {
 
+	//private static final Logger logger = LogManager.getLogger(WebCatalog.class.getName());
+
 	private File webcat = null;
 	public static Document	docWebcat		= XMLUtils.createDOMDocument();
 	private static Element	eWebcat			= docWebcat.createElement("WebCat");
@@ -264,13 +266,13 @@ public class WebCatalog {
 		}
 		eWebcat.setAttribute("app", "obiee-security-audit");
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
-		System.out.println("WebCatalog found at " + webcat);
+//		logger.info("WebCatalog found at {}", webcat);
 		setListOfPermissions();
-		System.out.println("Creating an aplication user catalogue");
+//		logger.info("Creating an aplication user catalogue");
 		listAllUsers(getUsersDirectory());
-		System.out.println("Creating an application role catalogue");
+//		logger.info("Creating an application role catalogue");
 		listAllApplicationRoles(getAppRolesDirectory());
-		System.out.println("Creating a report catalogue");
+//		logger.info("Creating a report catalogue");
 		listAllReports(getSharedDirectory(), "", "/shared");
 	}
 }

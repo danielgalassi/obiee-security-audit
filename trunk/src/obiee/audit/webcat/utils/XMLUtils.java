@@ -1,6 +1,7 @@
 package obiee.audit.webcat.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -8,8 +9,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -23,9 +22,7 @@ import org.w3c.dom.Document;
  */
 public class XMLUtils {
 
-	public static void publishException(Exception errMsg){
-		System.out.println("Error: " + errMsg.getClass() + "\tDescription: " + errMsg.getMessage());
-	}
+//	private static final Logger logger = LogManager.getLogger(XMLUtils.class.getName());
 
 	/**
 	 * Create an empty DOM document
@@ -57,7 +54,8 @@ public class XMLUtils {
 			builder = factory.newDocumentBuilder();
 			doc = builder.parse(xml);
 		} catch(Exception e) {
-			publishException(e);
+//			logger.error("{} thrown while loading an XML file into a DOM document", e.getClass().getCanonicalName());
+			e.printStackTrace();
 		}
 
 		return doc;
@@ -70,68 +68,59 @@ public class XMLUtils {
 	 */
 	public static void saveDocument(Document doc, String file) {
 		Source source = new DOMSource(doc);
-
 		File xml = new File(file);
 		Result result = new StreamResult(xml);
+
 		try {
-			Transformer xformer = TransformerFactory.newInstance().newTransformer();
-			xformer.transform(source, result);
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.transform(source, result);
 		} catch (Exception e) {
-			System.out.println(e);
+//			logger.error("{} thrown while saving document", e.getClass().getCanonicalName());
+			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Transform an XML file using XSL
-	 * @param strXMLFile
-	 * @param strXSLFile
-	 * @param strRESFile
+	 * Transforms an XML file using an XSL stylesheet
+	 * @param xml XML file to be transformed
+	 * @param stylesheet XSL file containing transformations
+	 * @param output resulting file
 	 */
-	public static void xsl4Files(String strXMLFile, String strXSLFile, String strRESFile){
-		File fXMLFile = new File(strXMLFile);
-		File fXSLFile = new File(strXSLFile);
-		File fResult = new File(strRESFile);
-		Transformer trans = null;
-		Source xmlSource = new javax.xml.transform.stream.StreamSource(fXMLFile);
-		Source xsltSource = new javax.xml.transform.stream.StreamSource(fXSLFile);
-		Result result = new javax.xml.transform.stream.StreamResult(fResult);
-		TransformerFactory transFact = javax.xml.transform.TransformerFactory.newInstance();
+	public static void applyStylesheet(String xml, String stylesheet, String output){
 		try {
-			trans = transFact.newTransformer(xsltSource);
-		} catch (TransformerConfigurationException tcE) {
-			System.out.println("3"); publishException(tcE);
-		}
-		try {
-			trans.transform(xmlSource, result);
-		} catch (TransformerException tE) {
-			System.out.println("4"); publishException(tE);
+			InputStream xsl = new FileInputStream(stylesheet);
+			applyStylesheet(xml, xsl, output);
+		} catch (Exception e) {
+			//logger.error("{} exception thrown while applying stylesheet", e.getClass().getCanonicalName());
+			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Transform an XML file using an XSL file stored within the jar file
-	 * @param strXMLFile
-	 * @param inputsXSLFile
-	 * @param strRESFile
+	 * Transforms an XML file using an XSL stylesheet
+	 * @param xml XML file to be transformed
+	 * @param stylesheet transformations to be applied
+	 * @param output resulting file
 	 */
-	public static void xsl4Files(String strXMLFile, InputStream inputsXSLFile, String strRESFile){
-		File fXMLFile = new File(strXMLFile);
-		File fResult = new File(strRESFile);
+	public static void applyStylesheet(String xml, InputStream stylesheet, String output){
+		File xmlFile = new File(xml);
+		File resultFile = new File(output);
+
 		Source xmlSource = null;
 		Source xsltSource = null;
-		Transformer trans = null;
-		TransformerFactory transFact = null;
 		Result result = null;
 
-		xmlSource = new javax.xml.transform.stream.StreamSource(fXMLFile);
-		xsltSource = new javax.xml.transform.stream.StreamSource(inputsXSLFile);
-		result = new javax.xml.transform.stream.StreamResult(fResult);
-		transFact = javax.xml.transform.TransformerFactory.newInstance();
-		try {trans = transFact.newTransformer(xsltSource);
-		} catch (TransformerConfigurationException tcE) {
-			System.out.println("3"); publishException(tcE);}
-		try {trans.transform(xmlSource, result);
-		} catch (TransformerException tE) {
-			System.out.println("4"); publishException(tE);}
+		xmlSource = new javax.xml.transform.stream.StreamSource(xmlFile);
+		xsltSource = new javax.xml.transform.stream.StreamSource(stylesheet);
+		result = new javax.xml.transform.stream.StreamResult(resultFile);
+
+		TransformerFactory factory = javax.xml.transform.TransformerFactory.newInstance();
+		try {
+			Transformer transformer = factory.newTransformer(xsltSource);
+			transformer.transform(xmlSource, result);
+		} catch (Exception e) {
+			//logger.error("{} thrown while applying stylesheet", e.getClass().getCanonicalName());
+			e.printStackTrace();
+		}
 	}
 }
