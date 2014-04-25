@@ -4,9 +4,12 @@ import java.io.InputStream;
 
 import obiee.audit.webcat.utils.XMLUtils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class WebcatAudit {
 
-//	private static final Logger logger = LogManager.getLogger(WebcatAudit.class.getName());
+	private static final Logger logger = LogManager.getLogger(WebcatAudit.class.getName());
 
 	private static boolean isPrivilegeAuditInvoked = false;
 	private static boolean isDashboardAuditInvoked = false;
@@ -19,7 +22,7 @@ public class WebcatAudit {
 		try {
 			resource = getClass().getResourceAsStream(rsc);
 		} catch (Exception e) {
-//			logger.error("{} thrown while attempting to load {}", e.getClass().getCanonicalName(), rsc);
+			logger.error("{} thrown while attempting to load {}", e.getClass().getCanonicalName(), rsc);
 		}
 		return resource;
 	}
@@ -45,21 +48,21 @@ public class WebcatAudit {
 		}
 
 		if (webcatLocation != null) {
-//			logger.info("Initialising Webcat Parsing in progress...");
+			logger.info("Initialising Webcat Parsing in progress...");
 			webcat = new WebCatalog(webcatLocation);
-//			logger.info("Initialisation finished");
+			logger.info("Initialisation finished");
 		}
 
 		if (webcat != null && isPrivilegeAuditInvoked) {
-//			logger.info("Privilege audit in progress...");
+			logger.info("Privilege audit in progress...");
 			webcat.processWebCatPrivileges();
-//			logger.info("Privilege audit completed");
+			logger.info("Privilege audit completed");
 		}
 
 		if (webcat != null && isDashboardAuditInvoked) {
-//			logger.info("Dashboard audit in progress...");
+			logger.info("Dashboard audit in progress...");
 			webcat.processDashboards();
-//			logger.info("Dashboard Audit completed");
+			logger.info("Dashboard Audit completed");
 		}
 
 		webcat.save();
@@ -72,24 +75,24 @@ public class WebcatAudit {
 
 		//Applying stylesheets to generate user friendly output in HTML
 		if (webcat != null && isPrivilegeAuditInvoked) {
-//			logger.info("Creating Privilege Audit documentation...");
+			logger.info("Creating Privilege Audit documentation...");
 			stylesheet1 = audit.loadInternalResource("/obiee/audit/bundledApps/RolesMadeEasy.xsl");
 			stylesheet2 = audit.loadInternalResource("/obiee/audit/bundledApps/FeaturesByRoleType.xsl");
 			stylesheet3 = audit.loadInternalResource("/obiee/audit/bundledApps/FeaturesByRole.xsl");
 			XMLUtils.applyStylesheet("Webcat.xml", stylesheet1, "RolesMadeEasy.xml");
 			XMLUtils.applyStylesheet("RolesMadeEasy.xml", stylesheet2, "FeaturesByRoleType.html");
 			XMLUtils.applyStylesheet("RolesMadeEasy.xml", stylesheet3, "FeaturesByRole.html");
-//			logger.info("Privilege Audit documentation completed");
+			logger.info("Privilege Audit documentation completed");
 		}
 
 		//Applying stylesheets to generate user friendly output in HTML
 		if (webcat != null && isDashboardAuditInvoked) {
-//			logger.info("Creating Dashboard Audit documentation...");
+			logger.info("Creating Dashboard Audit documentation...");
 			stylesheet1 = audit.loadInternalResource("/obiee/audit/bundledApps/RolesMadeEasyForDashboards.xsl");
 			stylesheet2 = audit.loadInternalResource("/obiee/audit/bundledApps/DashboardsByRoleType.xsl");
 			XMLUtils.applyStylesheet("Webcat.xml", stylesheet1, "RolesMadeEasyForDashboards.xml");
 			XMLUtils.applyStylesheet("RolesMadeEasyForDashboards.xml", stylesheet2, "DashboardsByRoleType.html");
-//			logger.info("Dashboard Audit documentation completed");
+			logger.info("Dashboard Audit documentation completed");
 		}
 	}
 }
