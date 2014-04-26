@@ -2,6 +2,7 @@ package obiee.audit.webcat.engine;
 
 import java.io.InputStream;
 
+import obiee.audit.webcat.core.WebCatalog;
 import obiee.audit.webcat.utils.XMLUtils;
 
 import org.apache.logging.log4j.LogManager;

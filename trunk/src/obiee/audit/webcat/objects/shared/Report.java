@@ -3,9 +3,9 @@ package obiee.audit.webcat.objects.shared;
 import java.io.File;
 import java.util.Vector;
 
-import obiee.audit.webcat.engine.WebCatalog;
-import obiee.audit.webcat.utils.PrivilegeAttribFile;
-import obiee.audit.webcat.utils.SharedObject;
+import obiee.audit.webcat.core.PrivilegeAttribFile;
+import obiee.audit.webcat.core.SharedObject;
+import obiee.audit.webcat.core.WebCatalog;
 
 import org.w3c.dom.Element;
 
@@ -46,23 +46,18 @@ public class Report {
 		return (catalogPath + "/" + name);
 	}
 
-	public String getName() {
-		return name;
-	}
+//	public String getName() {
+//		return name;
+//	}
 
-	public void listPrivileges() {
-//		ListIterator <Permission> li = permissions.listIterator();
-//		while (li.hasNext()) {
-//			(li.next()).list();
+//	public void listPrivileges() {
+//		for (Permission permission : permissions) {
+//			permission.list();
 //		}
-		
-		for (Permission permission : permissions) {
-			permission.list();
-		}
-	}
+//	}
 
 	private void setOwner() {
-		owner = (SharedObject.getOwner(reportFile));
+		owner = SharedObject.getOwner(reportFile);
 		ownerIsUser = WebCatalog.allUsers.containsKey(owner);
 		ownerIsRole = WebCatalog.appRoles.contains(owner);
 

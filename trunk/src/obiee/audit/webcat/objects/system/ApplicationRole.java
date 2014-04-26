@@ -2,8 +2,8 @@ package obiee.audit.webcat.objects.system;
 
 import java.io.File;
 
-import obiee.audit.webcat.engine.WebCatalog;
-import obiee.audit.webcat.utils.PrivilegeAttribFile;
+import obiee.audit.webcat.core.PrivilegeAttribFile;
+import obiee.audit.webcat.core.WebCatalog;
 
 import org.w3c.dom.Element;
 

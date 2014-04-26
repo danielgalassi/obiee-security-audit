@@ -6,8 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Vector;
 
-import obiee.audit.webcat.engine.WebCatalog;
-import obiee.audit.webcat.utils.PrivilegeAttribFile;
+import obiee.audit.webcat.core.PrivilegeAttribFile;
+import obiee.audit.webcat.core.WebCatalog;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
