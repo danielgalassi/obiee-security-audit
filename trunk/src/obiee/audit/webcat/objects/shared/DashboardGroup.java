@@ -22,7 +22,7 @@ public class DashboardGroup {
 	private Vector <Dashboard> dashboards;
 
 	private void traverseDashboards() {
-		logger.info("Traversing dashboards...");
+		logger.trace("Traversing dashboards...");
 		File portal = new File (dashboardGroupDir + "\\_portal");
 		dashboards = new Vector <Dashboard> ();
 

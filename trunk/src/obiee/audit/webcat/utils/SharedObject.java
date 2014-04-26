@@ -32,14 +32,14 @@ public class SharedObject {
 	private static String getPrivilegeList(int val, String permission) {
 		int i = 0;
 		//finding the highest permission for a cumulative 2-HEX value
-		while (val < (WebCatalog.weighingValues).get(i) && i< (WebCatalog.weighingValues).size()) {
+		while (val < (WebCatalog.ootbSecurity).getWeighing(i) && i< (WebCatalog.ootbSecurity).size()) {
 			i++;
 		}
 
 		//recursive call to concatenate the list of permissions
 		if (val > 0 || (val == 0 && permission.equals(""))) {
-			val -= (WebCatalog.weighingValues).get(i);
-			permission += (WebCatalog.permissions).get(i);
+			val -= (WebCatalog.ootbSecurity).getWeighing(i);
+			permission += (WebCatalog.ootbSecurity).getPermission(i);
 			if (val > 0) {
 				permission += "; ";
 				permission = getPrivilegeList(val, permission);
@@ -231,9 +231,7 @@ public class SharedObject {
 			//an actual report or just a different type of object.
 			if (nTag == null)
 				try {
-					nTag = (Node) xPath.evaluate("/report",
-							docReport.getDocumentElement(),
-							XPathConstants.NODE);
+					nTag = (Node) xPath.evaluate("/report", docReport.getDocumentElement(), XPathConstants.NODE);
 				} catch (XPathExpressionException e) {
 					logger.error("{} thrown while pre-processing a report", e.getClass().getCanonicalName());
 				}
