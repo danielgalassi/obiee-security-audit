@@ -54,23 +54,23 @@ public class DashboardGroup {
 	}
 
 	public Element serialize() {
-		Element eGroup = (WebCatalog.docWebcat).createElement("DashboardGroup");
-		Element eDashList = (WebCatalog.docWebcat).createElement("DashboardList");
-		eGroup.setAttribute("DashboardGroupName", name);
+		Element dashboardGroup = (WebCatalog.docWebcat).createElement("DashboardGroup");
+		Element dashboardList = (WebCatalog.docWebcat).createElement("DashboardList");
+		dashboardGroup.setAttribute("DashboardGroupName", name);
 
-		for (Dashboard dashboard : dashboards)
-			eDashList.appendChild(dashboard.serialize());
+		for (Dashboard dashboard : dashboards) {
+			dashboardList.appendChild(dashboard.serialize());
+		}
 
-		eGroup.appendChild(eDashList);
+		dashboardGroup.appendChild(dashboardList);
 
-		return (eGroup);
+		return (dashboardGroup);
 	}
 
 	public DashboardGroup (File dashboardGroupFolder) {
 		if (dashboardGroupFolder.canRead()) {
 			dashboardGroupDir = dashboardGroupFolder;
 			groupAttrib = new PrivilegeAttribFile(dashboardGroupDir+".atr");
-
 			name = groupAttrib.getName(true, 4);
 			traverseDashboards();
 		}

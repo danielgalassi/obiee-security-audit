@@ -66,9 +66,9 @@ public class Component {
 	 * @return <code>Element</code> with the Component tag with a ComponentName attribute.
 	 */
 	public Element serialize () {
-		Element eGroup = (WebCatalog.docWebcat).createElement("Component");
-		eGroup.setAttribute("ComponentName", privilegeGroupName);
-		return (eGroup);
+		Element component = (WebCatalog.docWebcat).createElement("Component");
+		component.setAttribute("ComponentName", privilegeGroupName);
+		return component;
 	}
 
 	/**
@@ -80,7 +80,6 @@ public class Component {
 			componentAttribute = new PrivilegeAttribFile(componentFile.toString());
 
 			privilegeGroupName = componentAttribute.getName(true, 4);
-			//System.out.println("Component:" + getName());
 			componentDir = new File(componentAttribute.getAttribDir());
 			if (!componentDir.canRead()) {
 				componentDir = null;

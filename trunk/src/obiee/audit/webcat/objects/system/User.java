@@ -7,17 +7,21 @@ import obiee.audit.webcat.core.WebCatalog;
 
 import org.w3c.dom.Element;
 
-
+/**
+ * This class represents an OBIEE user account
+ * @author danielgalassi@gmail.com
+ *
+ */
 public class User {
-	
+
 	private String name;
 	private String id;
 
 	public Element serialize() {
-		Element eUser = (WebCatalog.docWebcat).createElement("User");
-		eUser.setAttribute("UserName", name);
-		eUser.setAttribute("UserID", id);
-		return eUser;
+		Element user = (WebCatalog.docWebcat).createElement("User");
+		user.setAttribute("UserName", name);
+		user.setAttribute("UserID", id);
+		return user;
 	}
 
 	public String getID() {

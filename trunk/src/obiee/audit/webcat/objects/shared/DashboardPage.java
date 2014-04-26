@@ -26,33 +26,33 @@ public class DashboardPage {
 
 	private static final Logger logger = LogManager.getLogger(DashboardPage.class.getName());
 
-	private File fPage = null;
+	private File page = null;
 	private boolean isHidden = false;
 	private String name = "";
 	private Vector <String> reportPaths = new Vector <String> ();
 	private Vector <Permission> permissions;
 
 	private void findReports() {
-		if (!SharedObject.isPage(fPage)) {
+		if (!SharedObject.isPage(page)) {
 			return;
 		}
 
-		NodeList nTag = null;
+		NodeList reportRefs = null;
 
-		if (fPage.canRead()) {
-			Document layoutDOM = XMLUtils.loadDocument(fPage);
+		if (page.canRead()) {
+			Document dashboardLayout = XMLUtils.loadDocument(page);
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
-				nTag = (NodeList) xPath.evaluate("/dashboardPage//reportRef/@path", layoutDOM.getDocumentElement(), XPathConstants.NODESET);
+				reportRefs = (NodeList) xPath.evaluate("/dashboardPage//reportRef/@path", dashboardLayout.getDocumentElement(), XPathConstants.NODESET);
 
-				if (nTag == null) {
+				if (reportRefs == null) {
 					return;
 				}
 
 				//lists each report published on that dashboard page
-				for (int i=0; i<nTag.getLength(); i++) {
-					reportPaths.add(nTag.item(i).getNodeValue());
+				for (int i=0; i<reportRefs.getLength(); i++) {
+					reportPaths.add(reportRefs.item(i).getNodeValue());
 				}
 
 			} catch (XPathExpressionException e) {
@@ -62,29 +62,30 @@ public class DashboardPage {
 	}
 
 	public Element serialize() {
-		Element eDashboardPage = (WebCatalog.docWebcat).createElement("DashboardPage");
-		eDashboardPage.setAttribute("DashboardPageName", name);
-		eDashboardPage.setAttribute("isHidden", isHidden+"");
+		Element dashboardPage = (WebCatalog.docWebcat).createElement("DashboardPage");
+		dashboardPage.setAttribute("DashboardPageName", name);
+		dashboardPage.setAttribute("isHidden", isHidden+"");
 
-		Element eReportList = (WebCatalog.docWebcat).createElement("ReportList");
+		Element reportList = (WebCatalog.docWebcat).createElement("ReportList");
 
 		for (String s : reportPaths) {
-			Element eReport = null;
+			Element report = null;
 			if ((WebCatalog.allReports).containsKey(StringEscapeUtils.unescapeJava(s.replace("–", "---")))) {
-				eReport = (WebCatalog.allReports).get(StringEscapeUtils.unescapeJava(s.replace("–", "---"))).serialize();
-				eReportList.appendChild(eReport);
+				report = (WebCatalog.allReports).get(StringEscapeUtils.unescapeJava(s.replace("–", "---"))).serialize();
+				reportList.appendChild(report);
 			}
 		}
 
-		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
+		Element permissionList = (WebCatalog.docWebcat).createElement("PermissionList");
 
-		for (Permission p : permissions)
-			ePermissionList.appendChild(p.serialize());
+		for (Permission permission : permissions) {
+			permissionList.appendChild(permission.serialize());
+		}
 
-		eDashboardPage.appendChild(ePermissionList);
+		dashboardPage.appendChild(permissionList);
+		dashboardPage.appendChild(reportList);
 
-		eDashboardPage.appendChild(eReportList);
-		return eDashboardPage;
+		return dashboardPage;
 	}
 
 	public boolean isHidden() {
@@ -92,10 +93,10 @@ public class DashboardPage {
 	}
 
 	private void getPageAttributes(String tag) {
-		File fDashLayout = new File(fPage.getParent()+"\\dashboard+layout");
+		File pageLayout = new File(page.getParent()+"\\dashboard+layout");
 
-		if (fDashLayout.canRead()) {
-			Document layoutDOM = XMLUtils.loadDocument(fDashLayout);
+		if (pageLayout.canRead()) {
+			Document layoutDOM = XMLUtils.loadDocument(pageLayout);
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
@@ -110,12 +111,11 @@ public class DashboardPage {
 	}
 
 	public DashboardPage(File file) {
-		fPage = file;
+		page = file;
 		PrivilegeAttribFile pageAttrib = new PrivilegeAttribFile(file+".atr");
 		name = pageAttrib.getName(true, 4);
 		getPageAttributes("/dashboard/dashboardPageRef[@path='"+name+"']/@hidden");
 		findReports();
-		permissions = new Vector <Permission> ();
-		permissions = (SharedObject.getPrivileges(fPage));
+		permissions = (SharedObject.getPrivileges(page));
 	}
 }

@@ -69,34 +69,35 @@ public class Dashboard {
 	}
 
 	public Element serialize() {
-		Element eDashboardPageList = (WebCatalog.docWebcat).createElement("DashboardPageList");
-		Element eDashboard = (WebCatalog.docWebcat).createElement("Dashboard");
-		eDashboard.setAttribute("DashboardName", name);
-		eDashboard.setAttribute("isOOTB", isOOTB+"");
+		Element dashboardPageList = (WebCatalog.docWebcat).createElement("DashboardPageList");
+		Element dashboard = (WebCatalog.docWebcat).createElement("Dashboard");
+		dashboard.setAttribute("DashboardName", name);
+		dashboard.setAttribute("isOOTB", isOOTB+"");
 
-		for (DashboardPage page : pages)
-			eDashboardPageList.appendChild(page.serialize());
+		for (DashboardPage page : pages) {
+			dashboardPageList.appendChild(page.serialize());
+		}
 
-		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
+		Element permissionList = (WebCatalog.docWebcat).createElement("PermissionList");
 
-		for (Permission p : permissions)
-			ePermissionList.appendChild(p.serialize());
+		for (Permission permission : permissions) {
+			permissionList.appendChild(permission.serialize());
+		}
 
-		eDashboard.appendChild(ePermissionList);
+		dashboard.appendChild(permissionList);
 
-		eDashboard.appendChild(eDashboardPageList);
-		return eDashboard;
+		dashboard.appendChild(dashboardPageList);
+		return dashboard;
 	}
 
-	public Dashboard (File fDashboard) {
-		dashboardDir = fDashboard;
+	public Dashboard (File dashboard) {
+		dashboardDir = dashboard;
 		PrivilegeAttribFile dashboardAttrib = new PrivilegeAttribFile(dashboardDir+".atr");
 		name = dashboardAttrib.getName(true, 4);
-		//System.out.println("\tDashboard: " + sDashboardName);
+		logger.trace("Retrieving {} dashboard", name);
 
 		traversePages();
 		getPageAttributes("/dashboard/@appObjectID");
-		permissions = new Vector <Permission> ();
-		permissions = (SharedObject.getPrivileges(fDashboard));
+		permissions = (SharedObject.getPrivileges(dashboardDir));
 	}
 }
