@@ -17,11 +17,11 @@ public class Permission {
 	private String	grantedPrivileges;
 
 	public Element serialize() {
-		Element ePermission = (WebCatalog.docWebcat).createElement("Permission");
-		ePermission.setAttribute("Role", applicationRole);
-		ePermission.setAttribute("Value", weighingValue+"");
-		ePermission.setAttribute("Description", grantedPrivileges);
-		return ePermission;
+		Element permission = (WebCatalog.docWebcat).createElement("Permission");
+		permission.setAttribute("Role", applicationRole);
+		permission.setAttribute("Value", weighingValue+"");
+		permission.setAttribute("Description", grantedPrivileges);
+		return permission;
 	}
 
 	public void list() {

@@ -13,9 +13,9 @@ public class ApplicationRole {
 	private String name;
 
 	public Element serialize() {
-		Element eRole = (WebCatalog.docWebcat).createElement("ApplicationRole");
-		eRole.setAttribute("ApplicationRoleName", name);
-		return eRole;
+		Element applicationRole = (WebCatalog.docWebcat).createElement("ApplicationRole");
+		applicationRole.setAttribute("ApplicationRoleName", name);
+		return applicationRole;
 	}
 
 	public String getName() {

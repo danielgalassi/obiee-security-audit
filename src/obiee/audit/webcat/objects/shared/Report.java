@@ -24,37 +24,37 @@ public class Report {
 	private Vector <Permission> permissions;
 
 	public Element serialize() {
-		Element eReport = (WebCatalog.docWebcat).createElement("Report");
-		eReport.setAttribute("Name", name);
-		eReport.setAttribute("FullUnscrambledName", getFullUnscrambledName());
-		eReport.setAttribute("Owner", owner);
-		eReport.setAttribute("OwnerType", ownerType);
-		eReport.setAttribute("Path", reportFile+"");
+		Element report = (WebCatalog.docWebcat).createElement("Report");
+		report.setAttribute("Name", name);
+		report.setAttribute("FullUnscrambledName", getFullUnscrambledName());
+		report.setAttribute("Owner", owner);
+		report.setAttribute("OwnerType", ownerType);
+		report.setAttribute("Path", reportFile+"");
 
-		Element ePermissionList = (WebCatalog.docWebcat).createElement("PermissionList");
+		Element permissionList = (WebCatalog.docWebcat).createElement("PermissionList");
 
 		for (Permission permission : permissions) {
-			ePermissionList.appendChild(permission.serialize());
+			permissionList.appendChild(permission.serialize());
 		}
 
-		eReport.appendChild(ePermissionList);
+		report.appendChild(permissionList);
 
-		return eReport;
+		return report;
 	}
 
 	public String getFullUnscrambledName() {
 		return (catalogPath + "/" + name);
 	}
 
-//	public String getName() {
-//		return name;
-//	}
+	public String getName() {
+		return name;
+	}
 
-//	public void listPrivileges() {
-//		for (Permission permission : permissions) {
-//			permission.list();
-//		}
-//	}
+	public void listPrivileges() {
+		for (Permission permission : permissions) {
+			permission.list();
+		}
+	}
 
 	private void setOwner() {
 		owner = SharedObject.getOwner(reportFile);

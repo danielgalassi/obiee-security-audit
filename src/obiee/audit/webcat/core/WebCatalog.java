@@ -1,6 +1,7 @@
 package obiee.audit.webcat.core;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.util.HashMap;
 import java.util.Vector;
@@ -26,6 +27,7 @@ import org.w3c.dom.Element;
 public class WebCatalog {
 
 	private static final Logger logger = LogManager.getLogger(WebCatalog.class.getName());
+
 	private static final String sharedPath = "\\root\\shared";
 	private static final String privsPath = "\\root\\system\\privs";
 	private static final String usersPath = "\\root\\system\\security\\users";
@@ -215,10 +217,15 @@ public class WebCatalog {
 	/***
 	 * 
 	 * @param location
+	 * @throws FileNotFoundException 
 	 */
-	public WebCatalog(String location) {
+	public WebCatalog(String location) throws FileNotFoundException {
 		if (!location.isEmpty()) {
 			webcat = new File (location);
+			if (!(webcat.exists() && webcat.canRead() && webcat.isDirectory())) {
+				logger.fatal("Webcat could not be opened");
+				throw new FileNotFoundException();
+			}
 		}
 
 		eWebcat.setAttribute("app", "obiee-security-audit");

@@ -26,7 +26,7 @@ public class Privilege {
 
 	private PrivilegeAttribFile privilegeAttribute;
 	private File privilegeDir;
-	private String privilegeName = "";
+	private String name = "";
 	private Vector <String> granted = new Vector <String> ();
 	private Vector <String> denied = new Vector <String> ();
 	private static final String[] ootbRoles = {"BIConsumer", "BIAuthor", "BIAdministrator"};
@@ -103,12 +103,8 @@ public class Privilege {
 		}
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public String getName () {
-		return privilegeName;
+		return name;
 	}
 
 	/**
@@ -127,40 +123,36 @@ public class Privilege {
 
 		return isOOTB;
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
+
 	public Element serialize () {
-		Element eRole;
-		Node nRole;
+		Element role;
+		Node content;
 
-		Element ePriv = (WebCatalog.docWebcat).createElement("Privilege");
-		Element eRoleList = (WebCatalog.docWebcat).createElement("RoleList");
+		Element privilege = (WebCatalog.docWebcat).createElement("Privilege");
+		Element roleList = (WebCatalog.docWebcat).createElement("RoleList");
 
-		for (String s : granted) {
-			nRole = (WebCatalog.docWebcat).createTextNode(s);
-			eRole = (WebCatalog.docWebcat).createElement("Role");
-			eRole.appendChild(nRole);
-			eRole.setAttribute("access", "Granted");
-			eRole.setAttribute("isOOTBRole", isOOTBRole(s)+"");
-			eRoleList.appendChild(eRole);
+		for (String roleName : granted) {
+			content = (WebCatalog.docWebcat).createTextNode(roleName);
+			role = (WebCatalog.docWebcat).createElement("Role");
+			role.appendChild(content);
+			role.setAttribute("access", "Granted");
+			role.setAttribute("isOOTBRole", isOOTBRole(roleName)+"");
+			roleList.appendChild(role);
 		}
 		
-		for (String s : denied) {
-			nRole = (WebCatalog.docWebcat).createTextNode(s);
-			eRole = (WebCatalog.docWebcat).createElement("Role");
-			eRole.appendChild(nRole);
-			eRole.setAttribute("access", "Granted");
-			eRole.setAttribute("isOOTBRole", isOOTBRole(s)+"");
-			eRoleList.appendChild(eRole);
+		for (String roleName : denied) {
+			content = (WebCatalog.docWebcat).createTextNode(roleName);
+			role = (WebCatalog.docWebcat).createElement("Role");
+			role.appendChild(content);
+			role.setAttribute("access", "Granted");
+			role.setAttribute("isOOTBRole", isOOTBRole(roleName)+"");
+			roleList.appendChild(role);
 		}
 
-		ePriv.setAttribute("PrivilegeName", privilegeName);
-		ePriv.appendChild(eRoleList);
+		privilege.setAttribute("PrivilegeName", name);
+		privilege.appendChild(roleList);
 
-		return ePriv;
+		return privilege;
 	}
 
 	/***
@@ -171,7 +163,7 @@ public class Privilege {
 		if (privilegeFile.canRead()) {
 			privilegeAttribute = new PrivilegeAttribFile(privilegeFile.toString());
 
-			privilegeName = privilegeAttribute.getName(true, 4);
+			name = privilegeAttribute.getName(true, 4);
 
 			privilegeDir = new File(privilegeAttribute.getAttribDir());
 			if (!privilegeDir.canRead()) {

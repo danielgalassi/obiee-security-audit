@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 
 /**
- * XML Utilities class
+ * This class handles IO operations using XML content and transformations using XSL stylesheets
  * @author danielgalassi@gmail.com
  *
  */
@@ -27,7 +27,7 @@ public class XMLUtils {
 	private static final Logger logger = LogManager.getLogger(XMLUtils.class.getName());
 
 	/**
-	 * Create an empty DOM document
+	 * Creates an empty DOM document
 	 * @return DOM document
 	 */
 	public static Document createDOMDocument() {
@@ -43,9 +43,9 @@ public class XMLUtils {
 	}
 
 	/**
-	 * Reify a DOM document from a file
-	 * @param xml
-	 * @return DOM document
+	 * Creates a DOM representation of an XML file
+	 * @param xml file with XML content
+	 * @return a DOM document 
 	 */
 	public static Document loadDocument(File xml) {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -63,9 +63,9 @@ public class XMLUtils {
 	}
 
 	/**
-	 * Store a DOM document as a file
-	 * @param doc
-	 * @param file
+	 * Stores a DOM document as a file
+	 * @param doc DOM representation of an XML document
+	 * @param file output file
 	 */
 	public static void saveDocument(Document doc, String file) {
 		Source source = new DOMSource(doc);
