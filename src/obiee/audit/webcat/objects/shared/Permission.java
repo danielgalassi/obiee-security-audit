@@ -11,25 +11,26 @@ public class Permission {
 
 	private final static Logger logger = LogManager.getLogger(Permission.class.getName());
 
-	private String	role;
+	private String	applicationRole;
 	private int		weighingValue;
-	private String	roleDescription;
+	/** a list of privileges granted to this role */
+	private String	grantedPrivileges;
 
 	public Element serialize() {
 		Element ePermission = (WebCatalog.docWebcat).createElement("Permission");
-		ePermission.setAttribute("Role", role);
+		ePermission.setAttribute("Role", applicationRole);
 		ePermission.setAttribute("Value", weighingValue+"");
-		ePermission.setAttribute("Description", roleDescription);
+		ePermission.setAttribute("Description", grantedPrivileges);
 		return ePermission;
 	}
 
 	public void list() {
-		logger.info("{} : {} + \t({})", role, weighingValue, roleDescription);
+		logger.info("{} : {} + \t({})", applicationRole, weighingValue, grantedPrivileges);
 	}
 
-	public Permission(String rol, int val, String lst) {
-		role = rol;
-		weighingValue = val;
-		roleDescription = lst;
+	public Permission(String applicationRole, int weighingValue, String grantedPrivileges) {
+		this.applicationRole	= applicationRole;
+		this.weighingValue		= weighingValue;
+		this.grantedPrivileges	= grantedPrivileges;
 	}
 }
