@@ -1,4 +1,4 @@
-package obiee.audit.webcat.utils;
+package obiee.audit.webcat.core;
 
 import java.io.DataInputStream;
 import java.io.File;

@@ -1,18 +1,15 @@
-package obiee.audit.webcat.engine;
+package obiee.audit.webcat.core;
 
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.HashMap;
 import java.util.Vector;
 
-import obiee.audit.webcat.core.StandardSecuritySettings;
 import obiee.audit.webcat.objects.shared.DashboardGroup;
 import obiee.audit.webcat.objects.shared.Report;
 import obiee.audit.webcat.objects.system.ApplicationRole;
 import obiee.audit.webcat.objects.system.Component;
 import obiee.audit.webcat.objects.system.User;
-import obiee.audit.webcat.utils.PrivilegeAttribFile;
-import obiee.audit.webcat.utils.SharedObject;
 import obiee.audit.webcat.utils.XMLUtils;
 
 import org.apache.logging.log4j.LogManager;

@@ -8,9 +8,9 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
-import obiee.audit.webcat.engine.WebCatalog;
-import obiee.audit.webcat.utils.PrivilegeAttribFile;
-import obiee.audit.webcat.utils.SharedObject;
+import obiee.audit.webcat.core.PrivilegeAttribFile;
+import obiee.audit.webcat.core.SharedObject;
+import obiee.audit.webcat.core.WebCatalog;
 import obiee.audit.webcat.utils.XMLUtils;
 
 import org.apache.commons.lang3.StringEscapeUtils;

@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Vector;
 
-import obiee.audit.webcat.engine.WebCatalog;
-import obiee.audit.webcat.utils.PrivilegeAttribFile;
+import obiee.audit.webcat.core.PrivilegeAttribFile;
+import obiee.audit.webcat.core.WebCatalog;
 
 import org.w3c.dom.Element;
 
