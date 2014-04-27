@@ -38,8 +38,12 @@ public class SharedObject {
 	 * @param val weighing value attributed to a set of privileges granted on an object
 	 * @param permission verbose description of privileges granted
 	 * @return verbose description of privileges granted
+	 * @throws Exception 
 	 */
-	private static String getPrivilegeList(int val, String permission) {
+	public static String getPrivilegeList(int val, String permission) throws Exception {
+		if (val < 0 || val > 65535) {
+			throw new Exception("Invalid permission encoded value");
+		}
 		int i = 0;
 		//finding the highest permission for a cumulative 2-HEX value
 		while (val < (WebCatalog.ootbSecurity).getWeighing(i) && i< (WebCatalog.ootbSecurity).size()) {
@@ -129,7 +133,14 @@ public class SharedObject {
 				int val = data_in.readUnsignedByte() + data_in.readUnsignedByte() * 256;
 
 				if (!verbosePermissions.containsKey(val)) {
-					verbosePermissions.put(val, getPrivilegeList(val, ""));
+					String verbose;
+					try {
+						verbose = getPrivilegeList(val, "");
+					} catch (Exception e) {
+						logger.error("{} thrown while capturing the verbose description of a privilege ({})", e.getCause(), e.getMessage());
+						verbose = "ERROR-CouldNotGenerateVerboseDescription!";
+					}
+					verbosePermissions.put(val, verbose);
 				}
 
 				permissions.add(new Permission(role, val, verbosePermissions.get(val)));
