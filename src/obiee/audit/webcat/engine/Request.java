@@ -51,13 +51,12 @@ public class Request {
 	 * @see <code>MissingOptionException</code>
 	 */
 	private void validatingOptions() throws Exception {
-		if (!cli.hasOption("webcat") || !(cli.hasOption("privs") || cli.hasOption("dashboards"))) {
-			throw new MissingOptionException("Insufficient arguments");
-		}
 		if (cli.hasOption("help")) {
 			displayUsage();
-			throw new Exception("Arguments (if any) other than 'help' discarded");
-		}
+		} else 
+			if (!cli.hasOption("webcat") || !(cli.hasOption("privs") || cli.hasOption("dashboards"))) {
+				throw new MissingOptionException("Insufficient arguments");
+			}
 	}
 
 	/**
@@ -88,15 +87,19 @@ public class Request {
 		options.addOption("d", "dashboards", false, "invokes a dashboard audit (aka who has access to these dashboards/pages)");
 		options.addOption("h", "help", false, "displays valid command line arguments");
 	}
-	
+
 	public boolean isPrivilegeAuditInvoked() {
 		return cli.hasOption("privs");
 	}
-	
+
 	public boolean isDashboardAuditInvoked() {
 		return cli.hasOption("dashboards");
 	}
-	
+
+	public boolean isHelpWanted() {
+		return cli.hasOption("help");
+	}
+
 	public String getWebcatParam() {
 		return cli.getOptionValue("webcat");
 	}

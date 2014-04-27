@@ -59,21 +59,26 @@ public class WebcatAudit {
 	public static void main(String[] args) {
 
 		WebCatalog webcat = null;
-		String webcatLocation = null;
+//		String webcatLocation = null;
 
 		try {
 			request = new Request(args);
-			webcatLocation = request.getWebcatParam();
-			isPrivilegeAuditInvoked = request.isPrivilegeAuditInvoked();
-			isDashboardAuditInvoked = request.isDashboardAuditInvoked();
 		} catch (Exception e) {
 			logger.fatal("{} thrown while evaluating command line arguments", e.getClass().getCanonicalName());
 			return;
 		}
 
+		if (request.isHelpWanted()) {
+			return;
+		}
+
 		try {
 			logger.info("Initialising Webcat Parsing in progress...");
-			webcat = new WebCatalog(webcatLocation);
+//			webcatLocation = request.getWebcatParam();
+			isPrivilegeAuditInvoked = request.isPrivilegeAuditInvoked();
+			isDashboardAuditInvoked = request.isDashboardAuditInvoked();
+//			webcat = new WebCatalog(webcatLocation);
+			webcat = new WebCatalog(request.getWebcatParam());
 		} catch (Exception e) {
 			logger.fatal("{} thrown while initialising Audit Engine. Exiting...", e.getClass().getCanonicalName());
 			return;
