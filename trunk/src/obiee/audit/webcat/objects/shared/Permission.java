@@ -11,10 +11,10 @@ public class Permission {
 
 	private final static Logger logger = LogManager.getLogger(Permission.class.getName());
 
-	private String	applicationRole;
-	private int		weighingValue;
+	private String         applicationRole;
+	private int              weighingValue;
 	/** a list of privileges granted to this role */
-	private String	grantedPrivileges;
+	private String       grantedPrivileges;
 
 	public Element serialize() {
 		Element permission = (WebCatalog.docWebcat).createElement("Permission");

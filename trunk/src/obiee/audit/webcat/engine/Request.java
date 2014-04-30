@@ -22,9 +22,9 @@ public class Request {
 	private static final Logger logger = LogManager.getLogger(Request.class.getName());
 
 	/** Command line arguments used by the parser application */
-	private Options options = new Options();
+	private Options           options = new Options();
 	/** Command line representation for Apache Commons CLI */
-	private CommandLine cli = null;
+	private CommandLine           cli = null;
 
 	public Request(String[] args) throws Exception {
 		createOptions();

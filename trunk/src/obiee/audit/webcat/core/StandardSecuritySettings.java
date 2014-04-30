@@ -11,8 +11,8 @@ import java.util.Vector;
  */
 public class StandardSecuritySettings {
 
-	private static final Vector <String>	permissions = new Vector <String> ();
-	private static final Vector <Integer>	weighing = new Vector <Integer> ();
+	private static final Vector <String>    permissions = new Vector <String> ();
+	private static final Vector <Integer>      weighing = new Vector <Integer> ();
 
 	public StandardSecuritySettings() {
 		permissions.add ("Full Control");

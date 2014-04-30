@@ -46,7 +46,7 @@ public class SharedObject {
 		}
 		int i = 0;
 		//finding the highest permission for a cumulative 2-HEX value
-		while (val < (WebCatalog.ootbSecurity).getWeighing(i) && i< (WebCatalog.ootbSecurity).size()) {
+		while (val < (WebCatalog.ootbSecurity).getWeighing(i) && i < (WebCatalog.ootbSecurity).size()) {
 			i++;
 		}
 

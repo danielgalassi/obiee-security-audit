@@ -25,11 +25,11 @@ public class Dashboard {
 
 	private static final Logger logger = LogManager.getLogger(Dashboard.class.getName());
 
-	private File dashboardDir = null;
-	private boolean isOOTB = false;
-	private String name = "";
-	private Vector <DashboardPage> pages;
-	private Vector <Permission> permissions;
+	private File                     dashboardDir = null;
+	private boolean                        isOOTB = false;
+	private String                           name = "";
+	private Vector <DashboardPage>          pages;
+	private Vector <Permission>       permissions;
 
 	private void getPageAttributes(String tag) {
 		File fDashLayout = new File(dashboardDir+"\\dashboard+layout");
