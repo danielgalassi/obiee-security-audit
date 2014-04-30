@@ -5,11 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Vector;
 
+import obiee.audit.webcat.filters.AttributeFileFilter;
 import obiee.audit.webcat.filters.DashboardFilter;
 import obiee.audit.webcat.filters.ExcludeAttributeFileFilter;
 import obiee.audit.webcat.filters.ExcludeAttributeObjectFilter;
 import obiee.audit.webcat.filters.FolderFilter;
-import obiee.audit.webcat.filters.AttributeFileFilter;
 import obiee.audit.webcat.objects.shared.DashboardGroup;
 import obiee.audit.webcat.objects.shared.Report;
 import obiee.audit.webcat.objects.system.ApplicationRole;
@@ -147,12 +147,11 @@ public class WebCatalog {
 	 * @throws FileNotFoundException 
 	 */
 	public WebCatalog(String location) throws FileNotFoundException {
-		if (!location.isEmpty()) {
-			webcat = new File (location);
-			if (!(webcat.exists() && webcat.canRead() && webcat.isDirectory())) {
-				logger.fatal("Webcat could not be opened");
-				throw new FileNotFoundException();
-			}
+
+		webcat = new File (location);
+		if (!(webcat.exists() && webcat.canRead() && webcat.isDirectory()) || location.isEmpty()) {
+			logger.fatal("Webcat could not be opened");
+			throw new FileNotFoundException();
 		}
 
 		eWebcat.setAttribute("app", "obiee-security-audit");
