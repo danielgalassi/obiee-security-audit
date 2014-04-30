@@ -59,7 +59,6 @@ public class WebcatAudit {
 	public static void main(String[] args) {
 
 		WebCatalog webcat = null;
-//		String webcatLocation = null;
 
 		try {
 			request = new Request(args);
@@ -74,10 +73,8 @@ public class WebcatAudit {
 
 		try {
 			logger.info("Initialising Webcat Parsing in progress...");
-//			webcatLocation = request.getWebcatParam();
 			isPrivilegeAuditInvoked = request.isPrivilegeAuditInvoked();
 			isDashboardAuditInvoked = request.isDashboardAuditInvoked();
-//			webcat = new WebCatalog(webcatLocation);
 			webcat = new WebCatalog(request.getWebcatParam());
 		} catch (Exception e) {
 			logger.fatal("{} thrown while initialising Audit Engine. Exiting...", e.getClass().getCanonicalName());
@@ -97,7 +94,7 @@ public class WebcatAudit {
 			logger.info("Dashboard Audit completed");
 		}
 
-		webcat.save();
+		webcat.export();
 
 		//Traverses the webcat if privilege or dashboard audits are requested 
 		if (isPrivilegeAuditInvoked || isDashboardAuditInvoked) {

@@ -69,10 +69,9 @@ public class DashboardPage {
 		Element reportList = (WebCatalog.docWebcat).createElement("ReportList");
 
 		for (String s : reportPaths) {
-			Element report = null;
-			if ((WebCatalog.allReports).containsKey(StringEscapeUtils.unescapeJava(s.replace("–", "---")))) {
-				report = (WebCatalog.allReports).get(StringEscapeUtils.unescapeJava(s.replace("–", "---"))).serialize();
-				reportList.appendChild(report);
+			Report report = (WebCatalog.allReports).get(StringEscapeUtils.unescapeJava(s.replace("–", "---")));
+			if (report != null) {
+				reportList.appendChild(report.serialize());
 			}
 		}
 
