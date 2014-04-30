@@ -1,7 +1,7 @@
 /**
  * 
  */
-package filters;
+package obiee.audit.webcat.filters;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -10,16 +10,19 @@ import java.io.FilenameFilter;
  * @author danielgalassi@gmail.com
  *
  */
-public class FolderFilter implements FilenameFilter {
+public class AttributeFileFilter implements FilenameFilter {
 
 	/* (non-Javadoc)
 	 * @see java.io.FilenameFilter#accept(java.io.File, java.lang.String)
 	 */
 	@Override
 	public boolean accept(File dir, String name) {
-		File file = new File (dir, name);
-		if (file.canRead() && file.isDirectory()) {
-			return true;
+		if(name.lastIndexOf('.') > 0) {
+			int lastIndex = name.lastIndexOf('.');
+			String str = name.substring(lastIndex);
+			if(str.equals(".atr") && !name.contains("dvt")) {
+				return true;
+			}
 		}
 		return false;
 	}

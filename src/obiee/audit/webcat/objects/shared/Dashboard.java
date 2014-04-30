@@ -1,7 +1,6 @@
 package obiee.audit.webcat.objects.shared;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.Vector;
 
 import javax.xml.xpath.XPath;
@@ -12,6 +11,7 @@ import javax.xml.xpath.XPathFactory;
 import obiee.audit.webcat.core.PrivilegeAttribFile;
 import obiee.audit.webcat.core.SharedObject;
 import obiee.audit.webcat.core.WebCatalog;
+import obiee.audit.webcat.filters.PageFilter;
 import obiee.audit.webcat.utils.XMLUtils;
 
 import org.apache.logging.log4j.LogManager;
@@ -52,17 +52,7 @@ public class Dashboard {
 	private void traversePages() {
 		pages = new Vector <DashboardPage> ();
 
-		FilenameFilter filter = new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				if (!name.endsWith(".atr") && !name.equals("dashboard+layout")) 
-					return true;
-
-				return false;
-			}
-		};
-
-		for (File page : dashboardDir.listFiles(filter)) {
+		for (File page : dashboardDir.listFiles(new PageFilter())) {
 			pages.add(new DashboardPage(page));
 		}
 
