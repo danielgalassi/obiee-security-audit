@@ -3,4 +3,4 @@
  * @author danielgalassi@gmail.com
  *
  */
-package filters;
+package obiee.audit.webcat.filters;

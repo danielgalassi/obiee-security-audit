@@ -1,11 +1,11 @@
 package obiee.audit.webcat.objects.system;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.Vector;
 
 import obiee.audit.webcat.core.PrivilegeAttribFile;
 import obiee.audit.webcat.core.WebCatalog;
+import obiee.audit.webcat.filters.AttributeFileFilter;
 
 import org.w3c.dom.Element;
 
@@ -28,23 +28,8 @@ public class Component {
 	private void setPrivs () {
 		privileges = new Vector <Privilege>();
 
-		FilenameFilter filter = new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				if(name.lastIndexOf('.')>0) {
-					int lastIndex = name.lastIndexOf('.');
-					String str = name.substring(lastIndex);
-					//selecting only attribute files
-					if(str.equals(".atr") && name.indexOf("dvt") == -1) {
-						return true;
-					}
-				}
-				return false;
-			}
-		};
-
 		Element e = serialize();
-		for (File privilegeFile : componentDir.listFiles(filter)) {
+		for (File privilegeFile : componentDir.listFiles(new AttributeFileFilter())) {
 			Privilege privilege = new Privilege(privilegeFile, getName());
 			privileges.add(privilege);
 			e.appendChild(privilege.serialize());

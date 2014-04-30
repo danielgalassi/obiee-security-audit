@@ -5,6 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Vector;
 
+import obiee.audit.webcat.filters.DashboardFilter;
+import obiee.audit.webcat.filters.ExcludeAttributeFileFilter;
+import obiee.audit.webcat.filters.ExcludeAttributeObjectFilter;
+import obiee.audit.webcat.filters.FolderFilter;
+import obiee.audit.webcat.filters.AttributeFileFilter;
 import obiee.audit.webcat.objects.shared.DashboardGroup;
 import obiee.audit.webcat.objects.shared.Report;
 import obiee.audit.webcat.objects.system.ApplicationRole;
@@ -17,11 +22,6 @@ import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import filters.DashboardFilter;
-import filters.ExcludeAttributeFileFilter;
-import filters.ExcludeAttributeObjectFilter;
-import filters.FolderFilter;
-import filters.WebcatPrivilegeFileFilter;
 
 
 /**
@@ -129,7 +129,7 @@ public class WebCatalog {
 	public void processWebCatPrivileges() {
 		privs = new Vector <Component> ();
 
-		for (File privilege : getDirectory(privsPath).listFiles(new WebcatPrivilegeFileFilter())) {
+		for (File privilege : getDirectory(privsPath).listFiles(new AttributeFileFilter())) {
 			privs.add(new Component(privilege));
 		}
 
