@@ -24,12 +24,12 @@ public class Privilege {
 
 	private static final Logger logger = LogManager.getLogger(Privilege.class.getName());
 
-	private PrivilegeAttribFile privilegeAttribute;
-	private File privilegeDir;
-	private String name = "";
-	private Vector <String> granted = new Vector <String> ();
-	private Vector <String> denied = new Vector <String> ();
-	private static final String[] ootbRoles = {"BIConsumer", "BIAuthor", "BIAdministrator"};
+	private PrivilegeAttribFile      privilegeAttribute;
+	private File                           privilegeDir;
+	private String                                 name = "";
+	private Vector <String>                     granted = new Vector <String> ();
+	private Vector <String>                      denied = new Vector <String> ();
+	private static final String[]             ootbRoles = {"BIConsumer", "BIAuthor", "BIAdministrator"};
 	
 	/**
 	 * Provides a list of roles that have been granted access to the privilege.

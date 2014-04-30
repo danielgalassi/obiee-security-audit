@@ -13,10 +13,10 @@ public class WebcatAudit {
 
 	private static final Logger logger = LogManager.getLogger(WebcatAudit.class.getName());
 
-	private static boolean isPrivilegeAuditInvoked = false;
-	private static boolean isDashboardAuditInvoked = false;
-	private static Vector<InputStream> stylesheets;
-	private static Request request = null;
+	private static boolean    isPrivilegeAuditInvoked = false;
+	private static boolean    isDashboardAuditInvoked = false;
+	private static Request                    request = null;
+	private static Vector<InputStream>    stylesheets;
 
 	public InputStream loadInternalResource(String rsc) {
 		InputStream resource = null;

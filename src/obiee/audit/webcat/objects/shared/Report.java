@@ -14,13 +14,13 @@ public class Report {
 
 //	private static final Logger logger = LogManager.getLogger(Report.class.getName());
 
-	private String	name = "";
-	private String	path;
-	private String	owner = "";
-	private String	ownerType = "Application Role";
-	private boolean ownerIsRole;
-	private boolean ownerIsUser;
-	private File	file;
+	private String                     name = "";
+	private String                    owner = "";
+	private String                ownerType = "Application Role";
+	private String                     path;
+	private boolean             ownerIsRole;
+	private boolean             ownerIsUser;
+	private File	                   file;
 	private Vector <Permission> permissions;
 
 	public Element serialize() {
@@ -58,12 +58,12 @@ public class Report {
 
 	private void setOwner() {
 		owner = SharedObject.getOwner(file);
-		ownerIsUser = WebCatalog.allUsers.containsKey(owner);
+		ownerIsUser = WebCatalog.users.containsKey(owner);
 		ownerIsRole = WebCatalog.appRoles.contains(owner);
 
 		if (ownerIsUser) {
 			ownerType = "User";
-			owner = WebCatalog.allUsers.get(owner);
+			owner = WebCatalog.users.get(owner);
 		}
 		if (!ownerIsUser && !ownerIsRole) {
 			ownerType = "Not Found";

@@ -17,10 +17,10 @@ import org.w3c.dom.Element;
  */
 public class Component {
 
-	private PrivilegeAttribFile componentAttribute = null;
-	private File componentDir = null;
-	private String privilegeGroupName = "";
-	private Vector <Privilege> privileges;
+	private PrivilegeAttribFile    componentAttribute = null;
+	private File                         componentDir = null;
+	private String                 privilegeGroupName = "";
+	private Vector <Privilege>             privileges;
 
 	/**
 	 * Analyses the list of privileges for each component.
@@ -33,7 +33,7 @@ public class Component {
 			Privilege privilege = new Privilege(privilegeFile, getName());
 			privileges.add(privilege);
 			e.appendChild(privilege.serialize());
-			(WebCatalog.eCompList).appendChild(e);
+			(WebCatalog.componentsList).appendChild(e);
 		}
 
 	}

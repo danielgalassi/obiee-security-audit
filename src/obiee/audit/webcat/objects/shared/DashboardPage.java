@@ -26,11 +26,11 @@ public class DashboardPage {
 
 	private static final Logger logger = LogManager.getLogger(DashboardPage.class.getName());
 
-	private File page = null;
-	private boolean isHidden = false;
-	private String name = "";
-	private Vector <String> reportPaths = new Vector <String> ();
-	private Vector <Permission> permissions;
+	private File                         page = null;
+	private boolean                  isHidden = false;
+	private String                       name = "";
+	private Vector <String>       reportPaths = new Vector <String> ();
+	private Vector <Permission>   permissions;
 
 	private void findReports() {
 		if (!SharedObject.isPage(page)) {
@@ -69,7 +69,7 @@ public class DashboardPage {
 		Element reportList = (WebCatalog.docWebcat).createElement("ReportList");
 
 		for (String s : reportPaths) {
-			Report report = (WebCatalog.allReports).get(StringEscapeUtils.unescapeJava(s.replace("–", "---")));
+			Report report = (WebCatalog.reports).get(StringEscapeUtils.unescapeJava(s.replace("–", "---")));
 			if (report != null) {
 				reportList.appendChild(report.serialize());
 			}

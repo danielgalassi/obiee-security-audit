@@ -33,39 +33,43 @@ public class WebCatalog {
 
 	private static final Logger logger = LogManager.getLogger(WebCatalog.class.getName());
 
-	private static final String sharedPath = "\\root\\shared";
-	private static final String privsPath = "\\root\\system\\privs";
-	private static final String usersPath = "\\root\\system\\security\\users";
-	private static final String rolesPath = "\\root\\system\\security\\approles";
+	private static final String                    sharedPath = "\\root\\shared";
+	private static final String                     privsPath = "\\root\\system\\privs";
+	private static final String                     usersPath = "\\root\\system\\security\\users";
+	private static final String                     rolesPath = "\\root\\system\\security\\approles";
 
-	private static File		webcat			= null;
-	public static Document	docWebcat		= XMLUtils.createDOMDocument();
-	public static Element	eCompList		= docWebcat.createElement("ComponentList");
-	public static Element	eDashGroupList	= docWebcat.createElement("DashboardGroupList");
-	private static Element	eWebcat			= docWebcat.createElement("WebCat");
-	private Element 		roleList		= docWebcat.createElement("ApplicationRoleList");
-	private Element			userList		= docWebcat.createElement("UserList");
+	private static File                            webcatFile = null;
+	public static Document                          docWebcat = XMLUtils.createDOMDocument();
+	public static Element                      componentsList = docWebcat.createElement("ComponentList");
+	public static Element                  dashboardGroupList = docWebcat.createElement("DashboardGroupList");
+	private static Element                             webcat = docWebcat.createElement("WebCat");
+	private Element                                  roleList = docWebcat.createElement("ApplicationRoleList");
+	private Element                                  userList = docWebcat.createElement("UserList");
 
-	private Vector <Component>				privs;
-	private Vector <DashboardGroup>			dash;
-
-	public static Vector <String>			appRoles = new Vector <String> ();
-	public static HashMap <String, String>	allUsers = new HashMap <String, String> ();
-	public static HashMap <String, Report>	allReports = new HashMap <String, Report> ();
+	public static Vector <String>                    appRoles = new Vector <String>();
+	public static HashMap <String, String>              users = new HashMap <String, String>();
+	public static HashMap <String, Report>            reports = new HashMap <String, Report>();
 	public static final StandardSecuritySettings ootbSecurity = new StandardSecuritySettings();
 
+	private Vector <Component>                          privs;
+	private Vector <DashboardGroup>           dashboardGroups;
+
+	/**
+	 * 
+	 * @param usersFolder
+	 */
 	private void examineUsers(File usersFolder) {
 		logger.info("Creating an aplication user catalogue");
 
 		for (File userFolder : usersFolder.listFiles(new FolderFilter())) {
-			for (File file : userFolder.listFiles(new ExcludeAttributeFileFilter())) {
-				User user = new User(file);
-				allUsers.put(user.getID(), user.getName());
+			for (File userFile : userFolder.listFiles(new ExcludeAttributeFileFilter())) {
+				User user = new User(userFile);
+				users.put(user.getID(), user.getName());
 				userList.appendChild(user.serialize());
 			}
 		}
 
-		eWebcat.appendChild(userList);
+		webcat.appendChild(userList);
 	}
 
 	private void examineRoles (File appRolesFolder) {
@@ -79,7 +83,7 @@ public class WebCatalog {
 			}
 		}
 
-		eWebcat.appendChild(roleList);
+		webcat.appendChild(roleList);
 	}
 
 	private void examineReports (File sharedFolder, String path) {
@@ -90,7 +94,7 @@ public class WebCatalog {
 				if (s.isFile()) {
 					if (SharedObject.isReport(s)) {
 						Report r = new Report(path, s);
-						allReports.put(r.getFullUnscrambledName().replace("–", "-"), r);
+						reports.put(r.getFullUnscrambledName().replace("–", "-"), r);
 					}
 				}
 
@@ -102,7 +106,7 @@ public class WebCatalog {
 	}
 
 	private File getDirectory(String type) {
-		File dir = new File (webcat + type);
+		File dir = new File (webcatFile + type);
 
 		if (!(dir.canRead() && dir.isDirectory())) {
 			dir = null;
@@ -112,15 +116,15 @@ public class WebCatalog {
 	}
 
 	public void processDashboards() {
-		dash = new Vector <DashboardGroup> ();
+		dashboardGroups = new Vector <DashboardGroup> ();
 
 		for (File folder : getDirectory(sharedPath).listFiles(new DashboardFilter())) {
 			DashboardGroup dashboardGroup = new DashboardGroup(folder);
-			dash.add(dashboardGroup);
-			eDashGroupList.appendChild(dashboardGroup.serialize());
+			dashboardGroups.add(dashboardGroup);
+			dashboardGroupList.appendChild(dashboardGroup.serialize());
 		}
 
-		eWebcat.appendChild(eDashGroupList);
+		webcat.appendChild(dashboardGroupList);
 	}
 
 	/***
@@ -133,11 +137,11 @@ public class WebCatalog {
 			privs.add(new Component(privilege));
 		}
 
-		eWebcat.appendChild(eCompList);
+		webcat.appendChild(componentsList);
 	}
 
 	public void export() {
-		docWebcat.appendChild(eWebcat);
+		docWebcat.appendChild(webcat);
 		XMLUtils.saveDocument(docWebcat, ".\\Webcat.xml");
 	}
 
@@ -148,15 +152,15 @@ public class WebCatalog {
 	 */
 	public WebCatalog(String location) throws FileNotFoundException {
 
-		webcat = new File (location);
-		if (!(webcat.exists() && webcat.canRead() && webcat.isDirectory()) || location.isEmpty()) {
+		webcatFile = new File (location);
+		if (!(webcatFile.exists() && webcatFile.canRead() && webcatFile.isDirectory()) || location.isEmpty()) {
 			logger.fatal("Webcat could not be opened");
 			throw new FileNotFoundException();
 		}
 
-		eWebcat.setAttribute("app", "obiee-security-audit");
-		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
-		logger.info("WebCatalog found at {}", webcat);
+		webcat.setAttribute("app", "obiee-security-audit");
+		webcat.setAttribute("app-author", "danielgalassi@gmail.com");
+		logger.info("WebCatalog found at {}", webcatFile);
 
 		examineUsers(getDirectory(usersPath));
 

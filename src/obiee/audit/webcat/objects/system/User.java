@@ -14,8 +14,8 @@ import org.w3c.dom.Element;
  */
 public class User {
 
+	private String   id;
 	private String name;
-	private String id;
 
 	public Element serialize() {
 		Element user = (WebCatalog.docWebcat).createElement("User");

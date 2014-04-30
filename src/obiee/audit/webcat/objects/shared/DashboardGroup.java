@@ -16,10 +16,10 @@ public class DashboardGroup {
 
 	private static final Logger logger = LogManager.getLogger(DashboardGroup.class.getName());
 
-	private PrivilegeAttribFile groupAttrib = null;
-	private String name = "";
-	private File dashboardGroupDir = null;
-	private Vector <Dashboard> dashboards;
+	private PrivilegeAttribFile       groupAttrib = null;
+	private String                           name = "";
+	private File                dashboardGroupDir = null;
+	private Vector <Dashboard>         dashboards;
 
 	private void traverseDashboards() {
 		logger.trace("Traversing dashboards...");
