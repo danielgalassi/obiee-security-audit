@@ -15,12 +15,12 @@ public class Report {
 //	private static final Logger logger = LogManager.getLogger(Report.class.getName());
 
 	private String	name = "";
-	private String	catalogPath;
+	private String	path;
 	private String	owner = "";
 	private String	ownerType = "Application Role";
 	private boolean ownerIsRole;
 	private boolean ownerIsUser;
-	private File	reportFile;
+	private File	file;
 	private Vector <Permission> permissions;
 
 	public Element serialize() {
@@ -29,7 +29,7 @@ public class Report {
 		report.setAttribute("FullUnscrambledName", getFullUnscrambledName());
 		report.setAttribute("Owner", owner);
 		report.setAttribute("OwnerType", ownerType);
-		report.setAttribute("Path", reportFile+"");
+		report.setAttribute("Path", file+"");
 
 		Element permissionList = (WebCatalog.docWebcat).createElement("PermissionList");
 
@@ -43,7 +43,7 @@ public class Report {
 	}
 
 	public String getFullUnscrambledName() {
-		return (catalogPath + "/" + name);
+		return (path + "/" + name);
 	}
 
 	public String getName() {
@@ -57,7 +57,7 @@ public class Report {
 	}
 
 	private void setOwner() {
-		owner = SharedObject.getOwner(reportFile);
+		owner = SharedObject.getOwner(file);
 		ownerIsUser = WebCatalog.allUsers.containsKey(owner);
 		ownerIsRole = WebCatalog.appRoles.contains(owner);
 
@@ -71,16 +71,16 @@ public class Report {
 		}
 	}
 
-	public Report(String path, File s) {
-		if (s.canRead()) {
-			catalogPath = path;
-			reportFile = s;
-			PrivilegeAttribFile reportAttrib = new PrivilegeAttribFile(reportFile+".atr");
+	public Report(String path, File file) {
+		if (file.canRead()) {
+			this.path = path;
+			this.file = file;
 
+			PrivilegeAttribFile reportAttrib = new PrivilegeAttribFile(file+".atr");
 			name = reportAttrib.getName(false, 4);
 			setOwner();
 
-			permissions = (SharedObject.getPrivileges(reportFile));
+			permissions = (SharedObject.getPrivileges(file));
 		}
 	}
 }

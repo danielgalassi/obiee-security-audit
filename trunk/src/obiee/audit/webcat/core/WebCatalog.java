@@ -43,8 +43,8 @@ public class WebCatalog {
 	public static Element	eCompList		= docWebcat.createElement("ComponentList");
 	public static Element	eDashGroupList	= docWebcat.createElement("DashboardGroupList");
 	private static Element	eWebcat			= docWebcat.createElement("WebCat");
-	private Element 		eAppRoleList	= docWebcat.createElement("ApplicationRoleList");
-	private Element			eUserList		= docWebcat.createElement("UserList");
+	private Element 		roleList		= docWebcat.createElement("ApplicationRoleList");
+	private Element			userList		= docWebcat.createElement("UserList");
 
 	private Vector <Component>				privs;
 	private Vector <DashboardGroup>			dash;
@@ -61,11 +61,11 @@ public class WebCatalog {
 			for (File file : userFolder.listFiles(new ExcludeAttributeFileFilter())) {
 				User user = new User(file);
 				allUsers.put(user.getID(), user.getName());
-				eUserList.appendChild(user.serialize());
+				userList.appendChild(user.serialize());
 			}
 		}
 
-		eWebcat.appendChild(eUserList);
+		eWebcat.appendChild(userList);
 	}
 
 	private void examineRoles (File appRolesFolder) {
@@ -75,11 +75,11 @@ public class WebCatalog {
 			for (File roleFile : roles.listFiles(new ExcludeAttributeFileFilter())) {
 				ApplicationRole applicationRole = new ApplicationRole(roleFile);
 				appRoles.add(applicationRole.getName());
-				eAppRoleList.appendChild(applicationRole.serialize());
+				roleList.appendChild(applicationRole.serialize());
 			}
 		}
 
-		eWebcat.appendChild(eAppRoleList);
+		eWebcat.appendChild(roleList);
 	}
 
 	private void examineReports (File sharedFolder, String path) {
