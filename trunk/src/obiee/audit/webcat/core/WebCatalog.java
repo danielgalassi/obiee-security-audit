@@ -2,7 +2,6 @@ package obiee.audit.webcat.core;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
 import java.util.HashMap;
 import java.util.Vector;
 
@@ -17,6 +16,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import filters.DashboardFilter;
+import filters.ExcludeAttributeFileFilter;
+import filters.ExcludeAttributeObjectFilter;
+import filters.FolderFilter;
+import filters.WebcatPrivilegeFileFilter;
 
 
 /**
@@ -35,9 +40,9 @@ public class WebCatalog {
 
 	private static File		webcat			= null;
 	public static Document	docWebcat		= XMLUtils.createDOMDocument();
-	private static Element	eWebcat			= docWebcat.createElement("WebCat");
 	public static Element	eCompList		= docWebcat.createElement("ComponentList");
 	public static Element	eDashGroupList	= docWebcat.createElement("DashboardGroupList");
+	private static Element	eWebcat			= docWebcat.createElement("WebCat");
 	private Element 		eAppRoleList	= docWebcat.createElement("ApplicationRoleList");
 	private Element			eUserList		= docWebcat.createElement("UserList");
 
@@ -49,134 +54,70 @@ public class WebCatalog {
 	public static HashMap <String, Report>	allReports = new HashMap <String, Report> ();
 	public static final StandardSecuritySettings ootbSecurity = new StandardSecuritySettings();
 
-	private void listAllUsers(File usersFolder) {
-		FilenameFilter userFolders = new FilenameFilter() {
-			@Override
-			public boolean accept(File directory, String name) {
-				File file = new File (directory, name);
-				if (file.canRead() && file.isDirectory()) {
-					return true;
-				}
-				return false;
-			}
-		};
+	private void examineUsers(File usersFolder) {
+		logger.info("Creating an aplication user catalogue");
 
-		FilenameFilter usersOnly = new FilenameFilter() {
-			@Override
-			public boolean accept(File directory, String name) {
-				File file = new File (directory, name);
-				if (file.canRead() && file.isFile() && !name.endsWith(".atr")) {
-					return true;
-				}
-				return false;
-			}
-		};
-
-		for (File userFolder : usersFolder.listFiles(userFolders))
-			for (File file : userFolder.listFiles(usersOnly)) {
+		for (File userFolder : usersFolder.listFiles(new FolderFilter())) {
+			for (File file : userFolder.listFiles(new ExcludeAttributeFileFilter())) {
 				User user = new User(file);
 				allUsers.put(user.getID(), user.getName());
 				eUserList.appendChild(user.serialize());
 			}
+		}
 
 		eWebcat.appendChild(eUserList);
 	}
 
-	private void listAllApplicationRoles (File appRolesFolder) {
-		FilenameFilter roleFoldersFilter = new FilenameFilter() {
-			@Override
-			public boolean accept(File directory, String name) {
-				File file = new File (directory, name);
-				if (file.canRead() && file.isDirectory())
-					return true;
-				return false;
-			}
-		};
+	private void examineRoles (File appRolesFolder) {
+		logger.info("Creating an application role catalogue");
 
-		FilenameFilter rolesOnly = new FilenameFilter() {
-			@Override
-			public boolean accept(File directory, String name) {
-				File file = new File (directory, name);
-				if (file.canRead() && file.isFile() && !name.endsWith(".atr")) {
-					return true;
-				}
-				return false;
-			}
-		};
-
-		for (File roles : appRolesFolder.listFiles(roleFoldersFilter))
-			for (File roleFile : roles.listFiles(rolesOnly)) {
+		for (File roles : appRolesFolder.listFiles(new FolderFilter())) {
+			for (File roleFile : roles.listFiles(new ExcludeAttributeFileFilter())) {
 				ApplicationRole applicationRole = new ApplicationRole(roleFile);
 				appRoles.add(applicationRole.getName());
 				eAppRoleList.appendChild(applicationRole.serialize());
 			}
+		}
 
 		eWebcat.appendChild(eAppRoleList);
 	}
 
-	private void listAllReports (File sharedFolder, String tab, String unscrambledPath) {
-		tab += "\t";
-		FilenameFilter excludingAttributes = new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				if (!name.endsWith(".atr"))
-					return true;
-				return false;
-			}
-		};
-
-		for (File s : sharedFolder.listFiles(excludingAttributes)) {
+	private void examineReports (File sharedFolder, String path) {
+		for (File s : sharedFolder.listFiles(new ExcludeAttributeObjectFilter())) {
 			if ((new File(s+".atr").canRead())) {
 				PrivilegeAttribFile privilege = new PrivilegeAttribFile(s+".atr");
 
-				if (s.isFile())
+				if (s.isFile()) {
 					if (SharedObject.isReport(s)) {
-						Report r = new Report(unscrambledPath, s);
+						Report r = new Report(path, s);
 						allReports.put(r.getFullUnscrambledName().replace("–", "-"), r);
 					}
+				}
 
 				if (s.isDirectory()) {
-					listAllReports(s, tab, unscrambledPath + "/" + privilege.getName(true,4));
+					examineReports(s, path + "/" + privilege.getName(true,4));
 				}
 			}
 		}
 	}
 
-//	public boolean isValid() {
-//		return (webcat.canRead() && webcat.isDirectory());
-//	}
-
 	private File getDirectory(String type) {
 		File dir = new File (webcat + type);
-		
+
 		if (!(dir.canRead() && dir.isDirectory())) {
 			dir = null;
 		}
+
 		return dir;
 	}
 
 	public void processDashboards() {
 		dash = new Vector <DashboardGroup> ();
 
-		FilenameFilter dashboardFilter = new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				File f = new File (dir, name + "\\_portal");
-
-				if (f.isDirectory() && f.canRead()) {
-					if (f.listFiles().length > 0) {
-						return true;
-					}
-				}
-
-				return false;
-			}
-		};
-
-		for (File folder : getDirectory(sharedPath).listFiles(dashboardFilter)) {
-			DashboardGroup dg = new DashboardGroup(folder);
-			dash.add(dg);
-			eDashGroupList.appendChild(dg.serialize());
+		for (File folder : getDirectory(sharedPath).listFiles(new DashboardFilter())) {
+			DashboardGroup dashboardGroup = new DashboardGroup(folder);
+			dash.add(dashboardGroup);
+			eDashGroupList.appendChild(dashboardGroup.serialize());
 		}
 
 		eWebcat.appendChild(eDashGroupList);
@@ -188,30 +129,16 @@ public class WebCatalog {
 	public void processWebCatPrivileges() {
 		privs = new Vector <Component> ();
 
-		FilenameFilter filter = new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				if(name.lastIndexOf('.') > 0) {
-					int lastIndex = name.lastIndexOf('.');
-					String str = name.substring(lastIndex);
-					if(str.equals(".atr") && name.indexOf("dvt") == -1) {
-						return true;
-					}
-				}
-				return false;
-			}
-		};
-
-		for (File privilege : getDirectory(privsPath).listFiles(filter)) {
+		for (File privilege : getDirectory(privsPath).listFiles(new WebcatPrivilegeFileFilter())) {
 			privs.add(new Component(privilege));
 		}
 
 		eWebcat.appendChild(eCompList);
 	}
 
-	public void save() {
+	public void export() {
 		docWebcat.appendChild(eWebcat);
-		XMLUtils.saveDocument((WebCatalog.docWebcat), ".\\Webcat.xml");
+		XMLUtils.saveDocument(docWebcat, ".\\Webcat.xml");
 	}
 
 	/***
@@ -230,13 +157,13 @@ public class WebCatalog {
 
 		eWebcat.setAttribute("app", "obiee-security-audit");
 		eWebcat.setAttribute("app-author", "danielgalassi@gmail.com");
-
 		logger.info("WebCatalog found at {}", webcat);
-		logger.info("Creating an aplication user catalogue");
-		listAllUsers(getDirectory(usersPath));
-		logger.info("Creating an application role catalogue");
-		listAllApplicationRoles(getDirectory(rolesPath));
+
+		examineUsers(getDirectory(usersPath));
+
+		examineRoles(getDirectory(rolesPath));
+
 		logger.info("Creating a report catalogue");
-		listAllReports(getDirectory(sharedPath), "", "/shared");
+		examineReports(getDirectory(sharedPath), "/shared");
 	}
 }
