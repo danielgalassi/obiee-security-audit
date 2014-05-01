@@ -2,14 +2,10 @@ package obiee.audit.webcat.objects.shared;
 
 import obiee.audit.webcat.core.WebCatalog;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Element;
 
 
 public class Permission {
-
-	private final static Logger logger = LogManager.getLogger(Permission.class.getName());
 
 	private String         applicationRole;
 	private int              weighingValue;
@@ -22,10 +18,6 @@ public class Permission {
 		permission.setAttribute("Value", weighingValue+"");
 		permission.setAttribute("Description", grantedPrivileges);
 		return permission;
-	}
-
-	public void list() {
-		logger.info("{} : {} + \t({})", applicationRole, weighingValue, grantedPrivileges);
 	}
 
 	public Permission(String applicationRole, int weighingValue, String grantedPrivileges) {

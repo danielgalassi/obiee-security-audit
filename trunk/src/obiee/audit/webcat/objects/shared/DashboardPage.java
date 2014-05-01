@@ -21,7 +21,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
+/**
+ * OBIEE dashboard pages feature presentation attributes such as reports, images, etc.
+ * @author danielgalassi@gmail.com
+ *
+ */
 public class DashboardPage {
 
 	private static final Logger logger = LogManager.getLogger(DashboardPage.class.getName());
@@ -32,6 +36,9 @@ public class DashboardPage {
 	private Vector <String>       reportPaths = new Vector <String> ();
 	private Vector <Permission>   permissions;
 
+	/**
+	 * Examines reports featured on a dashboard page.
+	 */
 	private void findReports() {
 		if (!SharedObject.isPage(page)) {
 			return;
@@ -87,10 +94,6 @@ public class DashboardPage {
 		return dashboardPage;
 	}
 
-	public boolean isHidden() {
-		return isHidden;
-	}
-
 	private void getPageAttributes(String tag) {
 		File pageLayout = new File(page.getParent()+"\\dashboard+layout");
 
@@ -109,9 +112,13 @@ public class DashboardPage {
 		}
 	}
 
-	public DashboardPage(File file) {
-		page = file;
-		PrivilegeAttribFile pageAttrib = new PrivilegeAttribFile(file+".atr");
+	/**
+	 * Constructor
+	 * @param page a file representing an OBIEE dashboard page.
+	 */
+	public DashboardPage(File page) {
+		this.page = page;
+		PrivilegeAttribFile pageAttrib = new PrivilegeAttribFile(page+".atr");
 		name = pageAttrib.getName(true, 4);
 		getPageAttributes("/dashboard/dashboardPageRef[@path='"+name+"']/@hidden");
 		findReports();

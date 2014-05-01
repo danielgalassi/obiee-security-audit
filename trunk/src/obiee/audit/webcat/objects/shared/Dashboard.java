@@ -38,17 +38,19 @@ public class Dashboard {
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
-				Node nTag = (Node) xPath.evaluate(tag,
-						dashLayoutDOM.getDocumentElement(),
-						XPathConstants.NODE);
-				if (nTag != null)
+				Node node = (Node) xPath.evaluate(tag, dashLayoutDOM.getDocumentElement(), XPathConstants.NODE);
+				if (node != null) {
 					isOOTB = true;
+				}
 			} catch (XPathExpressionException e) {
 				logger.error("{} thrown while attempting to get Dashboard Page attributes", e.getClass().getCanonicalName());
 			}
 		}
 	}
 
+	/**
+	 * This method catalogues dashboard pages
+	 */
 	private void traversePages() {
 		pages = new Vector <DashboardPage> ();
 
@@ -80,6 +82,10 @@ public class Dashboard {
 		return dashboard;
 	}
 
+	/**
+	 * Constructor
+	 * @param dashboard a file representing an OBIEE dashboard
+	 */
 	public Dashboard (File dashboard) {
 		dashboardDir = dashboard;
 		PrivilegeAttribFile dashboardAttrib = new PrivilegeAttribFile(dashboardDir+".atr");

@@ -11,7 +11,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Element;
 
-
+/**
+ * Topic-related OBIEE dashboards are usually wrapped into Dashboard Groups.
+ * @author danielgalassi@gmail.com
+ *
+ */
 public class DashboardGroup {
 
 	private static final Logger logger = LogManager.getLogger(DashboardGroup.class.getName());
@@ -67,6 +71,10 @@ public class DashboardGroup {
 		return (dashboardGroup);
 	}
 
+	/**
+	 * Constructor
+	 * @param dashboardGroupFolder a file representing an OBIEE dashboard group
+	 */
 	public DashboardGroup (File dashboardGroupFolder) {
 		if (dashboardGroupFolder.canRead()) {
 			dashboardGroupDir = dashboardGroupFolder;

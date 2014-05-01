@@ -30,13 +30,13 @@ public class PrivilegeAttribFile extends File {
 				}
 			}
 
-			//retrieving the name reading bytes,
-			//converting them to a string
+			//retrieving the name reading bytes, converting them to a string
 			for (int i = 0; i<l; i++) {
 				b_data = data_in.readByte();
 				char c = (char)b_data;
-				if (b_data < 0)
+				if (b_data < 0) {
 					c = '-';
+				}
 				name = name + c;
 			}
 

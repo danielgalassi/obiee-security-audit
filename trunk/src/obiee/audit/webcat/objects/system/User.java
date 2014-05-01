@@ -8,7 +8,7 @@ import obiee.audit.webcat.core.WebCatalog;
 import org.w3c.dom.Element;
 
 /**
- * This class represents an OBIEE user account
+ * This class represents an OBIEE user account. Each user is identified by a name and an ID.
  * @author danielgalassi@gmail.com
  *
  */

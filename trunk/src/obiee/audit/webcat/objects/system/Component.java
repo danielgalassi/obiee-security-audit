@@ -58,7 +58,7 @@ public class Component {
 
 	/**
 	 * Constructor of each component.
-	 * @param componentFile Attribute file storing the unscrambled name of the component.
+	 * @param componentFile a (binary) Attribute file storing the unscrambled name of the component.
 	 */
 	public Component (File componentFile) {
 		if (componentFile.canRead()) {
