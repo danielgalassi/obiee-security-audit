@@ -20,6 +20,12 @@ public class Permission {
 		return permission;
 	}
 
+	/**
+	 * Constructor
+	 * @param applicationRole the name of the application role the privilege was granted
+	 * @param weighingValue the numerical representation of the granted privileges
+	 * @param grantedPrivileges the verbose list of privileges granted to the application role
+	 */
 	public Permission(String applicationRole, int weighingValue, String grantedPrivileges) {
 		this.applicationRole	= applicationRole;
 		this.weighingValue		= weighingValue;
