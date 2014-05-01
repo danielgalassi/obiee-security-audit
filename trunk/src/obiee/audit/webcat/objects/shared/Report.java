@@ -62,14 +62,6 @@ public class Report {
 	}
 
 	/**
-	 * Getter method
-	 * @return the unscrambled name of the analysis
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
 	 * Retrieves the application role or user set as the owner of this analysis
 	 */
 	private void setOwner() {
