@@ -115,29 +115,34 @@ public class WebCatalog {
 		return dir;
 	}
 
-	public void processDashboards() {
-		dashboardGroups = new Vector <DashboardGroup> ();
+	public void auditDashboards() {
+		logger.info("Dashboard audit in progress...");
 
+		dashboardGroups = new Vector <DashboardGroup> ();
 		for (File folder : getDirectory(sharedPath).listFiles(new DashboardFilter())) {
 			DashboardGroup dashboardGroup = new DashboardGroup(folder);
 			dashboardGroups.add(dashboardGroup);
 			dashboardGroupList.appendChild(dashboardGroup.serialize());
 		}
-
 		webcat.appendChild(dashboardGroupList);
+
+		logger.info("Dashboard Audit completed");
 	}
 
 	/***
 	 * 
 	 */
-	public void processWebCatPrivileges() {
+	public void auditPrivileges() {
+		logger.info("Privilege audit in progress...");
+
 		privs = new Vector <Component> ();
 
 		for (File privilege : getDirectory(privsPath).listFiles(new AttributeFileFilter())) {
 			privs.add(new Component(privilege));
 		}
-
 		webcat.appendChild(componentsList);
+
+		logger.info("Privilege audit completed");
 	}
 
 	public void export() {

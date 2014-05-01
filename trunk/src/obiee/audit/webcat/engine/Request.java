@@ -14,6 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ * This class represents the mode the audit tool will run based on entered command line attributes
  * @author danielgalassi@gmail.com
  *
  */
@@ -46,7 +47,7 @@ public class Request {
 	}
 
 	/**
-	 * Verifies that dependencies are met
+	 * Verifies that at least one feature is invoked
 	 * @throws Exception when argument dependencies are broken
 	 * @see <code>MissingOptionException</code>
 	 */
@@ -86,10 +87,6 @@ public class Request {
 		options.addOption("p", "privs", false, "invokes a privilege audit (aka who can use these features)");
 		options.addOption("d", "dashboards", false, "invokes a dashboard audit (aka who has access to these dashboards/pages)");
 		options.addOption("h", "help", false, "displays valid command line arguments");
-	}
-
-	public boolean isPrivilegeAuditInvoked() {
-		return cli.hasOption("privs");
 	}
 
 	public boolean isDashboardAuditInvoked() {
