@@ -36,28 +36,24 @@ public class SharedObject {
 	/**
 	 * Gets a verbose description of privileges by reversing the weighing value. This method is called recursively.
 	 * The method validates that the weighing value passed as argument is within range (0-65535).
-	 * @param val weighing value attributed to a set of privileges granted on an object
+	 * @param value weighing value attributed to a set of privileges granted on an object
 	 * @param permission verbose description of privileges granted
 	 * @return verbose description of privileges granted
 	 * @throws Exception if weighing value is invalid
 	 */
-	public static String getPrivilegeList(int val, String permission) throws Exception {
-		if (val < 0 || val > 65535) {
+	public static String getPrivilegeList(int value, String permission) throws Exception {
+		if (value < 0 || value > 65535) {
 			throw new Exception("Invalid permission encoded value");
 		}
-		int i = 0;
-		//finding the highest permission for a cumulative 2-HEX value
-		while (val < (WebCatalog.ootbSecurity).getWeighing(i) && i < (WebCatalog.ootbSecurity).size()) {
-			i++;
-		}
+		int nearestValue = (WebCatalog.ootbSecurity).matchClosestWeighingWith(value);
 
 		//recursive call to concatenate the list of permissions
-		if (val > 0 || (val == 0 && permission.equals(""))) {
-			val -= (WebCatalog.ootbSecurity).getWeighing(i);
-			permission += (WebCatalog.ootbSecurity).getPermission(i);
-			if (val > 0) {
+		if (value > 0 || (value == 0 && permission.equals(""))) {
+			value -= nearestValue;
+			permission += (WebCatalog.ootbSecurity).matchPermissionWith(nearestValue);
+			if (value > 0) {
 				permission += "; ";
-				permission = getPrivilegeList(val, permission);
+				permission = getPrivilegeList(value, permission);
 			}
 		}
 		return permission;

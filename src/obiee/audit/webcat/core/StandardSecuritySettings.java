@@ -3,7 +3,6 @@
  */
 package obiee.audit.webcat.core;
 
-import java.util.Vector;
 
 /**
  * @author danielgalassi@gmail.com
@@ -11,47 +10,76 @@ import java.util.Vector;
  */
 public class StandardSecuritySettings {
 
-	private static final Vector <String>    permissions = new Vector <String> ();
-	private static final Vector <Integer>      weighing = new Vector <Integer> ();
+	private static final String[] permissions = 
+		{"Full Control",
+		"View BIPublisher reports",
+		"Schedule BIPublisher reports",
+		"Run BIPublisher reports",
+		"Set Ownership",
+		"Change Permissions",
+		"Modify",
+		"Delete",
+		"Write",
+		"Open",
+		"Traverse",
+		"Read",
+		"No Access"};
 
-	public StandardSecuritySettings() {
-		permissions.add ("Full Control");
-		permissions.add ("View BIPublisher reports");
-		permissions.add ("Schedule BIPublisher reports");
-		permissions.add ("Run BIPublisher reports");
-		permissions.add ("Set Ownership");
-		permissions.add ("Change Permissions");
-		permissions.add ("Modify");
-		permissions.add ("Delete");
-		permissions.add ("Write");
-		permissions.add ("Open");
-		permissions.add ("Traverse");
-		permissions.add ("Read");
-		permissions.add ("No Access");
-		weighing.add (65535);
-		weighing.add (8192);
-		weighing.add (4096);
-		weighing.add (2048);
-		weighing.add (32);
-		weighing.add (16);
-		weighing.add (15);
-		weighing.add (8);
-		weighing.add (4);
-		weighing.add (3);
-		weighing.add (2);
-		weighing.add (1);
-		weighing.add (0);
+	private static final int[] values =
+		{65535,
+		8192,
+		4096,
+		2048,
+		32,
+		16,
+		15,
+		8,
+		4,
+		3,
+		2,
+		1,
+		0};
+
+	public int getIndex(int param) {
+		for(int i=0; i<values.length; i++) {
+			if (values[i] == param) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
-	public Integer getWeighing(int i) {
-		return weighing.get(i);
+	public int getIndex(String param) {
+		for (int i=0; i<permissions.length; i++) {
+			if (permissions[i].equals(param)) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
-	public String getPermission(int i) {
-		return permissions.get(i);
+	public int getWeighing(int index) {
+		return values[index];
+	}
+
+	public String getPermission(int index) {
+		return permissions[index];
 	}
 
 	public int size() {
-		return permissions.size();
+		return values.length;
+	}
+
+	public int matchClosestWeighingWith(int param) {
+		for (int value : values) {
+			if (param >= value) {
+				return value;
+			}
+		}
+		return 0;
+	}
+
+	public String matchPermissionWith(int param) {
+		return permissions[getIndex(param)];
 	}
 }
