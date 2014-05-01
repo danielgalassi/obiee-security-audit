@@ -81,6 +81,7 @@ public class Report {
 			ownerType = "User";
 			owner = WebCatalog.users.get(owner);
 		}
+
 		if (!ownerIsUser && !ownerIsRole) {
 			logger.warn("The owner of {} ({}) could not be matched to a valid user or role", name, owner);
 			ownerType = "Not Found";
