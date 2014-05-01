@@ -34,11 +34,12 @@ public class SharedObject {
 	private static HashMap <Integer, String> verbosePermissions = new HashMap <Integer, String> ();
 
 	/**
-	 * Gets a verbose description of privileges by reversing the weighing value. This method is called recursively. 
+	 * Gets a verbose description of privileges by reversing the weighing value. This method is called recursively.
+	 * The method validates that the weighing value passed as argument is within range (0-65535).
 	 * @param val weighing value attributed to a set of privileges granted on an object
 	 * @param permission verbose description of privileges granted
 	 * @return verbose description of privileges granted
-	 * @throws Exception 
+	 * @throws Exception if weighing value is invalid
 	 */
 	public static String getPrivilegeList(int val, String permission) throws Exception {
 		if (val < 0 || val > 65535) {
@@ -63,7 +64,8 @@ public class SharedObject {
 	}
 
 	/**
-	 * Retrieves the list of privileges granted on the shared object
+	 * Retrieves the list of privileges granted on the shared object. OBIEE privileges are stored in "attribute" files.
+	 * These files are identified by their "atr" extension. 
 	 * @param sharedObject file representing the actual shared object (not its attributes)
 	 * @return list of privileges
 	 */
@@ -153,7 +155,11 @@ public class SharedObject {
 		return permissions;
 	}
 
-
+	/**
+	 * Retrieves the owner of an object
+	 * @param sharedObject a shared folder or file 
+	 * @return the name of the owner of the shared object
+	 */
 	public static String getOwner(File sharedObject) {
 		File f = new File (sharedObject+".atr");
 		FileInputStream file_input = null;
@@ -201,6 +207,11 @@ public class SharedObject {
 		return owner;
 	}
 
+	/**
+	 * Evaluates whether the shared object is a metadata (XML) file
+	 * @param file a shared directory or file
+	 * @return true if the file contents are in XML format
+	 */
 	public static boolean isXML (File file) {
 		String line = "";
 
@@ -219,6 +230,11 @@ public class SharedObject {
 		return line.contains("<?xml ");
 	}
 
+	/**
+	 * Evaluates whether the shared object is an OBIEE dashboard
+	 * @param file a shared directory or file
+	 * @return true if the file represents a dashboard
+	 */
 	public static boolean isDashboard(File file) {
 		Node tag = null;
 		if (isXML(file)) {
@@ -235,6 +251,11 @@ public class SharedObject {
 		return (tag != null);
 	}
 
+	/**
+	 * Evaluates whether the shared object is an OBIEE analysis
+	 * @param file a shared directory or file
+	 * @return true if the file represents an analysis
+	 */
 	public static boolean isReport(File file) {
 		Node tag = null;
 		if (isXML(file)) {
@@ -263,6 +284,11 @@ public class SharedObject {
 		return (tag != null);
 	}
 
+	/**
+	 * Evaluates whether a shared object is an OBIEE dashboard page
+	 * @param file a shared directory or file 
+	 * @return true if the file represents a dashboard page
+	 */
 	public static boolean isPage(File file) {
 		Node tag = null;
 		if (isXML(file)) {
