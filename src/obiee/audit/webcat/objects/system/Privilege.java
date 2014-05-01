@@ -33,27 +33,32 @@ public class Privilege {
 	
 	/**
 	 * Provides a list of roles that have been granted access to the privilege.
-	 * @return List of roles as stored in 
+	 * @return a set of roles 
 	 */
 	public Vector <String> getRolesGrantedAccess () {
 		return granted;
 	}
 
+	/**
+	 * Provides a list of roles that have been denied access to the privilege.
+	 * @return a set of roles
+	 */
 	public Vector <String> getRolesDeniedAccess () {
 		return denied;
 	}
 
 	/***
 	 * Parse files to find all groups / roles that have been granted / denied access to a feature.
+	 * The way roles are read is split in 2 big areas: 1) find the number of roles to read and 2) retrieve N groups
 	 */
-	private void readPrivileges () {
+	private void readRoles () {
 		FileInputStream file_input = null;
 		DataInputStream data_in    = null;
 
 		byte b_data = 0;
 		int iRead;
 		int iGroupLength;
-		int nGroups;
+		int groupQuantity;
 		String temporaryGroupName;
 
 		try {
@@ -66,9 +71,9 @@ public class Privilege {
 			}
 
 			//reading the number of groups granted access in this file
-			nGroups = data_in.read();
+			groupQuantity = data_in.read();
 
-			for (int n=0; n<nGroups; n++) {
+			for (int n=0; n<groupQuantity; n++) {
 
 				//skipping bytes till the "size mark" (2) is found
 				iRead = data_in.read();
@@ -103,10 +108,6 @@ public class Privilege {
 		}
 	}
 
-	public String getName () {
-		return name;
-	}
-
 	/**
 	 * Evaluates whether a role is out-of-the-box or not.
 	 * @param roleName
@@ -124,6 +125,10 @@ public class Privilege {
 		return isOOTB;
 	}
 
+	/**
+	 * Builds an XML representation of the object
+	 * @return XML-encoded Privilege representation 
+	 */
 	public Element serialize () {
 		Element role;
 		Node content;
@@ -156,8 +161,8 @@ public class Privilege {
 	}
 
 	/***
-	 * 
-	 * @param privilegeFile
+	 * Constructor
+	 * @param privilegeFile a binary file representing an OBIEE privilege 
 	 */
 	public Privilege (File privilegeFile, String group) {
 		if (privilegeFile.canRead()) {
@@ -170,7 +175,7 @@ public class Privilege {
 				privilegeDir = null;
 			}
 			else {
-				readPrivileges();
+				readRoles();
 			}
 		}
 	}

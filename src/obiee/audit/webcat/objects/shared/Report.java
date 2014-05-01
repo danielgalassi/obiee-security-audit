@@ -50,12 +50,6 @@ public class Report {
 		return name;
 	}
 
-	public void listPrivileges() {
-		for (Permission permission : permissions) {
-			permission.list();
-		}
-	}
-
 	private void setOwner() {
 		owner = SharedObject.getOwner(file);
 		ownerIsUser = WebCatalog.users.containsKey(owner);
