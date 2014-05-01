@@ -82,7 +82,7 @@ public class WebcatAudit {
 		}
 		logger.info("Initialisation finished");
 
-		if (isPrivilegeAuditInvoked) {
+		if (isPrivilegeAuditInvoked || isDashboardAuditInvoked) {
 			logger.info("Privilege audit in progress...");
 			webcat.processWebCatPrivileges();
 			logger.info("Privilege audit completed");
