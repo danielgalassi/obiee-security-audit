@@ -101,5 +101,5 @@ public class WebcatAudit {
 	}
 }
 /*
- * Arguments: -w=path_to_Presentation_Catalogue_folder [-privs] [-dashboards]
+ * Arguments: -w=path_to_Presentation_Catalogue_folder [-privs -dashboards]
  */
