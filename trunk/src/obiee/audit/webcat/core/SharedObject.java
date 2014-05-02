@@ -42,9 +42,6 @@ public class SharedObject {
 	 * @throws Exception if weighing value is invalid
 	 */
 	public static String getPrivilegeList(int value, String permission) throws Exception {
-		if (value < 0 || value > 65535) {
-			throw new Exception("Invalid permission encoded value");
-		}
 		int nearestValue = (WebCatalog.ootbSecurity).matchClosestWeighingWith(value);
 
 		//recursive call to concatenate the list of permissions
@@ -73,8 +70,8 @@ public class SharedObject {
 		byte b_data = 0;
 		int l = 0;
 		int iRead;
-		int iGroupLength;
-		int nGroups = 0;
+		int groupNameLength;
+		int groupCount = 0;
 		String role;
 
 		try {
@@ -106,22 +103,22 @@ public class SharedObject {
 
 			//reading the # of groups, first two bytes are not used
 			for (int i = 0; i<3; i++) {
-				nGroups = data_in.readByte();
+				groupCount = data_in.readByte();
 			}
 
-			for (int n=0; n<nGroups; n++) {
+			for (int n=0; n<groupCount; n++) {
 				//skipping bytes till the "size mark" (2) is found
 				iRead = data_in.read();
 				while (iRead != 2) {
 					iRead = data_in.read();
 				}
 
-				iGroupLength = data_in.read();
+				groupNameLength = data_in.read();
 				//ignoring next three bytes
 				data_in.read(new byte[3]);
 
 				role = "";
-				for (int j = 0; j<iGroupLength; j++) {
+				for (int j = 0; j<groupNameLength; j++) {
 					b_data = data_in.readByte();
 					char c = (char)b_data;
 					if (b_data < 0)
@@ -136,7 +133,7 @@ public class SharedObject {
 						verbose = getPrivilegeList(val, "");
 					} catch (Exception e) {
 						logger.error("{} thrown while capturing the verbose description of a privilege ({})", e.getCause(), e.getMessage());
-						verbose = "ERROR-CouldNotGenerateVerboseDescription!";
+						verbose = "A description could not be generated. Please review this object in your OBI instance";
 					}
 					verbosePermissions.put(val, verbose);
 				}
