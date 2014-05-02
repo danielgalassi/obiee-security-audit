@@ -39,7 +39,6 @@ public class WebcatAudit {
 	private static void publishDashboardsAuditResults() {
 		logger.info("Creating Dashboard Audit documentation...");
 		XMLUtils.applyStylesheet("Webcat.xml", stylesheets.get(3), "RolesMadeEasyForDashboards.xml");
-		logger.info("Last bit");
 		XMLUtils.applyStylesheet("RolesMadeEasyForDashboards.xml", stylesheets.get(4), "DashboardsByRoleType.html");
 		logger.info("Dashboard Audit documentation completed");
 	}

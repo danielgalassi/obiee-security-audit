@@ -14,6 +14,8 @@ import obiee.audit.webcat.objects.shared.DashboardGroup;
 import obiee.audit.webcat.objects.shared.Report;
 import obiee.audit.webcat.objects.system.ApplicationRole;
 import obiee.audit.webcat.objects.system.Component;
+import obiee.audit.webcat.objects.system.OBIAccount;
+import obiee.audit.webcat.objects.system.RemovedUser;
 import obiee.audit.webcat.objects.system.User;
 import obiee.audit.webcat.utils.XMLUtils;
 
@@ -37,6 +39,7 @@ public class WebCatalog {
 	private static final String                     privsPath = "\\root\\system\\privs";
 	private static final String                     usersPath = "\\root\\system\\security\\users";
 	private static final String                     rolesPath = "\\root\\system\\security\\approles";
+	private static final String              removedUsersPath = "\\root\\system\\security\\recoverguids";
 
 	private static File                            webcatFile = null;
 	public static Document                          docWebcat = XMLUtils.createDOMDocument();
@@ -54,22 +57,37 @@ public class WebCatalog {
 	private Vector <Component>                          privs;
 	private Vector <DashboardGroup>           dashboardGroups;
 
+	private void examineAccounts() {
+		logger.info("Creating an aplication user catalogue");
+		examineUsers(getDirectory(usersPath), "user");
+		examineUsers(getDirectory(removedUsersPath), "removed user");
+		webcat.appendChild(userList);
+	}
+
 	/**
 	 * 
 	 * @param usersFolder
 	 */
-	private void examineUsers(File usersFolder) {
-		logger.info("Creating an aplication user catalogue");
-
+	private void examineUsers(File usersFolder, String type) {
 		for (File userFolder : usersFolder.listFiles(new FolderFilter())) {
 			for (File userFile : userFolder.listFiles(new ExcludeAttributeFileFilter())) {
-				User user = new User(userFile);
+				OBIAccount user = null;
+
+				switch (type) {
+				case "user":
+					user = new User(userFile);
+					break;
+				case "removed user":
+					user = new RemovedUser(userFile);
+					break;
+				default:
+					break;
+				}
+
 				users.put(user.getID(), user.getName());
 				userList.appendChild(user.serialize());
 			}
 		}
-
-		webcat.appendChild(userList);
 	}
 
 	/***
@@ -187,7 +205,7 @@ public class WebCatalog {
 		webcat.setAttribute("app-author", "danielgalassi@gmail.com");
 		logger.info("WebCatalog found at {}", webcatFile);
 
-		examineUsers(getDirectory(usersPath));
+		examineAccounts();
 
 		examineRoles(getDirectory(rolesPath));
 

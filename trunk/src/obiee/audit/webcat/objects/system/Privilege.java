@@ -30,7 +30,7 @@ public class Privilege {
 	private Vector <String>                     granted = new Vector <String> ();
 	private Vector <String>                      denied = new Vector <String> ();
 	private static final String[]             ootbRoles = {"BIConsumer", "BIAuthor", "BIAdministrator"};
-	
+
 	/**
 	 * Provides a list of roles that have been granted access to the privilege.
 	 * @return a set of roles 
@@ -56,9 +56,8 @@ public class Privilege {
 		DataInputStream data_in    = null;
 
 		byte b_data = 0;
-		int iRead;
-		int iGroupLength;
-		int groupQuantity;
+		int groupNameLength;
+		int groupCount;
 		String temporaryGroupName;
 
 		try {
@@ -66,42 +65,46 @@ public class Privilege {
 			data_in = new DataInputStream (file_input);
 
 			//ignoring first two bytes
-			for (int i = 0; i<2; i++) {
-				data_in.read();
-			}
+			data_in.read(new byte[2]);
 
 			//reading the number of groups granted access in this file
-			groupQuantity = data_in.read();
+			groupCount = data_in.read();
 
-			for (int n=0; n<groupQuantity; n++) {
+			for (int n=0; n<groupCount; n++) {
 
 				//skipping bytes till the "size mark" (2) is found
-				iRead = data_in.read();
-				while (iRead != 2) {
-					iRead = data_in.read();
+				boolean markReached = false;
+				while (!markReached) {
+					markReached = (data_in.read() == 2);
 				}
 
-				iGroupLength = data_in.read();
+				groupNameLength = data_in.read();
 
 				//ignoring next three bytes
-				for (int i=0; i<3; i++) {
-					data_in.read();
-				}
+				data_in.read(new byte[3]);
 
 				temporaryGroupName = "";
-				for (int j = 0; j<iGroupLength; j++) {
+				for (int j = 0; j<groupNameLength; j++) {
 					b_data = data_in.readByte();
 					char c = (char)b_data;
 					if (b_data < 0)
 						c = '-';
 					temporaryGroupName = temporaryGroupName + c;
 				}
-				if (data_in.read() == 0) {
-					denied.add (temporaryGroupName);
+				switch (data_in.read()) {
+				case 0 :
+					denied.add(temporaryGroupName);
+					break;
+				default:
+					granted.add(temporaryGroupName);
+					break;
 				}
-				else {
-					granted.add (temporaryGroupName);
-				}
+//				if (data_in.read() == 0) {
+//					denied.add (temporaryGroupName);
+//				}
+//				else {
+//					granted.add (temporaryGroupName);
+//				}
 			}
 		} catch (IOException e) {
 			logger.error("{} thrown while reading privileges", e.getClass().getCanonicalName());
@@ -144,7 +147,7 @@ public class Privilege {
 			role.setAttribute("isOOTBRole", isOOTBRole(roleName)+"");
 			roleList.appendChild(role);
 		}
-		
+
 		for (String roleName : denied) {
 			content = (WebCatalog.docWebcat).createTextNode(roleName);
 			role = (WebCatalog.docWebcat).createElement("Role");

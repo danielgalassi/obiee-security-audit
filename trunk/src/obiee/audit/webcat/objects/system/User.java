@@ -12,7 +12,7 @@ import org.w3c.dom.Element;
  * @author danielgalassi@gmail.com
  *
  */
-public class User {
+public class User implements OBIAccount {
 
 	private String   id;
 	private String name;
