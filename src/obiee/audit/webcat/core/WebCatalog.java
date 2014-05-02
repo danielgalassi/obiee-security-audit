@@ -72,6 +72,10 @@ public class WebCatalog {
 		webcat.appendChild(userList);
 	}
 
+	/***
+	 * 
+	 * @param appRolesFolder
+	 */
 	private void examineRoles (File appRolesFolder) {
 		logger.info("Creating an application role catalogue");
 
@@ -86,6 +90,11 @@ public class WebCatalog {
 		webcat.appendChild(roleList);
 	}
 
+	/***
+	 * 
+	 * @param sharedFolder
+	 * @param path
+	 */
 	private void examineReports (File sharedFolder, String path) {
 		for (File s : sharedFolder.listFiles(new ExcludeAttributeObjectFilter())) {
 			if ((new File(s+".atr").canRead())) {
@@ -105,8 +114,13 @@ public class WebCatalog {
 		}
 	}
 
-	private File getDirectory(String type) {
-		File dir = new File (webcatFile + type);
+	/***
+	 * 
+	 * @param file a file in the presentation catalogue folder
+	 * @return a web catalogue directory
+	 */
+	private File getDirectory(String file) {
+		File dir = new File (webcatFile + file);
 
 		if (!(dir.canRead() && dir.isDirectory())) {
 			dir = null;
@@ -115,6 +129,9 @@ public class WebCatalog {
 		return dir;
 	}
 
+	/***
+	 * 
+	 */
 	public void auditDashboards() {
 		logger.info("Dashboard audit in progress...");
 
@@ -145,6 +162,9 @@ public class WebCatalog {
 		logger.info("Privilege audit completed");
 	}
 
+	/***
+	 * 
+	 */
 	public void export() {
 		docWebcat.appendChild(webcat);
 		XMLUtils.saveDocument(docWebcat, ".\\Webcat.xml");

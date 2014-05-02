@@ -93,6 +93,10 @@ public class Request {
 		return cli.hasOption("dashboards");
 	}
 
+	public boolean isPrivilegeAuditInvoked() {
+		return cli.hasOption("privs");
+	}
+
 	public boolean isHelpWanted() {
 		return cli.hasOption("help");
 	}

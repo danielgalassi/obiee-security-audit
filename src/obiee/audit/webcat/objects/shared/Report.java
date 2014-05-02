@@ -74,6 +74,7 @@ public class Report {
 			owner = WebCatalog.users.get(owner);
 		}
 
+		//TODO pick up users from SampleApp\root\system\security\recoverguids\519. Not picking up those accounts is generating a large number of owners to be unidentified.
 		if (!ownerIsUser && !ownerIsRole) {
 			logger.warn("The owner of {} ({}) could not be matched to a valid user or role", name, owner);
 			ownerType = "Not Found";

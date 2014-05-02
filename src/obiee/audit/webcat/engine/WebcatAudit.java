@@ -14,6 +14,7 @@ public class WebcatAudit {
 	private static final Logger logger = LogManager.getLogger(WebcatAudit.class.getName());
 
 	private static boolean    isDashboardAuditInvoked = false;
+	private static boolean    isPrivilegeAuditInvoked = false;
 	private static Request                    request = null;
 	private static Vector<InputStream>    stylesheets;
 
@@ -38,6 +39,7 @@ public class WebcatAudit {
 	private static void publishDashboardsAuditResults() {
 		logger.info("Creating Dashboard Audit documentation...");
 		XMLUtils.applyStylesheet("Webcat.xml", stylesheets.get(3), "RolesMadeEasyForDashboards.xml");
+		logger.info("Last bit");
 		XMLUtils.applyStylesheet("RolesMadeEasyForDashboards.xml", stylesheets.get(4), "DashboardsByRoleType.html");
 		logger.info("Dashboard Audit documentation completed");
 	}
@@ -54,7 +56,9 @@ public class WebcatAudit {
 
 	private static void publishResults() {
 		prepareAudit();
-		publishPrivilegeAuditResults();
+		if (isPrivilegeAuditInvoked) {
+			publishPrivilegeAuditResults();
+		}
 		if (isDashboardAuditInvoked) {
 			publishDashboardsAuditResults();
 		}
@@ -80,6 +84,7 @@ public class WebcatAudit {
 
 		try {
 			logger.info("Initialising Webcat Parsing in progress...");
+			isPrivilegeAuditInvoked = request.isPrivilegeAuditInvoked();
 			isDashboardAuditInvoked = request.isDashboardAuditInvoked();
 			webcat = new WebCatalog(request.getWebcatParam());
 		} catch (Exception e) {
