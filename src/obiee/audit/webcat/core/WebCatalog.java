@@ -190,9 +190,9 @@ public class WebCatalog {
 	/***
 	 * 
 	 */
-	public void export() {
+	public void export(String workDir) {
 		docWebcat.appendChild(webcat);
-		XMLUtils.saveDocument(docWebcat, ".\\Webcat.xml");
+		XMLUtils.saveDocument(docWebcat, workDir+".\\Webcat.xml");
 	}
 
 	/***
