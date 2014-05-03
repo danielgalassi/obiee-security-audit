@@ -93,12 +93,21 @@ public class Request {
 		options.addOption("p", "privs", false, "invokes a privilege audit (aka who can use these features)");
 		options.addOption("d", "dashboards", false, "invokes a dashboard audit (aka who has access to these dashboards/pages)");
 		options.addOption("h", "help", false, "displays valid command line arguments");
+		options.addOption("t", "target", true, "the location where result files will be saved to");
 	}
 
+	/**
+	 * Getter method
+	 * @return true if a dashboard audit has been requested
+	 */
 	public boolean isDashboardAuditInvoked() {
 		return cli.hasOption("dashboards");
 	}
 
+	/**
+	 * Getter method
+	 * @return true if a privilege audit has been requested
+	 */
 	public boolean isPrivilegeAuditInvoked() {
 		return cli.hasOption("privs");
 	}
@@ -107,7 +116,19 @@ public class Request {
 		return cli.hasOption("help");
 	}
 
+	/**
+	 * Getter method
+	 * @return the location of the webcat to audit
+	 */
 	public String getWebcatParam() {
 		return cli.getOptionValue("webcat");
+	}
+
+	/**
+	 * Getter method
+	 * @return a location where the results will be saved to (if invoked), otherwise null
+	 */
+	public String getTargetParam() {
+		return cli.getOptionValue("target");
 	}
 }
