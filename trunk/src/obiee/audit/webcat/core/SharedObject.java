@@ -42,12 +42,12 @@ public class SharedObject {
 	 * @throws Exception if weighing value is invalid
 	 */
 	public static String getPrivilegeList(int value, String permission) throws Exception {
-		int nearestValue = (WebCatalog.ootbSecurity).matchClosestWeighingWith(value);
+		int nearestValue = (WebCatalog.ootbSecurity).matchClosestWeighingForValue(value);
 
 		//recursive call to concatenate the list of permissions
 		if (value > 0 || (value == 0 && permission.equals(""))) {
 			value -= nearestValue;
-			permission += (WebCatalog.ootbSecurity).matchPermissionWith(nearestValue);
+			permission += (WebCatalog.ootbSecurity).getPermissionForValue(nearestValue);
 			if (value > 0) {
 				permission += "; ";
 				permission = getPrivilegeList(value, permission);
