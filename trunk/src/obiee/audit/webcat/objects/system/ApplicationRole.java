@@ -8,12 +8,14 @@ import obiee.audit.webcat.core.WebCatalog;
 import org.w3c.dom.Element;
 
 /***
- * This class represents an OBIEE application role described by its name.
- * @author danielgalassi@gmailc.om
+ * This class represents an application role described by its name.
+ * OBIEE installations organise security, policies and group of users around WebLogic application roles.
+ * @author danielgalassi@gmail.com
  *
  */
 public class ApplicationRole {
 
+	/** the name of the WLS / OBIEE application role */
 	private String name;
 
 	/**
@@ -40,6 +42,6 @@ public class ApplicationRole {
 	 */
 	public ApplicationRole(File appRole) {
 		PrivilegeAttribFile roleAttribute = new PrivilegeAttribFile(appRole.toString());
-		name = roleAttribute.getName(false,3);
+		name = roleAttribute.getName(false, 3);
 	}
 }

@@ -13,15 +13,66 @@ public class PrivilegeAttribFile extends File {
 
 	private static final Logger logger = LogManager.getLogger(PrivilegeAttribFile.class.getName());
 
+	int offset = 4;
+
+	/**
+	 * Retrieves the owner of an object
+	 * @return the name of the owner of the shared object
+	 */
+	public String getOwner() {
+		//TODO create test for this method
+		byte	b_data = 0;
+		int l = 0;
+		String owner = "";
+
+		try {
+			FileInputStream file_input = new FileInputStream(this);
+			DataInputStream data_in = new DataInputStream (file_input);
+			//looking for the length of the actual name
+			for (int i = 0; i<(offset+4); i++) {
+				b_data = data_in.readByte();
+				if (i==offset) {
+					l = b_data;
+				}
+			}
+			data_in.skipBytes(l);
+			data_in.skipBytes(1);
+
+			while (data_in.readByte() != 2) ;
+
+			//length of the owner's name
+			l = data_in.readByte();
+
+			data_in.skipBytes(3);
+
+			//retrieving the name of the owner
+			for (int i = 0; i<l; i++) {
+				b_data = data_in.readByte();
+				char c = (char)b_data;
+				if (b_data < 0)
+					c = '-';
+				owner = owner + c;
+			}
+
+			data_in.close();
+			file_input.close();
+		} catch (IOException e) {
+			logger.error("{} thrown while retrieving the owner of a shared object", e.getClass().getCanonicalName());
+		}
+		return owner;
+	}
+
 	public String getName (boolean applyFormatting, int offset) {
+		//TODO create test for this method
 		byte	b_data = 0;
 		int		l = 0;
 		String	name = "";
 
-		try {
-			FileInputStream file_input = new FileInputStream (this);
-			DataInputStream data_in    = new DataInputStream (file_input);
+		this.offset = offset;
 
+		try {
+			FileInputStream file_input = new FileInputStream(this);
+			DataInputStream data_in = new DataInputStream (file_input);
 			//looking for the length of the actual name
 			for (int i = 0; i<(offset+4); i++) {
 				b_data = data_in.readByte();
@@ -44,7 +95,8 @@ public class PrivilegeAttribFile extends File {
 				name = name.replaceAll("(\\p{Ll})(\\p{Lu})","$1 $2");
 			}
 
-			data_in.close ();
+			data_in.close();
+			file_input.close();
 		} catch  (IOException e) {
 			logger.error("{} thrown while retrieving a privilege name", e.getClass().getCanonicalName());
 		}
@@ -60,13 +112,13 @@ public class PrivilegeAttribFile extends File {
 				return null;
 			}
 		} catch (IOException e) {
-			logger.error("{} thrown while processing a privilege file", e.getClass().getCanonicalName());
+			logger.error("{} thrown while attempting to find an attribute directory", e.getClass().getCanonicalName());
 		}
 
 		return f.toString();
 	}
 
-	public PrivilegeAttribFile(String pathname) {
-		super(pathname);
+	public PrivilegeAttribFile(String file) {
+		super(file);
 	}
 }

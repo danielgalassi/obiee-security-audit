@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 /**
+ * Accepts directories containing files
  * @author danielgalassi@gmail.com
  *
  */

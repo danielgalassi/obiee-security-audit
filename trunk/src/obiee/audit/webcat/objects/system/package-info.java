@@ -1,5 +1,5 @@
 /**
- * Classes in this package represent administration files in the webcat
+ * Classes in this package represent system (administration and security) objects in the webcat
  * @author danielgalassi@gmail.com
  *
  */

@@ -16,7 +16,8 @@ import org.w3c.dom.Node;
 
 
 /**
- * 
+ * A privilege is a specific task OBIEE users can perform on Dashboards, Answers and other applications.
+ * OBIEE roles are granted or denied the ability to perform these tasks.
  * @author danielgalassi@gmail.com
  *
  */
@@ -27,15 +28,18 @@ public class Privilege {
 	private PrivilegeAttribFile      privilegeAttribute;
 	private File                           privilegeDir;
 	private String                                 name = "";
+	/** application roles that have been granted the ability to perform the privilege */
 	private Vector <String>                     granted = new Vector <String> ();
+	/** application roles that have been denied the ability to perform the privilege */
 	private Vector <String>                      denied = new Vector <String> ();
+	/** out-of-the-box roles shipped with OBIEE */
 	private static final String[]             ootbRoles = {"BIConsumer", "BIAuthor", "BIAdministrator"};
 
 	/**
 	 * Provides a list of roles that have been granted access to the privilege.
 	 * @return a set of roles 
 	 */
-	public Vector <String> getRolesGrantedAccess () {
+	public Vector<String> getRolesGrantedAccess () {
 		return granted;
 	}
 
@@ -43,12 +47,12 @@ public class Privilege {
 	 * Provides a list of roles that have been denied access to the privilege.
 	 * @return a set of roles
 	 */
-	public Vector <String> getRolesDeniedAccess () {
+	public Vector<String> getRolesDeniedAccess () {
 		return denied;
 	}
 
 	/***
-	 * Parse files to find all groups / roles that have been granted / denied access to a feature.
+	 * Parses files to find all groups / roles that have been granted / denied access to a feature.
 	 * The way roles are read is split in 2 big areas: 1) find the number of roles to read and 2) retrieve N groups
 	 */
 	private void readRoles () {
@@ -64,8 +68,7 @@ public class Privilege {
 			file_input = new FileInputStream(privilegeDir.toString());
 			data_in = new DataInputStream (file_input);
 
-			//ignoring first two bytes
-			data_in.read(new byte[2]);
+			data_in.skipBytes(2);
 
 			//reading the number of groups granted access in this file
 			groupCount = data_in.read();
@@ -80,8 +83,7 @@ public class Privilege {
 
 				groupNameLength = data_in.read();
 
-				//ignoring next three bytes
-				data_in.read(new byte[3]);
+				data_in.skipBytes(3);
 
 				temporaryGroupName = "";
 				for (int j = 0; j<groupNameLength; j++) {
@@ -91,6 +93,7 @@ public class Privilege {
 						c = '-';
 					temporaryGroupName = temporaryGroupName + c;
 				}
+
 				switch (data_in.read()) {
 				case 0 :
 					denied.add(temporaryGroupName);
@@ -99,12 +102,6 @@ public class Privilege {
 					granted.add(temporaryGroupName);
 					break;
 				}
-//				if (data_in.read() == 0) {
-//					denied.add (temporaryGroupName);
-//				}
-//				else {
-//					granted.add (temporaryGroupName);
-//				}
 			}
 		} catch (IOException e) {
 			logger.error("{} thrown while reading privileges", e.getClass().getCanonicalName());
@@ -113,15 +110,16 @@ public class Privilege {
 
 	/**
 	 * Evaluates whether a role is out-of-the-box or not.
-	 * @param roleName
-	 * @return true when evaluating an OBIE 11g OOTB role.
+	 * @param role the name of an OBIEE application role
+	 * @return true when evaluating an OBIE 11g OOTB role
 	 */
-	private boolean isOOTBRole (String roleName) {
+	private boolean isOOTBRole (String role) {
 		boolean isOOTB = false;
 
-		for (String role : ootbRoles) {
-			if (role.equals(roleName)) {
+		for (String ootbRole : ootbRoles) {
+			if (ootbRole.equals(role)) {
 				isOOTB = true;
+				break;
 			}
 		}
 
@@ -152,7 +150,7 @@ public class Privilege {
 			content = (WebCatalog.docWebcat).createTextNode(roleName);
 			role = (WebCatalog.docWebcat).createElement("Role");
 			role.appendChild(content);
-			role.setAttribute("access", "Granted");
+			role.setAttribute("access", "Denied");
 			role.setAttribute("isOOTBRole", isOOTBRole(roleName)+"");
 			roleList.appendChild(role);
 		}

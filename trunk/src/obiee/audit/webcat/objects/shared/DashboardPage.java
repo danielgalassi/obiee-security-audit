@@ -102,9 +102,9 @@ public class DashboardPage {
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
-				Node nTag = (Node)xPath.evaluate(tag, layoutDOM.getDocumentElement(), XPathConstants.NODE);
-				if (nTag != null) {
-					isHidden = (new Boolean(nTag.getNodeValue())).booleanValue();
+				Node node = (Node)xPath.evaluate(tag, layoutDOM.getDocumentElement(), XPathConstants.NODE);
+				if (node != null) {
+					isHidden = (new Boolean(node.getNodeValue())).booleanValue();
 				}
 			} catch (XPathExpressionException e) {
 				logger.error("{} thrown while attempting to retrieve Dashboard Page attributes", e.getClass().getCanonicalName());

@@ -5,6 +5,7 @@ package obiee.audit.webcat.core;
 
 
 /**
+ * This class represents the out of the box permissions and weighing values to encode user access level to OBI objects
  * @author danielgalassi@gmail.com
  *
  */
