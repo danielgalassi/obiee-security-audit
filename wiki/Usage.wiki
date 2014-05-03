@@ -1,5 +1,5 @@
 #summary A brief how-to.
-#labels Phase-Deploy
+#labels Phase-Deploy,Featured
 
 = Introduction =
 
@@ -9,7 +9,7 @@ This tool works in 2 modes:
 
 Audit results are saved in XML files and, to make them easier to read, HTML pages.
 
-These files will be created in the same directory the tool's JAR resides and the size depends on the number of objects in your webcat.
+These files will be created in the same directory the tool's JAR resides and the size depends on the number of objects in your webcat. If you prefer to save the results to a different location, please specify the custom location via command line.
 
 
 
@@ -25,6 +25,7 @@ These files will be created in the same directory the tool's JAR resides and the
 ||`-w=<path>`||`--webcat=<path>`||setting the location of the webcat||
 ||`-p`||`--privs`||auditing presentation privileges||
 ||`-d`||`--dashboards`||auditing dashboards||
+||`-t`||`--target`||setting output folder where results will be saved||
 
 
 == Examples ==
@@ -36,3 +37,5 @@ These files will be created in the same directory the tool's JAR resides and the
   * `java -jar obiee-security-audit --webcat=<path> --privs`
 
   * `java -jar obiee-security-audit --webcat=<path> --dashboards`
+
+  * `java -jar obiee-security-audit -w=<path> -p -d --target=<path>`
