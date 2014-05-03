@@ -93,7 +93,7 @@ public class Request {
 		options.addOption("p", "privs", false, "invokes a privilege audit (aka who can use these features)");
 		options.addOption("d", "dashboards", false, "invokes a dashboard audit (aka who has access to these dashboards/pages)");
 		options.addOption("h", "help", false, "displays valid command line arguments");
-		options.addOption("t", "target", true, "the location where result files will be saved to");
+		options.addOption("t", "target", true, "the location where result files will be saved to, i.e. c:\\data\\ \t(please note trailing \\)");
 	}
 
 	/**
@@ -126,9 +126,10 @@ public class Request {
 
 	/**
 	 * Getter method
-	 * @return a location where the results will be saved to (if invoked), otherwise null
+	 * @return a location where the results will be saved to (if invoked), an "" otherwise
 	 */
 	public String getTargetParam() {
-		return cli.getOptionValue("target");
+		String target = cli.getOptionValue("target");
+		return (target==null) ? "" : target;
 	}
 }
