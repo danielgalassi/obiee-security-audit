@@ -22,6 +22,7 @@ public class Publisher {
 	private static final Logger logger = LogManager.getLogger(Publisher.class.getName());
 
 	private Vector<InputStream>    stylesheets = new Vector<InputStream>();
+	private String                   targetDir;
 
 	/**
 	 * Reads files bundled in the JAR file.
@@ -43,9 +44,9 @@ public class Publisher {
 	 */
 	private void publishPrivilegeAuditResults() {
 		logger.info("Creating Privilege Audit documentation...");
-		XMLUtils.applyStylesheet("Webcat.xml", stylesheets.get(0), "RolesMadeEasy.xml");
-		XMLUtils.applyStylesheet("RolesMadeEasy.xml", stylesheets.get(1), "FeaturesByRoleType.html");
-		XMLUtils.applyStylesheet("RolesMadeEasy.xml", stylesheets.get(2), "FeaturesByRole.html");
+		XMLUtils.applyStylesheet(targetDir+"Webcat.xml", stylesheets.get(0), targetDir+"RolesMadeEasy.xml");
+		XMLUtils.applyStylesheet(targetDir+"RolesMadeEasy.xml", stylesheets.get(1), targetDir+"FeaturesByRoleType.html");
+		XMLUtils.applyStylesheet(targetDir+"RolesMadeEasy.xml", stylesheets.get(2), targetDir+"FeaturesByRole.html");
 		logger.info("Privilege Audit documentation completed");
 	}
 
@@ -54,8 +55,8 @@ public class Publisher {
 	 */
 	private void publishDashboardsAuditResults() {
 		logger.info("Creating Dashboard Audit documentation...");
-		XMLUtils.applyStylesheet("Webcat.xml", stylesheets.get(3), "RolesMadeEasyForDashboards.xml");
-		XMLUtils.applyStylesheet("RolesMadeEasyForDashboards.xml", stylesheets.get(4), "DashboardsByRoleType.html");
+		XMLUtils.applyStylesheet(targetDir+"Webcat.xml", stylesheets.get(3), targetDir+"RolesMadeEasyForDashboards.xml");
+		XMLUtils.applyStylesheet(targetDir+"RolesMadeEasyForDashboards.xml", stylesheets.get(4), targetDir+"DashboardsByRoleType.html");
 		logger.info("Dashboard Audit documentation completed");
 	}
 
@@ -81,5 +82,9 @@ public class Publisher {
 		if (WebcatAudit.isDashboardAuditInvoked) {
 			publishDashboardsAuditResults();
 		}
+	}
+	
+	public Publisher(String targetDir) {
+		this.targetDir = targetDir;
 	}
 }
