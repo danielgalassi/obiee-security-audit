@@ -50,9 +50,9 @@ public class WebcatAudit {
 			webcat.auditDashboards();
 		}
 
-		webcat.export();
+		webcat.export(request.getTargetParam());
 
-		Publisher publisher = new Publisher();
+		Publisher publisher = new Publisher(request.getTargetParam());
 		publisher.run();
 	}
 }
