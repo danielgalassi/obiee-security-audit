@@ -14,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * This class represents the mode the audit tool will run based on entered command line attributes
+ * This class represents the features entered through the command line. 
  * @author danielgalassi@gmail.com
  *
  */
@@ -27,6 +27,11 @@ public class Request {
 	/** Command line representation for Apache Commons CLI */
 	private CommandLine           cli = null;
 
+	/**
+	 * Constructor
+	 * @param args the list of arguments are passed through command line
+	 * @throws Exception when command line argument do not result in a feasible execution plan
+	 */
 	public Request(String[] args) throws Exception {
 		createOptions();
 		try {
@@ -42,7 +47,7 @@ public class Request {
 	 * Displays help information
 	 */
 	private void displayUsage() {
-		org.apache.commons.cli.HelpFormatter help = new HelpFormatter();
+		HelpFormatter help = new HelpFormatter();
 		help.printHelp("obiee-security-audit", options);
 	}
 
@@ -80,7 +85,8 @@ public class Request {
 	}
 
 	/**
-	 * Sets up all valid command line options
+	 * Sets up all valid command line options. Features can be invoked using a single-letter or verbose option.
+	 * 
 	 */
 	private void createOptions() {
 		options.addOption("w", "webcat", true, "the OBIEE web catalogue location");

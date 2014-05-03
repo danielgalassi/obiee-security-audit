@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Document;
 
 /**
- * This class handles IO operations using XML content and transformations using XSL stylesheets
+ * This class handles operations using XML content and transformations using XSL stylesheets
  * @author danielgalassi@gmail.com
  *
  */
@@ -84,7 +84,7 @@ public class XMLUtils {
 	 * Transforms an XML file using an XSL stylesheet
 	 * @param xml XML file to be transformed
 	 * @param stylesheet XSL file containing transformations
-	 * @param output resulting file
+	 * @param output resulting file, most common format are XML, HTML, comma-separated text
 	 */
 	public static void applyStylesheet(String xml, String stylesheet, String output){
 		try {
@@ -99,7 +99,7 @@ public class XMLUtils {
 	 * Transforms an XML file using an XSL stylesheet
 	 * @param xml XML file to be transformed
 	 * @param stylesheet transformations to be applied
-	 * @param output resulting file
+	 * @param output resulting file, most common format are XML, HTML, comma-separated text
 	 */
 	public static void applyStylesheet(String xml, InputStream stylesheet, String output){
 		File xmlFile = new File(xml);

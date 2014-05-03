@@ -1,5 +1,5 @@
 /**
- * Classes representing out-of-the-box (mostly, constant) components of the webcat
+ * Classes representing out-of-the-box objects in OBIEE 
  * @author danielgalassi@gmail.com
  *
  */

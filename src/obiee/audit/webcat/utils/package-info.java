@@ -1,5 +1,5 @@
 /**
- * Utility classes to simplify access to XML
+ * Utility classes to simplify access to XML data
  * @author danielgalassi@gmail.com
  *
  */

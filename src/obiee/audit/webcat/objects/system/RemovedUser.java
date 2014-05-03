@@ -41,8 +41,7 @@ public class RemovedUser implements OBIAccount {
 	private String getValueFromMark(DataInputStream data_in) throws IOException {
 		String temp = "";
 		int length = data_in.readByte();
-		//discarding 3 bytes between the token's length and the token
-		data_in.read(new byte[3]);
+		data_in.skipBytes(3);
 		for (int i = 0; i < length; i++) {
 			byte b_data = data_in.readByte();
 			char c = (char)b_data;
@@ -63,7 +62,7 @@ public class RemovedUser implements OBIAccount {
 			file_input = new FileInputStream(removedUserFile);
 			data_in = new DataInputStream (file_input);
 
-			data_in.readByte();
+			data_in.skipBytes(1);
 			//discarding bytes until the mark (2) is reached
 			while (b_data != 2) {
 				b_data = data_in.readByte();
@@ -71,7 +70,7 @@ public class RemovedUser implements OBIAccount {
 
 			id = getValueFromMark(data_in);
 
-			name = "(removed account)" + getValueFromMark(data_in);
+			name = "(removed account) " + getValueFromMark(data_in);
 
 			data_in.close();
 		} catch (IOException e) {

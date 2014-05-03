@@ -27,7 +27,9 @@ import org.w3c.dom.Element;
 
 
 /**
- * 
+ * This class represents an OBIEE Presentation Catalogue or webcat for short.
+ * A webcat is a filesystem-based, multi-layered directory structure that serves as the repository for dashboards and reports.
+ * Authorisation aspects of an OBIEE implementation such as the roles or users granted access to features or dashboards are also stored within the webcat.
  * @author danielgalassi@gmail.com
  *
  */
@@ -35,10 +37,15 @@ public class WebCatalog {
 
 	private static final Logger logger = LogManager.getLogger(WebCatalog.class.getName());
 
+	/** the shared folder where non-personal dashboards and reports are found */
 	private static final String                    sharedPath = "\\root\\shared";
+	/** the folder where out-of-the-box OBIEE privileges are defined */
 	private static final String                     privsPath = "\\root\\system\\privs";
-	private static final String                     usersPath = "\\root\\system\\security\\users";
+	/** the folder where OBIEE application roles are defined*/
 	private static final String                     rolesPath = "\\root\\system\\security\\approles";
+	/** the folder where active user accounts are found */
+	private static final String                     usersPath = "\\root\\system\\security\\users";
+	/** the folder where no-longer existing accounts are moved to (if they are still identified as presentation object owners) */
 	private static final String              removedUsersPath = "\\root\\system\\security\\recoverguids";
 
 	private static File                            webcatFile = null;
@@ -114,19 +121,19 @@ public class WebCatalog {
 	 * @param path
 	 */
 	private void examineReports (File sharedFolder, String path) {
-		for (File s : sharedFolder.listFiles(new ExcludeAttributeObjectFilter())) {
-			if ((new File(s+".atr").canRead())) {
-				PrivilegeAttribFile privilege = new PrivilegeAttribFile(s+".atr");
+		for (File sharedObject : sharedFolder.listFiles(new ExcludeAttributeObjectFilter())) {
+			if ((new File(sharedObject+".atr").canRead())) {
+				PrivilegeAttribFile privilege = new PrivilegeAttribFile(sharedObject+".atr");
 
-				if (s.isFile()) {
-					if (SharedObject.isReport(s)) {
-						Report r = new Report(path, s);
-						reports.put(r.getFullUnscrambledName().replace("–", "-"), r);
+				if (sharedObject.isFile()) {
+					if (SharedObject.isReport(sharedObject)) {
+						Report report = new Report(path, sharedObject);
+						reports.put(report.getFullUnscrambledName().replace("–", "-"), report);
 					}
 				}
 
-				if (s.isDirectory()) {
-					examineReports(s, path + "/" + privilege.getName(true,4));
+				if (sharedObject.isDirectory()) {
+					examineReports(sharedObject, path + "/" + privilege.getName(true, 4));
 				}
 			}
 		}
@@ -206,7 +213,6 @@ public class WebCatalog {
 		logger.info("WebCatalog found at {}", webcatFile);
 
 		examineAccounts();
-
 		examineRoles(getDirectory(rolesPath));
 
 		logger.info("Creating a report catalogue");

@@ -1,5 +1,5 @@
 /**
- * All <code>FilenameFilter</code> classes used to select specific files
+ * All <code>FilenameFilter</code> classes used to select specific webcat files
  * @author danielgalassi@gmail.com
  *
  */

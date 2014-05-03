@@ -20,7 +20,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-
+/***
+ * OBI dashboards are organised into one or more pages.
+ * @author danielgalassi@gmail.com
+ *
+ */
 public class Dashboard {
 
 	private static final Logger logger = LogManager.getLogger(Dashboard.class.getName());
@@ -32,9 +36,9 @@ public class Dashboard {
 	private Vector <Permission>       permissions;
 
 	private void getPageAttributes(String tag) {
-		File fDashLayout = new File(dashboardDir+"\\dashboard+layout");
-		if (fDashLayout.canRead()) {
-			Document dashLayoutDOM = XMLUtils.loadDocument(fDashLayout);
+		File dashLayout = new File(dashboardDir+"\\dashboard+layout");
+		if (dashLayout.canRead()) {
+			Document dashLayoutDOM = XMLUtils.loadDocument(dashLayout);
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
 			try {
@@ -94,6 +98,6 @@ public class Dashboard {
 
 		traversePages();
 		getPageAttributes("/dashboard/@appObjectID");
-		permissions = (SharedObject.getPrivileges(dashboardDir));
+		permissions = SharedObject.getPrivileges(dashboardDir);
 	}
 }

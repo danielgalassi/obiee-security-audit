@@ -69,7 +69,6 @@ public class SharedObject {
 		DataInputStream data_in    = null;
 		byte b_data = 0;
 		int l = 0;
-		int iRead;
 		int groupNameLength;
 		int groupCount = 0;
 		String role;
@@ -81,16 +80,16 @@ public class SharedObject {
 			//looking for the length of the actual name
 			for (int i = 0; i<8; i++) {
 				b_data = data_in.readByte();
-				if (i==4)
+				if (i==4) {
 					l = b_data;
+				}
 			}
 
 			//skipping the bytes used for the name
 			data_in.read(new byte[l+1]);
 
-			while (b_data != 2) {
-				b_data = data_in.readByte();
-			}
+			//skipping bytes till the "size mark" (2) is found
+			while (data_in.readByte() != 2) ;
 
 			//length of the owner's name
 			l = data_in.readByte();
@@ -107,11 +106,9 @@ public class SharedObject {
 			}
 
 			for (int n=0; n<groupCount; n++) {
+
 				//skipping bytes till the "size mark" (2) is found
-				iRead = data_in.read();
-				while (iRead != 2) {
-					iRead = data_in.read();
-				}
+				while (data_in.read() != 2) ;
 
 				groupNameLength = data_in.read();
 				//ignoring next three bytes
@@ -121,8 +118,9 @@ public class SharedObject {
 				for (int j = 0; j<groupNameLength; j++) {
 					b_data = data_in.readByte();
 					char c = (char)b_data;
-					if (b_data < 0)
+					if (b_data < 0) {
 						c = '-';
+					}
 					role = role + c;
 				}
 				int val = data_in.readUnsignedByte() + data_in.readUnsignedByte() * 256;
@@ -146,58 +144,6 @@ public class SharedObject {
 			logger.error("{} thrown while processing a shared object", e.getClass().getCanonicalName());
 		}
 		return permissions;
-	}
-
-	/**
-	 * Retrieves the owner of an object
-	 * @param sharedObject a shared folder or file 
-	 * @return the name of the owner of the shared object
-	 */
-	public static String getOwner(File sharedObject) {
-		File f = new File (sharedObject+".atr");
-		FileInputStream file_input = null;
-		DataInputStream data_in    = null;
-		byte	b_data = 0;
-		int l = 0;
-		String owner = "";
-
-		try {
-			file_input = new FileInputStream(f);
-			data_in = new DataInputStream (file_input);
-
-			//looking for the length of the actual name
-			for (int i = 0; i<8; i++) {
-				b_data = data_in.readByte();
-				if (i==4)
-					l = b_data;
-			}
-
-			//skipping the bytes used for the name
-			data_in.read(new byte[l+1]);
-
-			while (b_data != 2)
-				b_data = data_in.readByte();
-
-			//length of the owner's name
-			l = data_in.readByte();
-
-			//skipping a few sterile bytes
-			data_in.read(new byte[3]);
-
-			//retrieving the name of the owner
-			for (int i = 0; i<l; i++) {
-				b_data = data_in.readByte();
-				char c = (char)b_data;
-				if (b_data < 0)
-					c = '-';
-				owner = owner + c;
-			}
-
-			data_in.close();
-		} catch (IOException e) {
-			logger.error("{} thrown while retrieving the owner of a shared object", e.getClass().getCanonicalName());
-		}
-		return owner;
 	}
 
 	/**
@@ -287,7 +233,6 @@ public class SharedObject {
 		if (isXML(file)) {
 			Document report = XMLUtils.loadDocument(file);
 			XPath xPath = XPathFactory.newInstance().newXPath();
-
 			try {
 				tag = (Node) xPath.evaluate("/dashboardPage", report.getDocumentElement(), XPathConstants.NODE);
 			} catch (XPathExpressionException e) {

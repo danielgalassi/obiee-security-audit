@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 /**
+ * Accepts files other than attributes
  * @author danielgalassi@gmail.com
  *
  */

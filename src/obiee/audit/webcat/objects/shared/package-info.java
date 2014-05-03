@@ -1,5 +1,5 @@
 /**
- * Classes in this package represent objects end-users are familiar with
+ * Classes in this package represent the bulk of the objects users experience through the UI
  * @author danielgalassi@gmail.com
  *
  */

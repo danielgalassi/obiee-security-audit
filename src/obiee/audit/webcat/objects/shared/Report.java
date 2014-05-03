@@ -27,6 +27,8 @@ public class Report {
 	private boolean             ownerIsUser;
 	/** file containing the XML representation of the analysis */
 	private File	                   file;
+	/** file containing the security and system details of the analysis */
+	PrivilegeAttribFile           attribute;
 	/** the set of permissions granted to application roles and user accounts on the analysis */
 	private Vector <Permission> permissions;
 
@@ -61,11 +63,25 @@ public class Report {
 		return (path + "/" + name);
 	}
 
-	/**
+	/***
+	 * Retrieves the name for this analysis
+	 */
+	private void setName() {
+		if (!attribute.canRead()) {
+			return;
+		}
+		this.name = attribute.getName(false, 4);
+	}
+
+	/***
 	 * Retrieves the application role or user set as the owner of this analysis
 	 */
 	private void setOwner() {
-		owner = SharedObject.getOwner(file);
+		if (!attribute.canRead()) {
+			return;
+		}
+
+		owner = attribute.getOwner();
 		ownerIsUser = WebCatalog.users.containsKey(owner);
 		ownerIsRole = WebCatalog.appRoles.contains(owner);
 
@@ -91,11 +107,12 @@ public class Report {
 			this.path = path;
 			this.file = file;
 
-			PrivilegeAttribFile reportAttrib = new PrivilegeAttribFile(file+".atr");
-			name = reportAttrib.getName(false, 4);
+			attribute = new PrivilegeAttribFile(file+".atr");
+			setName();
 			setOwner();
 
 			permissions = (SharedObject.getPrivileges(file));
 		}
 	}
+
 }
