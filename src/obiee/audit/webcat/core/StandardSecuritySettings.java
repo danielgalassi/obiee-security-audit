@@ -56,7 +56,7 @@ public class StandardSecuritySettings {
 	 * @param param an OBIEE privilege name
 	 * @return the index of the privilege or -1 if cannot be found
 	 */
-	public int getIndex(String param) {
+	public int getIndexForWeighing(String param) {
 		for (int i=0; i<permissions.length; i++) {
 			if (permissions[i].equals(param)) {
 				return i;
@@ -65,11 +65,11 @@ public class StandardSecuritySettings {
 		return -1;
 	}
 
-	public int getWeighing(int index) {
+	public int getWeighingForIndex(int index) {
 		return values[index];
 	}
 
-	public String getPermission(int index) {
+	public String getPermissionForIndex(int index) {
 		return permissions[index];
 	}
 
@@ -87,7 +87,7 @@ public class StandardSecuritySettings {
 	 * @return closest out of the box weighing value or 0.
 	 * @throws Exception if weighing parameter is outside bounds
 	 */
-	public int matchClosestWeighingWith(int param) throws Exception {
+	public int matchClosestWeighingForValue(int param) throws Exception {
 		if (param < 0 || param > 65535) {
 			throw new Exception("Invalid permission encoded value");
 		}
@@ -99,7 +99,16 @@ public class StandardSecuritySettings {
 		return 0;
 	}
 
-	public String matchPermissionWith(int param) {
-		return permissions[getIndex(param)];
+	/**
+	 * Find the permission for given weighing value
+	 * @param param weighing value
+	 * @return the permission description or null if no permission is found for the passed value
+	 */
+	public String getPermissionForValue(int param) {
+		int index = getIndex(param);
+		if (index > -1) {
+			return getPermissionForIndex(index);
+		}
+		return null;
 	}
 }
