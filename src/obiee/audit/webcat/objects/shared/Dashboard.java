@@ -25,7 +25,7 @@ import org.w3c.dom.Node;
  * @author danielgalassi@gmail.com
  *
  */
-public class Dashboard {
+public class Dashboard extends SharedObject {
 
 	private static final Logger logger = LogManager.getLogger(Dashboard.class.getName());
 
@@ -98,6 +98,6 @@ public class Dashboard {
 
 		traversePages();
 		getPageAttributes("/dashboard/@appObjectID");
-		permissions = SharedObject.getPrivileges(dashboardDir);
+		permissions = getPrivileges(dashboardDir);
 	}
 }
