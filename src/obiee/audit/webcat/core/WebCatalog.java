@@ -65,7 +65,7 @@ public class WebCatalog {
 	private Vector <DashboardGroup>           dashboardGroups;
 
 	private void examineAccounts() {
-		logger.info("Creating an aplication user catalogue");
+		logger.trace("Creating an aplication user catalogue");
 		examineUsers(getDirectory(usersPath), "user");
 		examineUsers(getDirectory(removedUsersPath), "removed user");
 		webcat.appendChild(userList);
@@ -102,7 +102,7 @@ public class WebCatalog {
 	 * @param appRolesFolder
 	 */
 	private void examineRoles (File appRolesFolder) {
-		logger.info("Creating an application role catalogue");
+		logger.trace("Creating an application role catalogue");
 
 		for (File roles : appRolesFolder.listFiles(new FolderFilter())) {
 			for (File roleFile : roles.listFiles(new ExcludeAttributeFileFilter())) {
@@ -158,7 +158,7 @@ public class WebCatalog {
 	 * 
 	 */
 	public void auditDashboards() {
-		logger.info("Dashboard audit in progress...");
+		logger.trace("Dashboard audit in progress...");
 
 		dashboardGroups = new Vector <DashboardGroup> ();
 		for (File folder : getDirectory(sharedPath).listFiles(new DashboardFilter())) {
@@ -168,14 +168,14 @@ public class WebCatalog {
 		}
 		webcat.appendChild(dashboardGroupList);
 
-		logger.info("Dashboard Audit completed");
+		logger.trace("Dashboard Audit completed");
 	}
 
 	/***
 	 * 
 	 */
 	public void auditPrivileges() {
-		logger.info("Privilege audit in progress...");
+		logger.trace("Privilege audit in progress...");
 
 		privs = new Vector <Component> ();
 
@@ -184,7 +184,7 @@ public class WebCatalog {
 		}
 		webcat.appendChild(componentsList);
 
-		logger.info("Privilege audit completed");
+		logger.trace("Privilege audit completed");
 	}
 
 	/***
@@ -215,7 +215,7 @@ public class WebCatalog {
 		examineAccounts();
 		examineRoles(getDirectory(rolesPath));
 
-		logger.info("Creating a report catalogue");
+		logger.trace("Creating a report catalogue");
 		examineReports(getDirectory(sharedPath), "/shared");
 	}
 }
