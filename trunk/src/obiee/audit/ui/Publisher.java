@@ -43,21 +43,21 @@ public class Publisher {
 	 * Generates XML and HTML privilege audit output files
 	 */
 	private void publishPrivilegeAuditResults() {
-		logger.info("Creating Privilege Audit documentation...");
+		logger.trace("Creating Privilege Audit documentation...");
 		XMLUtils.applyStylesheet(targetDir+"Webcat.xml", stylesheets.get(0), targetDir+"RolesMadeEasy.xml");
 		XMLUtils.applyStylesheet(targetDir+"RolesMadeEasy.xml", stylesheets.get(1), targetDir+"FeaturesByRoleType.html");
 		XMLUtils.applyStylesheet(targetDir+"RolesMadeEasy.xml", stylesheets.get(2), targetDir+"FeaturesByRole.html");
-		logger.info("Privilege Audit documentation completed");
+		logger.trace("Privilege Audit documentation completed");
 	}
 
 	/**
 	 * Generates XML and HTML dashboard audit output files
 	 */
 	private void publishDashboardsAuditResults() {
-		logger.info("Creating Dashboard Audit documentation...");
+		logger.trace("Creating Dashboard Audit documentation...");
 		XMLUtils.applyStylesheet(targetDir+"Webcat.xml", stylesheets.get(3), targetDir+"RolesMadeEasyForDashboards.xml");
 		XMLUtils.applyStylesheet(targetDir+"RolesMadeEasyForDashboards.xml", stylesheets.get(4), targetDir+"DashboardsByRoleType.html");
-		logger.info("Dashboard Audit documentation completed");
+		logger.trace("Dashboard Audit documentation completed");
 	}
 
 	/**
@@ -86,5 +86,6 @@ public class Publisher {
 	
 	public Publisher(String targetDir) {
 		this.targetDir = targetDir;
+		logger.info("Saving results to {}", targetDir);
 	}
 }

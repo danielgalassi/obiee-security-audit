@@ -41,7 +41,6 @@ public class WebcatAudit {
 			logger.fatal("{} thrown while initialising Audit Engine. Exiting...", e.getClass().getCanonicalName());
 			return;
 		}
-		logger.info("Initialisation finished");
 
 		//Privileges need to be audited for both features (privs and dashboards)
 		webcat.auditPrivileges();

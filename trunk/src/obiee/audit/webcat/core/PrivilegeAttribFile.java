@@ -20,7 +20,6 @@ public class PrivilegeAttribFile extends File {
 	 * @return the name of the owner of the shared object
 	 */
 	public String getOwner() {
-		//TODO create test for this method
 		byte	b_data = 0;
 		int l = 0;
 		String owner = "";
@@ -63,7 +62,6 @@ public class PrivilegeAttribFile extends File {
 	}
 
 	public String getName (boolean applyFormatting, int offset) {
-		//TODO create test for this method
 		byte	b_data = 0;
 		int		l = 0;
 		String	name = "";
