@@ -86,7 +86,7 @@ public class SharedObject {
 			}
 
 			//skipping the bytes used for the name
-			data_in.read(new byte[l+1]);
+			data_in.skipBytes(l+1);
 
 			//skipping bytes till the "size mark" (2) is found
 			while (data_in.readByte() != 2) ;
@@ -95,10 +95,10 @@ public class SharedObject {
 			l = data_in.readByte();
 
 			//skipping a few sterile bytes
-			data_in.read(new byte[3]);
+			data_in.skipBytes(3);
 
 			//skipping the bytes used for the name
-			data_in.read(new byte[l]);
+			data_in.skipBytes(l);
 
 			//reading the # of groups, first two bytes are not used
 			for (int i = 0; i<3; i++) {
@@ -111,8 +111,8 @@ public class SharedObject {
 				while (data_in.read() != 2) ;
 
 				groupNameLength = data_in.read();
-				//ignoring next three bytes
-				data_in.read(new byte[3]);
+				//ignoring next few bytes
+				data_in.skipBytes(3);
 
 				role = "";
 				for (int j = 0; j<groupNameLength; j++) {
