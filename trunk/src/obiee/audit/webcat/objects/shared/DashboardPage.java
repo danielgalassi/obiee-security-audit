@@ -26,7 +26,7 @@ import org.w3c.dom.NodeList;
  * @author danielgalassi@gmail.com
  *
  */
-public class DashboardPage {
+public class DashboardPage extends SharedObject {
 
 	private static final Logger logger = LogManager.getLogger(DashboardPage.class.getName());
 
@@ -40,7 +40,7 @@ public class DashboardPage {
 	 * Examines reports featured on a dashboard page.
 	 */
 	private void findReports() {
-		if (!SharedObject.isPage(page)) {
+		if (!isPage(page)) {
 			return;
 		}
 
@@ -122,6 +122,6 @@ public class DashboardPage {
 		name = pageAttrib.getName(true, 4);
 		getPageAttributes("/dashboard/dashboardPageRef[@path='"+name+"']/@hidden");
 		findReports();
-		permissions = (SharedObject.getPrivileges(page));
+		permissions = getPrivileges(page);
 	}
 }

@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 import org.w3c.dom.Element;
 
 
-public class Report {
+public class Report extends SharedObject {
 
 	private static final Logger logger = LogManager.getLogger(Report.class.getName());
 
@@ -111,7 +111,7 @@ public class Report {
 			setName();
 			setOwner();
 
-			permissions = (SharedObject.getPrivileges(file));
+			permissions = getPrivileges(file);
 		}
 	}
 
