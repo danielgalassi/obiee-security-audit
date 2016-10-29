@@ -1,13 +1,13 @@
 package test.obiee.audit.webcat.objects.system;
 
-import obiee.audit.webcat.objects.system.User;
-
 import org.testng.annotations.Test;
+
+import obiee.audit.webcat.objects.system.User;
 
 public class UserTest {
 
   @Test(expectedExceptions = Exception.class)
   public void User() throws Exception {
-    User user = new User(null);
+    new User(null);
   }
 }
