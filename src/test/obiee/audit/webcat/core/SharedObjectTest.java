@@ -1,9 +1,9 @@
 package test.obiee.audit.webcat.core;
 
-import obiee.audit.webcat.core.SharedObject;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import obiee.audit.webcat.core.SharedObject;
 
 public class SharedObjectTest {
 
